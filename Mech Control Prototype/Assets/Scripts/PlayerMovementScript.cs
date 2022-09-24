@@ -20,6 +20,7 @@ public class PlayerMovementScript : MonoBehaviour
     public float JumpMultiplier=0.9f;
     public float CancelJumpMultiplier = 0.5f;
     public float GravityValue = -9.81f;
+    public float GroundCheck = 0.2f;
     private float ySpeed;
     public int MaxJumps=1;
     private int jumps;
@@ -29,6 +30,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     private float? lastGroundedTime;
     private float? jumpButtonPressedTime;
+
+    private Ray GroundRay;
 
     //Dashing
     public float DashSpeed=5f;
@@ -47,6 +50,7 @@ public class PlayerMovementScript : MonoBehaviour
     private Vector2 currentInputVector;
     private bool _isGrounded;
     private Transform cameraTransform;
+    private Vector3 AdjustedCameraTransformZ;
     
 
     private InputAction Move;
@@ -67,7 +71,11 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Update()
     {
+        GroundRay = new Ray(transform.position, Vector3.down);
+        
         _isGrounded = controller.isGrounded;
+
+        AdjustedCameraTransformZ=new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z);
         
         //if (_isGrounded && playerVelocity.y < 0)
         //{
@@ -81,7 +89,6 @@ public class PlayerMovementScript : MonoBehaviour
       
         if (Time.time - lastGroundedTime <= jumpButtonGracePeriod)
         {
-            
             jumps = MaxJumps;
             fallVelocity = 1;
             ySpeed = -0.5f;
@@ -107,7 +114,7 @@ public class PlayerMovementScript : MonoBehaviour
                 currentInputVector = Vector2.SmoothDamp(currentInputVector, moveInput, ref smoothInputVelocity, moveSmoothing);
                 move = new Vector3(currentInputVector.x, 0, currentInputVector.y);
                 move.y = 0f;
-                move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
+                move = move.x * cameraTransform.right.normalized + move.z * AdjustedCameraTransformZ.normalized;
                 controller.Move(move * Time.deltaTime * PlayerSpeed);
             }
 
@@ -147,7 +154,7 @@ public class PlayerMovementScript : MonoBehaviour
             playerVelocity = AdjustVelocityToSlope(playerVelocity);
             ySpeed += GravityValue * Time.deltaTime;
             playerVelocity.y = ySpeed;
-            controller.Move(playerVelocity * Time.deltaTime * fallVelocity);
+            controller.Move(playerVelocity * Time.deltaTime*fallVelocity);
 
             //Dashing
             if (Dash.triggered && dashes >= 1)
@@ -191,9 +198,9 @@ public class PlayerMovementScript : MonoBehaviour
 
     private Vector3 AdjustVelocityToSlope(Vector3 velocity)
     {
-        var ray = new Ray(transform.position, Vector3.down);
+     
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, 0.2f))
+        if (Physics.Raycast(GroundRay, out RaycastHit hitInfo, GroundCheck))
         {
             var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
             var adjustedVelocity = slopeRotation * velocity;

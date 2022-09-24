@@ -353,13 +353,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131697578}
-  m_LocalRotation: {x: 0.17536667, y: 0, z: 0, w: 0.9845032}
+  m_LocalRotation: {x: 0.20193262, y: 0, z: 0, w: 0.97939944}
   m_LocalPosition: {x: 1.2393525, y: 29.8, z: -58.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 20.2, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 23.3, y: 0, z: 0}
 --- !u!1 &219557506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,6 +1803,7 @@ MonoBehaviour:
   JumpMultiplier: 0.95
   CancelJumpMultiplier: 0.8
   GravityValue: -2
+  GroundCheck: 0.2
   MaxJumps: 1
   jumpButtonGracePeriod: 0.4
   DashSpeed: 5
