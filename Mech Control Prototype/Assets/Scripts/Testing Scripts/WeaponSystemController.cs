@@ -36,7 +36,7 @@ public class WeaponSystemController : MonoBehaviour
     public float nextTimeToFire = 0f;
     public float fireRate = 15f;
 
-    public GameObject bullet;
+
 
    
 
@@ -44,8 +44,8 @@ public class WeaponSystemController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked;
 
-        
         playerInput = GetComponent<PlayerInput>();
         Aim = playerInput.actions["Aim"];
         Shoot = playerInput.actions["Shoot"];
@@ -70,16 +70,18 @@ public class WeaponSystemController : MonoBehaviour
     public void WeaponLaser()
     {
         RaycastHit laserhit;
-        if(Physics.Raycast(transform.position, transform.forward, out laserhit))
+        if(Physics.Raycast(AimCamera.transform.position, AimCamera.transform.forward, out laserhit))
         {
             if(laserhit.collider)
             {
-                weaponLaser.SetPosition(1, new Vector3(0, 0, laserhit.distance));
+                weaponLaser.SetPosition(0, new Vector3(0.6f,0, laserhit.distance));
             }
+
+            
 
             else
             {
-                weaponLaser.SetPosition(1, new Vector3(0, 0, 5000));
+                weaponLaser.SetPosition(0, new Vector3(0, 0, 5000));
             }
         }
     }
@@ -107,8 +109,8 @@ public class WeaponSystemController : MonoBehaviour
     private void StartAim()
     {
         AimCamera.Priority += PriorityChanger;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        
+       
         _isAiming = true;
         AimCanvas.enabled = true;
 
@@ -116,7 +118,7 @@ public class WeaponSystemController : MonoBehaviour
 
     private void EndAim()
     {
-        Cursor.lockState = CursorLockMode.None;
+        
         AimCamera.Priority -= PriorityChanger;
         _isAiming = false;
         AimCanvas.enabled = false;
@@ -145,19 +147,22 @@ public class WeaponSystemController : MonoBehaviour
                 Destroy(fireRaycastHit.transform.gameObject);
             }
 
-            if (Shoot.triggered && fireRaycastHit.collider.tag == "Weapon1")
+            if (Shoot.triggered && fireRaycastHit.collider.tag == "Trigger1")
             {
-
+                fireRate = 5f;
+                MaxAmmoCount = 5;
             }
 
-            if (Shoot.triggered && fireRaycastHit.collider.tag == "Weapon2")
+            if (Shoot.triggered && fireRaycastHit.collider.tag == "Trigger2")
             {
-
+                fireRate = 25f;
+                MaxAmmoCount = 25;
             }
 
-            if (Shoot.triggered && fireRaycastHit.collider.tag == "Weapon3")
+            if (Shoot.triggered && fireRaycastHit.collider.tag == "Trigger3")
             {
-
+                fireRate = 50f;
+                MaxAmmoCount = 50;
             }
 
         }
