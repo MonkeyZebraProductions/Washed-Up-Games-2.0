@@ -1853,7 +1853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211334807954, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_BiasY
-      value: -0.00000012818204
+      value: -0.000000044062574
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211334807954, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_ScreenX
@@ -1861,11 +1861,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211334807954, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_ScreenY
-      value: -0.18
+      value: -0.063
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211334807954, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_CameraDistance
-      value: 5.5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211334807954, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_SoftZoneHeight
@@ -1889,15 +1889,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211532437564, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.7738078
+      value: -0.41018236
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211532437564, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8213652
+      value: 1.8426338
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211532437564, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.7610707
+      value: -7.768183
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211532437564, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_LocalRotation.w
