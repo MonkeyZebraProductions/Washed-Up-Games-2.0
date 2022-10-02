@@ -98,7 +98,7 @@ public class PlayerMovementScript : MonoBehaviour
             fallVelocity += 0.01f;
             jumps=0;
         }
-
+        Debug.Log(CanMove);
         if (CanMove)
         {
 

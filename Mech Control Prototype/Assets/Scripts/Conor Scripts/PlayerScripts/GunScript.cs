@@ -98,6 +98,7 @@ public class GunScript : MonoBehaviour
         }
     }
 
+    //Zooms Camera in
     private void StartAim()
     {
         AimCamera.Priority += PriorityChanger;
@@ -106,6 +107,7 @@ public class GunScript : MonoBehaviour
         _isAiming = true;
     }
 
+    //Zooms Camera in
     private void EndAim()
     {
         Cursor.lockState = CursorLockMode.None;

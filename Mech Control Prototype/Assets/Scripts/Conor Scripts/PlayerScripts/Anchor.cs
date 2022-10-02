@@ -17,5 +17,9 @@ public class Anchor : MonoBehaviour
         {
             _gH.IsHooked = true;
         }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

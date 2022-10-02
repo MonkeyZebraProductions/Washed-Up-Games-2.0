@@ -933,6 +933,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "MoveUp",
+                    "type": "Button",
+                    "id": "de57c982-ee76-4aee-b267-8dd53c7d81e4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MoveDown",
+                    "type": "Button",
+                    "id": "080944a4-a557-4c11-992f-2e04ec4c291f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "LocalGlobalToggle",
                     "type": "Button",
                     "id": "04a2da42-d02f-473e-a84a-c714d9c52d8c",
@@ -1305,7 +1323,7 @@
                 {
                     "name": "",
                     "id": "a28d8084-8f65-4d27-aa7d-8aef5a4570ae",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1327,7 +1345,7 @@
                 {
                     "name": "",
                     "id": "3e4a6763-51a5-4d66-8885-7208acfe2950",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -1398,6 +1416,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "CloseMap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d0b4b4f-0a74-4f79-8a2f-9a6fa5b4b174",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b5a8172-a6ba-4828-83da-9ae06dfd813b",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MoveUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ad211e3-650f-4268-be4d-ba11d5c0221f",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MoveDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6dd395c7-075e-4242-87cd-d7ae0c954ded",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
