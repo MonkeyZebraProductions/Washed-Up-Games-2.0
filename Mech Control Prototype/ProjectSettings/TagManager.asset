@@ -6,6 +6,9 @@ TagManager:
   tags:
   - GrapplePad
   - Enemy
+  - Trigger1
+  - Trigger2
+  - Trigger3
   layers:
   - Default
   - TransparentFX

@@ -57,6 +57,11 @@ public class PlayerMovementScript : MonoBehaviour
     private InputAction Jump;
     private InputAction Dash;
 
+    // Weapon Switching
+    
+    public float weaponIndicator;
+    public GameObject[] weapons = new GameObject[4];
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();

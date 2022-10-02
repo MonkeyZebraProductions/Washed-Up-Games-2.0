@@ -3248,6 +3248,12 @@ MonoBehaviour:
   DashTime: 1.5
   DashCooldown: 1.5
   MaxDashes: 1
+  weaponIndicator: 0
+  weapons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1663139916
 MonoBehaviour:
   m_ObjectHideFlags: 0
