@@ -7,12 +7,10 @@ using Cinemachine;
 public abstract class WeaponSystemController : MonoBehaviour
 {
 
+    
     [SerializeField]
     protected WeaponScriptableObject WeaponScriptableObject;
-
-
-    public GameObject laser;
-    public Transform muzzle;
+    public float fadeDuration = 0.5f;
 
     // Controls
     public PlayerInput playerInput;
@@ -26,16 +24,9 @@ public abstract class WeaponSystemController : MonoBehaviour
     public CinemachineVirtualCamera AimCamera;
     public Canvas AimCanvas;
 
-    // Ammo
-    public int MaxAmmoCount;
-    public int currentAmmoCount;
+    
 
-    // Reload
-    public float reloadTime;
-
-    // FireRate
-    public float nextTimeToFire = 0f;
-    public float fireRate = 15f;
+   
 
 
 
@@ -45,8 +36,9 @@ public abstract class WeaponSystemController : MonoBehaviour
     // Start is called before the first frame update
     public void Awake()
     {
+        WeaponScriptableObject.currentAmmoCount = WeaponScriptableObject.MaxAmmoCount;
+        WeaponScriptableObject.readyToShoot = true;
         Cursor.lockState = CursorLockMode.Locked;
-
         playerInput = GetComponent<PlayerInput>();
         Aim = playerInput.actions["Aim"];
         Shoot = playerInput.actions["Shoot"];
@@ -57,28 +49,46 @@ public abstract class WeaponSystemController : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-           
+        WeaponScriptableObject.currentAmmoCount = Mathf.Clamp(WeaponScriptableObject.currentAmmoCount,0,WeaponScriptableObject.MaxAmmoCount);
     }
 
-   
-
-
-    public Vector3 ShootingDirection()
+   public IEnumerator HoldDownFireAction()
     {
-        Vector3 targetPos = AimCamera.transform.position + AimCamera.transform.forward * 100;
-        targetPos = new Vector3(targetPos.x, targetPos.y,targetPos.z);
-
-        Vector3 direction = targetPos - AimCamera.transform.position;
-        return direction.normalized;
+        while(true)
+        {
+            FireAction();
+            yield return new WaitForSeconds(1 / WeaponScriptableObject.fireRate);
+        }
     }
 
-    public void WeaponLaser(Vector3 end)
+    public void HitBulletTrail(Vector3 end)
     {
-        LineRenderer lr = Instantiate(laser).GetComponent<LineRenderer>();
-        lr.SetPositions(new Vector3[2] { muzzle.position, end });
+        LineRenderer lr = Instantiate(WeaponScriptableObject.hitBulletTrail).GetComponent<LineRenderer>();
+        lr.SetPositions(new Vector3[2] { WeaponScriptableObject.weaponMuzzle.transform.position, end });
+        StartCoroutine(BulletTrailFade(lr));
 
     }
 
+    public void MissBulletTrail(Vector3 end)
+    {
+        LineRenderer lr = Instantiate(WeaponScriptableObject.missBulletTrail).GetComponent<LineRenderer>();
+        lr.SetPositions(new Vector3[2] { WeaponScriptableObject.weaponMuzzle.transform.position, end });
+        StartCoroutine(BulletTrailFade(lr));
+    }
+
+
+    IEnumerator BulletTrailFade(LineRenderer lr)
+    {
+        float alpha = 1;
+        while (alpha > 0)
+        {
+            alpha -= Time.deltaTime / fadeDuration;
+            lr.startColor = new Color(lr.startColor.r, lr.startColor.g, lr.startColor.b, alpha);
+            lr.endColor = new Color(lr.startColor.r, lr.startColor.g, lr.startColor.b, alpha);
+            yield return null;
+        }
+
+    }
 
     public void OnEnable()
     {
@@ -124,6 +134,25 @@ public abstract class WeaponSystemController : MonoBehaviour
         WeaponScriptableObject.currentAmmoCount = WeaponScriptableObject.MaxAmmoCount;
     }
 
+   
+
+    public Vector3 GetShootingDirection()
+    {
+        Vector3 targetPosition = AimCamera.transform.position + AimCamera.transform.forward * 100f;
+        targetPosition = new Vector3(
+            targetPosition.x + Random.Range(-WeaponScriptableObject.weaponSpread, WeaponScriptableObject.weaponSpread),
+            targetPosition.y + Random.Range(-WeaponScriptableObject.weaponSpread, WeaponScriptableObject.weaponSpread),
+            targetPosition.z + Random.Range(-WeaponScriptableObject.weaponSpread, WeaponScriptableObject.weaponSpread)
+            );
+
+        WeaponScriptableObject.direction = targetPosition - AimCamera.transform.position;
+
+        return WeaponScriptableObject.direction.normalized;
+
+    }
+
+    public abstract void ResetShot();
+    
     public abstract void FireAction();
     
         /*
@@ -144,10 +173,11 @@ public abstract class WeaponSystemController : MonoBehaviour
             {
                 Destroy(fireRaycastHit.transform.gameObject);
             }
-*/
 
-           
-    }
+
+         
+    */
+}
 
 
    
