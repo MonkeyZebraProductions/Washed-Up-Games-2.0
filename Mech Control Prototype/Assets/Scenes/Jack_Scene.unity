@@ -805,15 +805,16 @@ GameObject:
   m_Component:
   - component: {fileID: 265071945}
   - component: {fileID: 265071947}
-  - component: {fileID: 265071946}
   - component: {fileID: 265071948}
+  - component: {fileID: 265071946}
+  - component: {fileID: 265071949}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &265071945
 Transform:
   m_ObjectHideFlags: 0
@@ -839,26 +840,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 265071944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5dea0c23c43e4046aa3f7a1304c0f8b, type: 3}
+  m_Script: {fileID: 11500000, guid: cdefd00c32fd1dc4bb82e8dda89056cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponScriptableObject: {fileID: 11400000, guid: f0044b40b4a00af4b81f2828ab0e78b4, type: 2}
   fadeDuration: 0.5
-  playerInput: {fileID: 265071948}
+  playerInput: {fileID: 1663139909}
   Aim:
     m_Name: Aim
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 45ab50f5-c1e6-4374-acb6-55d94e370e42
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  Shoot:
-    m_Name: Shoot
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: fd7f6fdb-7eef-4d66-90fd-3f0acefa0c9e
+    m_Id: c839cb8e-463c-4d0e-9d94-c54f0e46b05c
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -867,15 +859,16 @@ MonoBehaviour:
     m_Name: Reload
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 89ff39aa-d1c4-4790-a7ed-f42b31ab27ab
+    m_Id: a1285ff5-7677-4f49-af2f-ea1d528f00eb
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  PriorityChanger: 9
+  PriorityChanger: 10
   _isAiming: 0
   AimCamera: {fileID: 1158518650}
   AimCanvas: {fileID: 464457312}
+  muzzle: {fileID: 257299727}
 --- !u!33 &265071947
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -897,7 +890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: b7eca0930b60bd3489d31dbc39d9c872, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -908,12 +901,141 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d08e549d-5d25-4397-ac98-ee985f7f4d9e
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 783f2c2c-2d52-447f-ae4a-de24019ad0d9
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 265071949}
+        m_TargetAssemblyTypeName: PlayerInputManager, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2363e720-7754-474d-8bf7-cd2d3c4e3253
+    m_ActionName: Player/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 06a56281-7838-4917-9f66-2d8a087e9fc8
+    m_ActionName: Player/Aim[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e47092a4-fb8b-48b2-a234-8cd47459cf07
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4ba8a66f-992a-4b45-96ca-f6dddd43f7e4
+    m_ActionName: Player/Dash[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dfbc9d41-3b7d-472d-b379-82a22b2ea601
+    m_ActionName: Player/Grapple[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4f63530b-ae24-4ca7-a513-6e5de587a302
+    m_ActionName: Player/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a19b17ca-5b0a-43af-9358-fba57c8f622c
+    m_ActionName: Player/OpenMap[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9b5b53e-5aae-4199-9864-38abe64a34ed
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a15ae26a-ce37-4d9c-b590-1df9bccf005c
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e93767ac-c833-42e9-8741-f6ba2b032192
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6b382d41-0cde-4a69-99e4-eaf725bcdf72
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a2558f47-c4ba-4926-9acc-0f39f7b5ae18
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 59ba0800-c1d9-4554-9224-8c2df9a63ce7
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8e6e74d3-8e2b-4e88-9508-b45446cc6baf
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 46d2fb21-25c0-47b2-a630-f87bc0c4735d
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 71eb4240-1664-46c8-882c-6ca40c3ff797
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8071db75-10ce-468f-9cb6-b5f141e4f082
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f7314ad8-c0b8-475c-b583-e8e418f47387
+    m_ActionName: Map/Pan[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e89b70b-56db-4238-9bee-b404aae727dd
+    m_ActionName: Map/Rotate[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70471ec1-1ad8-42e3-99ce-8bc4134a06c7
+    m_ActionName: Map/ZoomIn[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 76ae5203-294c-44df-a092-b29c530e34f5
+    m_ActionName: Map/ZoomOut[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 04a2da42-d02f-473e-a84a-c714d9c52d8c
+    m_ActionName: Map/LocalGlobalToggle[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9c9b4835-4a30-4c43-9060-82d0ee7a296a
+    m_ActionName: Map/PlaceMarker[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3afc4f68-ff16-4e61-9761-147549bfa16e
+    m_ActionName: Map/CloseMap[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &265071949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265071944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8ca97d146995b459cf7510fee3a808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shoot: 0
 --- !u!1 &295911155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,15 +1338,16 @@ GameObject:
   m_Component:
   - component: {fileID: 478457738}
   - component: {fileID: 478457740}
-  - component: {fileID: 478457739}
   - component: {fileID: 478457741}
+  - component: {fileID: 478457739}
+  - component: {fileID: 478457742}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &478457738
 Transform:
   m_ObjectHideFlags: 0
@@ -1250,26 +1373,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 478457737}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cf42260646c44a4081cc43aaaf9b6dc, type: 3}
+  m_Script: {fileID: 11500000, guid: cdefd00c32fd1dc4bb82e8dda89056cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponScriptableObject: {fileID: 11400000, guid: ed33a9979bf07a848b7dbb9c369bd038, type: 2}
   fadeDuration: 0.5
-  playerInput: {fileID: 1663139909}
+  playerInput: {fileID: 478457741}
   Aim:
     m_Name: Aim
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 2ad25564-5c7b-49f8-9a39-2febe0427094
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  Shoot:
-    m_Name: Shoot
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ab1366af-1503-40f9-a6f5-d211f04de594
+    m_Id: c26e2e66-1f75-4cae-a43f-6e49affe048e
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -1278,15 +1392,16 @@ MonoBehaviour:
     m_Name: Reload
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 9015a403-e183-4f62-9f7b-e6b53d79e57e
+    m_Id: 4245a0f9-59d2-4e6f-a55c-9dfffed1e204
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  PriorityChanger: 9
+  PriorityChanger: 10
   _isAiming: 0
   AimCamera: {fileID: 1158518650}
   AimCanvas: {fileID: 464457312}
+  muzzle: {fileID: 1512052458}
 --- !u!33 &478457740
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1308,7 +1423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: b7eca0930b60bd3489d31dbc39d9c872, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -1319,12 +1434,141 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d08e549d-5d25-4397-ac98-ee985f7f4d9e
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 783f2c2c-2d52-447f-ae4a-de24019ad0d9
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 478457742}
+        m_TargetAssemblyTypeName: PlayerInputManager, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2363e720-7754-474d-8bf7-cd2d3c4e3253
+    m_ActionName: Player/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 06a56281-7838-4917-9f66-2d8a087e9fc8
+    m_ActionName: Player/Aim[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e47092a4-fb8b-48b2-a234-8cd47459cf07
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4ba8a66f-992a-4b45-96ca-f6dddd43f7e4
+    m_ActionName: Player/Dash[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dfbc9d41-3b7d-472d-b379-82a22b2ea601
+    m_ActionName: Player/Grapple[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4f63530b-ae24-4ca7-a513-6e5de587a302
+    m_ActionName: Player/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a19b17ca-5b0a-43af-9358-fba57c8f622c
+    m_ActionName: Player/OpenMap[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9b5b53e-5aae-4199-9864-38abe64a34ed
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a15ae26a-ce37-4d9c-b590-1df9bccf005c
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e93767ac-c833-42e9-8741-f6ba2b032192
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6b382d41-0cde-4a69-99e4-eaf725bcdf72
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a2558f47-c4ba-4926-9acc-0f39f7b5ae18
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 59ba0800-c1d9-4554-9224-8c2df9a63ce7
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8e6e74d3-8e2b-4e88-9508-b45446cc6baf
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 46d2fb21-25c0-47b2-a630-f87bc0c4735d
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 71eb4240-1664-46c8-882c-6ca40c3ff797
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8071db75-10ce-468f-9cb6-b5f141e4f082
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f7314ad8-c0b8-475c-b583-e8e418f47387
+    m_ActionName: Map/Pan[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e89b70b-56db-4238-9bee-b404aae727dd
+    m_ActionName: Map/Rotate[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70471ec1-1ad8-42e3-99ce-8bc4134a06c7
+    m_ActionName: Map/ZoomIn[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 76ae5203-294c-44df-a092-b29c530e34f5
+    m_ActionName: Map/ZoomOut[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 04a2da42-d02f-473e-a84a-c714d9c52d8c
+    m_ActionName: Map/LocalGlobalToggle[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9c9b4835-4a30-4c43-9060-82d0ee7a296a
+    m_ActionName: Map/PlaceMarker[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3afc4f68-ff16-4e61-9761-147549bfa16e
+    m_ActionName: Map/CloseMap[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &478457742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478457737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8ca97d146995b459cf7510fee3a808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shoot: 0
 --- !u!114 &549298821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1466,7 +1710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &711711102
@@ -2133,7 +2377,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 9
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 837112809}
+  m_LookAt: {fileID: 478457738}
   m_Follow: {fileID: 846708290}
   m_Lens:
     FieldOfView: 38.1
@@ -3135,7 +3379,7 @@ GameObject:
   - component: {fileID: 1663139912}
   - component: {fileID: 1663139910}
   - component: {fileID: 1663139909}
-  - component: {fileID: 1663139915}
+  - component: {fileID: 1663139911}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3157,7 +3401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: b7eca0930b60bd3489d31dbc39d9c872, type: 3}
   m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 248107556}
+  m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3172,7 +3416,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 963194227}
+  m_Camera: {fileID: 0}
 --- !u!143 &1663139910
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3191,6 +3435,43 @@ CharacterController:
   m_SkinWidth: 0.05
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1663139911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663139908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b3527267e0443408ee0ec260fadc34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerSpeed: 2
+  CollisionFixForce: 1
+  moveSmoothing: 0.1
+  rotationSmoothing: 0.1
+  TopPart: {fileID: 846708290}
+  BottomPart: {fileID: 759935921}
+  Gun: {fileID: 837112809}
+  CanMove: 0
+  JumpHeight: 1
+  JumpMultiplier: 0.9
+  CancelJumpMultiplier: 0.5
+  GravityValue: -9.81
+  GroundCheck: 0.2
+  MaxJumps: 1
+  jumpButtonGracePeriod: 0
+  DashSpeed: 5
+  DashTime: 0
+  DashCooldown: 1
+  MaxDashes: 1
+  weaponIndicator: 0
+  weapons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!23 &1663139912
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3257,43 +3538,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1663139915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663139908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3b3527267e0443408ee0ec260fadc34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerSpeed: 2
-  CollisionFixForce: 1
-  moveSmoothing: 0.3
-  rotationSmoothing: 0.5
-  TopPart: {fileID: 846708290}
-  BottomPart: {fileID: 759935921}
-  Gun: {fileID: 837112809}
-  CanMove: 0
-  JumpHeight: 10
-  JumpMultiplier: 0.95
-  CancelJumpMultiplier: 0.8
-  GravityValue: -2
-  GroundCheck: 0.2
-  MaxJumps: 1
-  jumpButtonGracePeriod: 0.4
-  DashSpeed: 5
-  DashTime: 1.5
-  DashCooldown: 1.5
-  MaxDashes: 1
-  weaponIndicator: 0
-  weapons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1735093683
 MonoBehaviour:
   m_ObjectHideFlags: 0

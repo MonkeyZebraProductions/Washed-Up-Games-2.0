@@ -14,15 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Pistol
   weaponModel: {fileID: 0}
-  weaponMuzzle: {fileID: 0}
-  MaxAmmoCount: 10
-  currentAmmoCount: 8
+  MaxAmmoCount: 100
+  currentAmmoCount: 84
   weaponRange: 10
   bulletsPerShot: 1
   weaponSpread: 1
-  fireRate: 0
-  timeBetweenShooting: 2
-  readyToShoot: 0
+  fireRate: 1
   hitBulletTrail: {fileID: 6778416936914913120, guid: 3d53179500acc3442917db526ebbf695, type: 3}
   missBulletTrail: {fileID: 6778416936914913120, guid: 3ce2a1415376e0f409eaa7370aaad543, type: 3}
-  direction: {x: -13.454447, y: -2.7314947, z: 99.37685}
+  direction: {x: -36.151928, y: 22.460516, z: 90.97858}
