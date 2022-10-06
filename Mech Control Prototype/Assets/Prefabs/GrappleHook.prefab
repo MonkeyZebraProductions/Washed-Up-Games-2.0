@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2951738900965043495}
   m_Layer: 0
   m_Name: GrappleHook
-  m_TagString: Untagged
+  m_TagString: GrappleHook
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,13 +112,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Length: 10
   SpawnDistance: 1.5
-  GrappleSpeed: 10
+  GrappleSpeed: 20
+  ZipSpeed: 10
   HangTime: 0
   ReloadTime: 0
   IsHooked: 0
   TargetReached: 0
   ObjectGrabbed: 0
-  target: {x: -6.346081, y: 1.3979676, z: 9.9630375}
+  target: {x: -6.6692348, y: 2.144622, z: -2.8153527}
 --- !u!114 &-2951738900965043495
 MonoBehaviour:
   m_ObjectHideFlags: 0

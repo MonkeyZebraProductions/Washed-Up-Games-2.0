@@ -6,7 +6,7 @@ public class GrapplingHook : MonoBehaviour
 {
     //Grapple hook Variables
     public float Length, SpawnDistance;
-    public float GrappleSpeed;
+    public float GrappleSpeed,ZipSpeed;
     public float HangTime,ReloadTime;
 
     //States of the GrappleHook
@@ -23,7 +23,7 @@ public class GrapplingHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!IsHooked)
+        if(!TargetReached)
         {
             //Moves the grapple hook
             transform.position = Vector3.MoveTowards(transform.position, target, GrappleSpeed * Time.deltaTime);

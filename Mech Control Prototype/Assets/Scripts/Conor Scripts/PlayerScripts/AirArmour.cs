@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class AirArmour : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class AirArmour : MonoBehaviour
     public float DamageReceaved = 1;
 
     private float air, damage;
+
+    public TextMeshProUGUI AirText;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +31,7 @@ public class AirArmour : MonoBehaviour
         }
         air -= AirDecreaceRate * damage*Time.deltaTime;
 
-        Debug.Log(air);
+        AirText.text = "Air: " + Mathf.Round(air*100)/100;
     }
 
     public void RecieveArmourDamage(float damageRecieved)
