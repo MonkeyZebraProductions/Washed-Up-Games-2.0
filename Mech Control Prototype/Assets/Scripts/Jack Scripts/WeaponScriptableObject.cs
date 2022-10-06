@@ -7,8 +7,7 @@ public class WeaponScriptableObject : ScriptableObject
 { 
     public string weaponName;
     public GameObject weaponModel;
-    [HideInInspector]
-    public GameObject weaponMuzzle;
+   
     
 
     // Ammo
@@ -26,8 +25,7 @@ public class WeaponScriptableObject : ScriptableObject
 
     //Fire Rate
     public float fireRate;
-    public float timeBetweenShooting;
-    public bool readyToShoot;
+    //public bool readyToShoot;
 
     //Bullet Trail
     public GameObject hitBulletTrail;

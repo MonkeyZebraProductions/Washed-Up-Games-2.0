@@ -1,28 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool shoot;
 
-    // Update is called once per frame
-    void Update()
+    public void OnShoot(InputAction.CallbackContext context)
     {
-        
-    }
+        if(context.started)
+        {
+            shoot = true;
+        }
 
-    public void OnEnable()
-    {
-        
-    }
+        if(context.performed)
+        {
+            shoot = true;
+        }
 
-    public void OnDisable()
-    {
-        
+        if(context.canceled)
+        {
+            shoot = false;
+        }
     }
 }

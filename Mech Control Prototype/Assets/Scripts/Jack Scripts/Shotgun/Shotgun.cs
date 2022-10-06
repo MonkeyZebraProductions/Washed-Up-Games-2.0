@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Shotgun : WeaponSystemController
 {
+    /*
     public override void FireAction()
     {
         if (Shoot.triggered && _isAiming && WeaponScriptableObject.currentAmmoCount > 0)
@@ -35,7 +36,7 @@ public class Shotgun : WeaponSystemController
             }
         }
     }
-
+    */
 
     /*
      //nextTimeToFire = Time.time + 1f / fireRate;
@@ -58,13 +59,12 @@ public class Shotgun : WeaponSystemController
 
                 }
             }
-     */
-
+    
     public override void ResetShot()
     {
         WeaponScriptableObject.readyToShoot = true;
     }
-
+    
 
     void Awake()
     {
@@ -78,6 +78,6 @@ public class Shotgun : WeaponSystemController
         base.Update();
     }
 
-    
+   */
 }
 
