@@ -61,7 +61,6 @@ public class MapControl : MonoBehaviour
 
         Vector2 RotateInput = Rotate.ReadValue<Vector2>();
         transform.localEulerAngles+=new Vector3(RotateInput.y, RotateInput.x, 0f) * RotateSpeed * Time.deltaTime;
-        Debug.Log(RotateInput);
 
         if(ZoomIn.IsPressed())
         {

@@ -58,7 +58,6 @@ public class PlayerMovementScript : MonoBehaviour
     private InputAction Dash;
 
     // Weapon Switching
-    
     public float weaponIndicator;
     public GameObject[] weapons = new GameObject[4];
 
@@ -106,8 +105,6 @@ public class PlayerMovementScript : MonoBehaviour
         Debug.Log(CanMove);
         if (CanMove)
         {
-
-
             //Move Player
             Vector2 moveInput = Move.ReadValue<Vector2>();
             if (_isDashing)

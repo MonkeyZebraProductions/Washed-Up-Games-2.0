@@ -44,8 +44,8 @@ public class GunScript : MonoBehaviour
 
         controller = GetComponentInParent<CharacterController>();
         _pMS = GetComponentInParent<PlayerMovementScript>();
-        
-        
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -132,7 +132,7 @@ public class GunScript : MonoBehaviour
     private void StartAim()
     {
         AimCamera.Priority += PriorityChanger;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
         _isAiming = true;
     }
@@ -140,7 +140,7 @@ public class GunScript : MonoBehaviour
     //Zooms Camera in
     private void EndAim()
     {
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.lockState = CursorLockMode.None;
         AimCamera.Priority -= PriorityChanger;
         _isAiming = false;
     }
