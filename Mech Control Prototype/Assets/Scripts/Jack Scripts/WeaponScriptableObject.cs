@@ -6,10 +6,8 @@ using UnityEngine;
 public class WeaponScriptableObject : ScriptableObject
 { 
     public string weaponName;
-    public GameObject weaponModel;
+    public GameObject weaponPrefab;
    
-    
-
     // Ammo
     public int MaxAmmoCount;
     public int currentAmmoCount;
@@ -35,9 +33,5 @@ public class WeaponScriptableObject : ScriptableObject
     [HideInInspector]
     public Vector3 direction;
     
-
-
-
-
 }
 

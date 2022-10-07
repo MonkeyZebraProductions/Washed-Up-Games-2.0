@@ -24,38 +24,45 @@ public  class WeaponSystemController : MonoBehaviour
     public CinemachineVirtualCamera AimCamera;
     public Canvas AimCanvas;
 
-    Coroutine fireCoroutine;
-
     private float lastShootTime;
 
-  
-
     public Transform muzzle;
+
+    // Weapon Data
+    public int _MaxAmmoCount;
+    public int _currentAmmoCount;
+    public int _weaponRange;
+    public int _bulletsPerShot;
+    public float _weaponSpread;
+    public float _fireRate;
+    
+
+
 
     // Start is called before the first frame update
     public void Awake()
     {
-        WeaponScriptableObject.currentAmmoCount = WeaponScriptableObject.MaxAmmoCount;
-
+        _MaxAmmoCount = WeaponScriptableObject.MaxAmmoCount;
+        _currentAmmoCount = WeaponScriptableObject.currentAmmoCount;
+        _weaponRange = WeaponScriptableObject.weaponRange;
+        _bulletsPerShot = WeaponScriptableObject.bulletsPerShot;
+        _weaponSpread = WeaponScriptableObject.weaponSpread;
+        _fireRate = WeaponScriptableObject.fireRate;
+     
         playerInputManager = GetComponent<PlayerInputManager>();
         Cursor.lockState = CursorLockMode.Locked;
         playerInput = GetComponent<PlayerInput>();
+
         Aim = playerInput.actions["Aim"];
         Reload = playerInput.actions["Reload"];
 
-       
-
-        Aim.started += _ => StartAim();
-        Aim.canceled += _ => EndAim();
-
-        Reload.performed += _ => StartAim();
-     
+        _currentAmmoCount = _MaxAmmoCount;
 
     }
 
     public void Update()
     {
-        WeaponScriptableObject.currentAmmoCount = Mathf.Clamp(WeaponScriptableObject.currentAmmoCount, 0, WeaponScriptableObject.MaxAmmoCount);
+        _currentAmmoCount = Mathf.Clamp(_currentAmmoCount, 0, _MaxAmmoCount);
 
 
         if(playerInputManager.shoot)
@@ -67,18 +74,17 @@ public  class WeaponSystemController : MonoBehaviour
 
     public void OnEnable()
     {
-        Aim.Enable();
-        Reload.Enable();
-        
+        Aim.performed += _ => StartAim();
+        Aim.canceled += _ => EndAim();
+
     }
 
 
 
     public void OnDisable()
     {
-        Aim.Disable();
-        Reload.Disable();
-
+        Aim.performed -= _ => StartAim();
+        Aim.canceled -= _ => EndAim();
     }
 
     public void StartAim()
@@ -98,13 +104,14 @@ public  class WeaponSystemController : MonoBehaviour
         AimCanvas.enabled = false;
     }
 
+    [SerializeField]
     public Vector3 GetShootingDirection()
     {
         Vector3 targetPosition = AimCamera.transform.position + AimCamera.transform.forward * 100f;
         targetPosition = new Vector3(
-            targetPosition.x + Random.Range(-WeaponScriptableObject.weaponSpread, WeaponScriptableObject.weaponSpread),
-            targetPosition.y + Random.Range(-WeaponScriptableObject.weaponSpread, WeaponScriptableObject.weaponSpread),
-            targetPosition.z + Random.Range(-WeaponScriptableObject.weaponSpread, WeaponScriptableObject.weaponSpread)
+            targetPosition.x + Random.Range(-_weaponSpread, _weaponSpread),
+            targetPosition.y + Random.Range(-_weaponSpread, _weaponSpread),
+            targetPosition.z + Random.Range(-_weaponSpread, _weaponSpread)
             );
 
         WeaponScriptableObject.direction = targetPosition - AimCamera.transform.position;
@@ -151,26 +158,28 @@ public  class WeaponSystemController : MonoBehaviour
 
     private void ReloadWeapon()
     {
-        WeaponScriptableObject.currentAmmoCount = WeaponScriptableObject.MaxAmmoCount;
+        _currentAmmoCount = _MaxAmmoCount;
     }
 
     
     public void RaycastShoot()
     {
-        if (  _isAiming && WeaponScriptableObject.currentAmmoCount > 0)
+        if (  _isAiming && _currentAmmoCount > 0)
         {
-            for (int i = 0; i < WeaponScriptableObject.bulletsPerShot; i++)
+            for (int i = 0; i < _bulletsPerShot; i++)
             {
-                WeaponScriptableObject.currentAmmoCount--;
+                _currentAmmoCount--;
                 RaycastHit hit;
-                if (Physics.Raycast(AimCamera.transform.position, GetShootingDirection(), out hit, WeaponScriptableObject.weaponRange))
+                if (Physics.Raycast(AimCamera.transform.position, GetShootingDirection(), out hit, _weaponRange))
                 {
                     Debug.DrawLine(muzzle.transform.position, hit.point, Color.green, 5f);
                     HitBulletTrail(hit.point);
 
                     if (hit.collider.tag == "Enemy")
                     {
-                        Destroy(hit.transform.gameObject);
+                        //Destroy(hit.transform.gameObject);
+                        
+
                     }
                 }
 
@@ -184,17 +193,14 @@ public  class WeaponSystemController : MonoBehaviour
     }
 
    
-    private void WeaponShoot()
+    public void WeaponShoot()
     {
         Debug.Log("WeaponShot");
-        if (Time.time > lastShootTime + WeaponScriptableObject.fireRate)
+        if (Time.time > lastShootTime + _fireRate)
         {
             lastShootTime = Time.time;
             RaycastShoot();
         }
-
-
-
 
     }
 }

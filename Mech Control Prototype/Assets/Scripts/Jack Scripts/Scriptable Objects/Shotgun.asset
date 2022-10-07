@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   weaponName: Shotgun
-  weaponModel: {fileID: 9118136644268484944, guid: 8339c2ee70f120248a5584391b05c34a, type: 3}
+  weaponPrefab: {fileID: 6249328331763939993, guid: d6036bdf34a31874ba3d714833208bf9, type: 3}
   MaxAmmoCount: 1000
-  currentAmmoCount: 800
+  currentAmmoCount: 1000
   weaponRange: 10
   bulletsPerShot: 10
   weaponSpread: 5
   fireRate: 0.5
   hitBulletTrail: {fileID: 6778416936914913120, guid: 3d53179500acc3442917db526ebbf695, type: 3}
   missBulletTrail: {fileID: 6778416936914913120, guid: 3ce2a1415376e0f409eaa7370aaad543, type: 3}
-  direction: {x: -92.44521, y: 3.3668115, z: -37.915295}
+  direction: {x: 70.5623, y: 31.960382, z: 57.711662}
