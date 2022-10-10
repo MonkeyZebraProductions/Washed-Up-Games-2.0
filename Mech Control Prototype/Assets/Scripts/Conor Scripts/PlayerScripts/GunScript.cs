@@ -13,22 +13,26 @@ public class GunScript : MonoBehaviour
     private InputAction Shoot;
     private InputAction Grapple;
 
+    [Header("Grapple Hook")]
     //GameObject SetUp
     public GameObject GrappleObject;
     public GrapplingHook _gH,VisibleAnchor;
+    public bool IsGrappling;
     private PlayerMovementScript _pMS;
     public Transform SpawnPoint;
     private CharacterController controller;
 
+    [Header("Camera")]
     //camera setup
     public CinemachineVirtualCamera AimCamera;
     public int PriorityChanger;
-    
+
     //bool set up
-    private bool _isAiming,_moveToGrapple;
-    public bool IsGrappling;
+    public bool _isAiming;
+    private bool _moveToGrapple;
     Vector3 moveVector;
 
+    [Header("When Object is Grappled")]
     //WhenObjectIsGrabbed
     public GameObject GrabbedObject;
     private Rigidbody _grappleRigidbody;
