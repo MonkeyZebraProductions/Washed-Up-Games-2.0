@@ -9,7 +9,7 @@ public class AirArmour : MonoBehaviour
     public float AirDecreaceRate = 1;
 
     public float BaseDamageMultiplier = 1;
-    public float DamageReceaved = 1;
+    public float MaxDamage = 10;
 
     private float air, damage;
 
@@ -29,6 +29,17 @@ public class AirArmour : MonoBehaviour
         {
             damage = BaseDamageMultiplier;
         }
+
+        if(air>MaxAir)
+        {
+            air = MaxAir;
+        }
+
+        if (damage > MaxDamage)
+        {
+            damage = MaxDamage;
+        }
+
         air -= AirDecreaceRate * damage*Time.deltaTime;
 
         AirText.text = "Air: " + Mathf.Round(air*100)/100;
@@ -47,5 +58,17 @@ public class AirArmour : MonoBehaviour
     public void RefillAir(float refillAmount)
     {
         air += refillAmount;
+    }
+
+    public void IncreaseAirCapacity(float UpgradeAmount)
+    {
+        MaxAir += UpgradeAmount;
+        air = MaxAir;
+    }
+
+    public void DecreaseRate(float UpgradeAmount)
+    {
+        AirDecreaceRate -= UpgradeAmount;
+        damage = BaseDamageMultiplier;
     }
 }

@@ -34,7 +34,7 @@ public class Punch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Puncher.triggered && !_gS._isAiming && _canPunch)
+        if (Puncher.triggered && !_gS._isAiming && _canPunch)
         {
             StartCoroutine(PunchEnum());
         }
@@ -43,8 +43,9 @@ public class Punch : MonoBehaviour
     IEnumerator PunchEnum()
     {
         _pMS.CanMove = false;
+        _gS._CanAim = false;
         yield return new WaitForSeconds(PunchDelay);
-        if(SlamUpgrade)
+        if (SlamUpgrade)
         {
             SlamBox.SetActive(true);
         }
@@ -62,6 +63,7 @@ public class Punch : MonoBehaviour
             PunchBox.SetActive(false);
         }
         _pMS.CanMove = true;
+        _gS._CanAim = true;
         _canPunch = false;
         yield return new WaitForSeconds(PunchCooldown);
         _canPunch = true;

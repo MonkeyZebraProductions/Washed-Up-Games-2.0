@@ -9,7 +9,7 @@ public class PunchDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<EnemyHealth>() != null)
+        if (other.gameObject.GetComponent<EnemyHealth>() != null)
         {
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(Damage);
             other.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * PunchForce, ForceMode.Impulse);

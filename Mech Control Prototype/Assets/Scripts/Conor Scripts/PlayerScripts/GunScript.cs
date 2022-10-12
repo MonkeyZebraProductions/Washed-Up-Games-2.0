@@ -16,7 +16,7 @@ public class GunScript : MonoBehaviour
     [Header("Grapple Hook")]
     //GameObject SetUp
     public GameObject GrappleObject;
-    public GrapplingHook _gH,VisibleAnchor;
+    public GrapplingHook _gH, VisibleAnchor;
     public bool IsGrappling;
     private PlayerMovementScript _pMS;
     public Transform SpawnPoint;
@@ -28,7 +28,7 @@ public class GunScript : MonoBehaviour
     public int PriorityChanger;
 
     //bool set up
-    public bool _isAiming;
+    public bool _isAiming, _CanAim;
     private bool _moveToGrapple;
     Vector3 moveVector;
 
@@ -50,103 +50,117 @@ public class GunScript : MonoBehaviour
         _pMS = GetComponentInParent<PlayerMovementScript>();
 
         Cursor.lockState = CursorLockMode.Locked;
+        _CanAim = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(SpawnPoint.position, SpawnPoint.forward * 10, Color.green);
-        //fires weapon if not grappling
-        if (Shoot.triggered && _isAiming && !IsGrappling)
-        {
-            Debug.Log("Fire");
-            IsGrappling = false;
-        }
 
-        //fires hook if not shooting
-        if (Grapple.triggered && _isAiming)
+        if (_CanAim)
         {
-            IsGrappling = true;
-            
-            if (VisibleAnchor == null && GrabbedObject == null)
+
+            Debug.DrawRay(SpawnPoint.position, SpawnPoint.forward * 10, Color.green);
+            //fires weapon if not grappling
+            if (Shoot.triggered && _isAiming && !IsGrappling)
             {
-                //spawn Grapple Hook if not visible or Grabbing
-                _gH.target = SpawnPoint.position + SpawnPoint.forward * _gH.Length;
-                Instantiate(GrappleObject, SpawnPoint.position + SpawnPoint.forward * _gH.SpawnDistance*1.1f, Quaternion.identity);
-                VisibleAnchor = FindObjectOfType<GrapplingHook>();
-                VisibleAnchor.TargetReached = false;
+                Debug.Log("Fire");
+                IsGrappling = false;
             }
-            else
+
+            //fires hook if not shooting
+            if (Grapple.triggered && _isAiming)
             {
-                if(GrabbedObject!=null)
+                IsGrappling = true;
+
+                if (VisibleAnchor == null && GrabbedObject == null)
                 {
-                    GrabbedObject.transform.parent=null;
-                    _grappleRigidbody.isKinematic = false;
-                    _grappleRigidbody.AddForce(transform.forward * LaunchForce, ForceMode.Impulse);
-                    GrabbedObject = null;
-                    IsGrappling = false;
-                }
-                else if (VisibleAnchor.IsHooked)
-                {
-                    //moves the Player if attatched to a point
-                    _moveToGrapple = true;
-                    moveVector = VisibleAnchor.target - transform.position;
-                    _pMS.CanMove = false;
+                    //spawn Grapple Hook if not visible or Grabbing
+                    _gH.target = SpawnPoint.position + SpawnPoint.forward * _gH.Length;
+                    Instantiate(GrappleObject, SpawnPoint.position + SpawnPoint.forward * _gH.SpawnDistance * 1.1f, Quaternion.identity);
+                    VisibleAnchor = FindObjectOfType<GrapplingHook>();
+                    VisibleAnchor.TargetReached = false;
                 }
                 else
                 {
-                    //brings hook back
-                    VisibleAnchor.TargetReached = false;
-                    VisibleAnchor.target = SpawnPoint.position;
-                    _pMS.CanMove = false;
+                    if (GrabbedObject != null)
+                    {
+                        GrabbedObject.transform.parent = null;
+                        _grappleRigidbody.isKinematic = false;
+                        _grappleRigidbody.AddForce(transform.forward * LaunchForce, ForceMode.Impulse);
+                        GrabbedObject = null;
+                        IsGrappling = false;
+                    }
+                    else if (VisibleAnchor.IsHooked)
+                    {
+                        //moves the Player if attatched to a point
+                        _moveToGrapple = true;
+                        moveVector = VisibleAnchor.target - transform.position;
+                        _pMS.CanMove = false;
+                    }
+                    else
+                    {
+                        //brings hook back
+                        VisibleAnchor.TargetReached = false;
+                        VisibleAnchor.target = SpawnPoint.position;
+                        _pMS.CanMove = false;
+                    }
                 }
-            }
-            
-            
-        }
 
-        
 
-        //destroys hook once it gets close to the player
-        if (Vector3.Distance(VisibleAnchor.transform.position, transform.position) <= VisibleAnchor.SpawnDistance)
-        {
-            if(VisibleAnchor.ObjectGrabbed)
-            {
-                GrabbedObject = VisibleAnchor.transform.GetChild(0).gameObject;
-                GrabbedObject.transform.SetParent(this.transform);
-                _grappleRigidbody = GrabbedObject.GetComponent<Rigidbody>();
-                _grappleRigidbody.isKinematic = true;
             }
-            else
+
+
+
+            //destroys hook once it gets close to the player
+            if (Vector3.Distance(VisibleAnchor.transform.position, transform.position) <= VisibleAnchor.SpawnDistance)
             {
-                IsGrappling = false;
+                if (VisibleAnchor.ObjectGrabbed)
+                {
+                    GrabbedObject = VisibleAnchor.transform.GetChild(0).gameObject;
+                    GrabbedObject.transform.SetParent(this.transform);
+                    _grappleRigidbody = GrabbedObject.GetComponent<Rigidbody>();
+                    _grappleRigidbody.isKinematic = true;
+                }
+                else
+                {
+                    IsGrappling = false;
+                }
+                Debug.Log("Die");
+                Destroy(VisibleAnchor.gameObject);
+                _moveToGrapple = false;
+                _pMS.CanMove = true;
             }
-            Debug.Log("Die");
-            Destroy(VisibleAnchor.gameObject);
-            _moveToGrapple = false;
-            _pMS.CanMove = true;
-        }
-        if (_moveToGrapple)
-        {
-            controller.Move(moveVector * Time.deltaTime*_gH.ZipSpeed);
+            if (_moveToGrapple)
+            {
+                controller.Move(moveVector * Time.deltaTime * _gH.ZipSpeed);
+            }
         }
     }
 
     //Zooms Camera in
     private void StartAim()
     {
-        AimCamera.Priority += PriorityChanger;
-        //Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
-        _isAiming = true;
+        if (_CanAim)
+        {
+            AimCamera.Priority += PriorityChanger;
+            //Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = true;
+            _isAiming = true;
+        }
+
     }
 
     //Zooms Camera in
     private void EndAim()
     {
-        //Cursor.lockState = CursorLockMode.None;
-        AimCamera.Priority -= PriorityChanger;
-        _isAiming = false;
+        if (_CanAim)
+        {
+            //Cursor.lockState = CursorLockMode.None;
+            AimCamera.Priority -= PriorityChanger;
+            _isAiming = false;
+        }
+
     }
 
     //void FireWeapon()
@@ -158,15 +172,18 @@ public class GunScript : MonoBehaviour
     //}
     private void OnEnable()
     {
+
         Aim.started += _ => StartAim();
         Aim.canceled += _ => EndAim();
-        
+
     }
 
     private void OnDisable()
     {
+
+
         Aim.started -= _ => StartAim();
         Aim.canceled -= _ => EndAim();
-        
+
     }
 }

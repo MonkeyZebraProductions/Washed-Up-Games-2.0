@@ -8,12 +8,12 @@ public class EnemyHealth : MonoBehaviour
 
     private void Update()
     {
-        if(Health<=0)
+        if (Health <= 0)
         {
             Destroy(this.gameObject);
         }
     }
-    public void TakeDamage (float damage)
+    public void TakeDamage(float damage)
     {
         Health -= damage;
     }
