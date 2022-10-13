@@ -8,7 +8,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     //Moving
     public float PlayerSpeed = 2.0f;
-    public float CollisionFixForce=1f;
+    public float CollisionFixForce = 1f;
     public float moveSmoothing = 0.1f;
     public float rotationSmoothing = 0.1f;
     public Transform TopPart, BottomPart, Gun;
@@ -17,15 +17,15 @@ public class PlayerMovementScript : MonoBehaviour
 
     //Jumping
     public float JumpHeight = 1.0f;
-    public float JumpMultiplier=0.9f;
+    public float JumpMultiplier = 0.9f;
     public float CancelJumpMultiplier = 0.5f;
     public float GravityValue = -9.81f;
     public float GroundCheck = 0.2f;
     private float ySpeed;
-    public int MaxJumps=1;
+    public int MaxJumps = 1;
     private int jumps;
     public float jumpButtonGracePeriod;
-    private float currentJH, currentJM,fallVelocity;
+    private float currentJH, currentJM, fallVelocity;
     private bool _isJumping;
 
     private float? lastGroundedTime;
@@ -34,11 +34,15 @@ public class PlayerMovementScript : MonoBehaviour
     private Ray GroundRay;
 
     //Dashing
-    public float DashSpeed=5f;
-    public float DashTime,DashCooldown = 1f;
+    public float DashSpeed = 5f;
+    public float DashTime, DashCooldown = 1f;
     public int MaxDashes = 1;
     private int dashes;
     private bool _isDashing;
+
+    //Jetpack
+    public float JetpackSpeed;
+    private bool _isJetpack;
 
     //references
     Vector2 smoothInputVelocity;
@@ -51,7 +55,7 @@ public class PlayerMovementScript : MonoBehaviour
     private bool _isGrounded;
     private Transform cameraTransform;
     private Vector3 AdjustedCameraTransformZ;
-    
+
 
     private InputAction Move;
     private InputAction Jump;
@@ -65,7 +69,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
-        Move = playerInput.actions["Move"]; 
+        Move = playerInput.actions["Move"];
         Jump = playerInput.actions["Jump"];
         Dash = playerInput.actions["Dash"];
         cameraTransform = Camera.main.transform;
@@ -76,33 +80,33 @@ public class PlayerMovementScript : MonoBehaviour
     void Update()
     {
         GroundRay = new Ray(transform.position, Vector3.down);
-        
+
         _isGrounded = controller.isGrounded;
 
-        AdjustedCameraTransformZ=new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z);
-        
+        AdjustedCameraTransformZ = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z);
+
         //if (_isGrounded && playerVelocity.y < 0)
         //{
         //    playerVelocity.y = 0f;
         //}
 
-        if(_isGrounded)
+        if (_isGrounded)
         {
             lastGroundedTime = Time.time;
         }
-      
+
         if (Time.time - lastGroundedTime <= jumpButtonGracePeriod)
         {
             jumps = MaxJumps;
             fallVelocity = 1;
             ySpeed = -0.5f;
         }
-        else if (!_isJumping)
+        else if (!(_isJumping || _isJetpack))
         {
             fallVelocity += 0.01f;
-            jumps=0;
+            jumps = 0;
         }
-        //Debug.Log(CanMove);
+        Debug.Log(ySpeed);
         if (CanMove)
         {
             //Move Player
@@ -140,6 +144,7 @@ public class PlayerMovementScript : MonoBehaviour
 
             if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod && jumps >= 1)
             {
+
                 _isJumping = true;
                 currentJH = JumpHeight;
                 currentJM = JumpMultiplier;
@@ -147,23 +152,33 @@ public class PlayerMovementScript : MonoBehaviour
                 jumps -= 1;
                 jumpButtonPressedTime = null;
                 lastGroundedTime = null;
+
+
             }
 
-            if (_isJumping)
-            {
-                ySpeed = currentJH;
-            }
-            playerVelocity = AdjustVelocityToSlope(playerVelocity);
-            ySpeed += GravityValue * Time.deltaTime;
-            playerVelocity.y = ySpeed;
-            controller.Move(playerVelocity * Time.deltaTime*fallVelocity);
 
             //Dashing
             if (Dash.triggered && dashes >= 1)
             {
                 StartCoroutine(DashTimer());
             }
+
+
         }
+        if (_isJumping)
+        {
+            ySpeed = currentJH;
+        }
+
+        if (_isJetpack)
+        {
+            ySpeed = JetpackSpeed;
+        }
+
+        playerVelocity = AdjustVelocityToSlope(playerVelocity);
+        ySpeed += GravityValue * Time.deltaTime;
+        playerVelocity.y = ySpeed;
+        controller.Move(playerVelocity * Time.deltaTime * fallVelocity);
 
     }
 
@@ -182,11 +197,25 @@ public class PlayerMovementScript : MonoBehaviour
     private void JumpVoid()
     {
         jumpButtonPressedTime = Time.time;
+        if (jumps == 0)
+        {
+            ySpeed = 0;
+            fallVelocity = 1;
+            _isJumping = false;
+            _isJetpack = true;
+        }
     }
 
     void JumpCancel()
     {
         currentJM = CancelJumpMultiplier;
+        if (_isJetpack)
+        {
+            ySpeed = 0.5f;
+            _isJetpack = false;
+        }
+
+
     }
     private IEnumerator DashTimer()
     {
@@ -200,7 +229,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private Vector3 AdjustVelocityToSlope(Vector3 velocity)
     {
-     
+
 
         if (Physics.Raycast(GroundRay, out RaycastHit hitInfo, GroundCheck))
         {
