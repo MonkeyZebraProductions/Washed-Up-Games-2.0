@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
 
+    [Header("Moving")]
     //Moving
     public float PlayerSpeed = 2.0f;
-    public float CollisionFixForce = 1f;
     public float moveSmoothing = 0.1f;
     public float rotationSmoothing = 0.1f;
     public Transform TopPart, BottomPart, Gun;
     Vector3 move;
     public bool CanMove;
 
+    [Header("Jumping")]
     //Jumping
     public float JumpHeight = 1.0f;
     public float JumpMultiplier = 0.9f;
@@ -33,6 +35,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private Ray GroundRay;
 
+    [Header("Dashing")]
     //Dashing
     public float DashSpeed = 5f;
     public float DashTime, DashCooldown = 1f;
@@ -40,6 +43,7 @@ public class PlayerMovementScript : MonoBehaviour
     private int dashes;
     private bool _isDashing;
 
+    [Header("Jetpack")]
     //Jetpack
     public float JetpackSpeed;
     private bool _isJetpack;
@@ -53,9 +57,11 @@ public class PlayerMovementScript : MonoBehaviour
     private Vector3 playerVelocity;
     private Vector2 currentInputVector;
     private bool _isGrounded;
+
+    //camera 
     private Transform cameraTransform;
     private Vector3 AdjustedCameraTransformZ;
-
+    private CameraRotationOffset _cMO;
 
     private InputAction Move;
     private InputAction Jump;
@@ -79,8 +85,11 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Update()
     {
-        GroundRay = new Ray(transform.position, Vector3.down);
 
+        _cMO = FindObjectOfType<CinemachineBrain>().ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CameraRotationOffset>();
+
+        GroundRay = new Ray(transform.position, Vector3.down);
+        Debug.DrawRay(transform.position, Vector3.down * GroundCheck, Color.blue);
         _isGrounded = controller.isGrounded;
 
         AdjustedCameraTransformZ = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z);
@@ -106,14 +115,15 @@ public class PlayerMovementScript : MonoBehaviour
             fallVelocity += 0.01f;
             jumps = 0;
         }
-        Debug.Log(ySpeed);
+        
         if (CanMove)
         {
             //Move Player
             Vector2 moveInput = Move.ReadValue<Vector2>();
             if (_isDashing)
             {
-                controller.Move(BottomPart.forward * DashSpeed * Time.deltaTime);
+                Vector3 AjdDash=AdjustVelocityToSlope(BottomPart.forward);
+                controller.Move(AjdDash * DashSpeed * Time.deltaTime);
             }
             else
             {
@@ -121,11 +131,12 @@ public class PlayerMovementScript : MonoBehaviour
                 move = new Vector3(currentInputVector.x, 0, currentInputVector.y);
                 move.y = 0f;
                 move = move.x * cameraTransform.right.normalized + move.z * AdjustedCameraTransformZ.normalized;
+                move = AdjustVelocityToSlope(move);
                 controller.Move(move * Time.deltaTime * PlayerSpeed);
             }
 
             //rotate player parts
-            Quaternion TopRotate = Quaternion.Euler(0f, cameraTransform.rotation.eulerAngles.y, 0f);
+            Quaternion TopRotate = Quaternion.Euler(-_cMO.m_Offset.x, cameraTransform.rotation.eulerAngles.y - _cMO.m_Offset.y, 0f);
             TopPart.rotation = TopRotate;
             Quaternion GunRotate = Quaternion.Euler(cameraTransform.rotation.eulerAngles.x, 0f, 0f);
             Gun.localRotation = GunRotate;
@@ -175,7 +186,6 @@ public class PlayerMovementScript : MonoBehaviour
             ySpeed = JetpackSpeed;
         }
 
-        playerVelocity = AdjustVelocityToSlope(playerVelocity);
         ySpeed += GravityValue * Time.deltaTime;
         playerVelocity.y = ySpeed;
         controller.Move(playerVelocity * Time.deltaTime * fallVelocity);
