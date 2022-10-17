@@ -4,25 +4,26 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 
+//New
 
 public  class WeaponSystemController : MonoBehaviour
 {
-    PlayerInputManager playerInputManager;
-    
     [SerializeField]
     private WeaponScriptableObject WeaponScriptableObject;
+    [SerializeField]
+    public GrappleSystem grappleSystem;
     public float fadeDuration = 0.5f;
 
     // Controls
     public PlayerInput playerInput;
     public InputAction Aim;
+    public InputAction Shoot;
     public InputAction Reload;
 
     // Third Person Aim
     public int PriorityChanger;
     public bool _isAiming;
     public CinemachineVirtualCamera AimCamera;
-    public Canvas AimCanvas;
 
     private float lastShootTime;
 
@@ -35,8 +36,8 @@ public  class WeaponSystemController : MonoBehaviour
     public int _bulletsPerShot;
     public float _weaponSpread;
     public float _fireRate;
-    
 
+    public bool isFiring;
 
 
     // Start is called before the first frame update
@@ -49,11 +50,13 @@ public  class WeaponSystemController : MonoBehaviour
         _weaponSpread = WeaponScriptableObject.weaponSpread;
         _fireRate = WeaponScriptableObject.fireRate;
      
-        playerInputManager = GetComponent<PlayerInputManager>();
         Cursor.lockState = CursorLockMode.Locked;
+
         playerInput = GetComponent<PlayerInput>();
+     
 
         Aim = playerInput.actions["Aim"];
+        Shoot = playerInput.actions["Shoot"];
         Reload = playerInput.actions["Reload"];
 
         _currentAmmoCount = _MaxAmmoCount;
@@ -65,10 +68,18 @@ public  class WeaponSystemController : MonoBehaviour
         _currentAmmoCount = Mathf.Clamp(_currentAmmoCount, 0, _MaxAmmoCount);
 
 
-        if(playerInputManager.shoot)
+        if (Shoot.IsPressed())
         {
-            Debug.Log("shoot");
             WeaponShoot();
+            //StartCoroutine(Fire(lr));
+            isFiring = true;
+
+        }
+
+        else
+        {
+            isFiring = false;
+            //StopCoroutine(Fire(lr));
         }
     }
 
@@ -92,7 +103,7 @@ public  class WeaponSystemController : MonoBehaviour
         AimCamera.Priority += PriorityChanger;
 
         _isAiming = true;
-        AimCanvas.enabled = true;
+   
 
     }
 
@@ -101,7 +112,7 @@ public  class WeaponSystemController : MonoBehaviour
 
         AimCamera.Priority -= PriorityChanger;
         _isAiming = false;
-        AimCanvas.enabled = false;
+   
     }
 
     [SerializeField]
@@ -164,15 +175,15 @@ public  class WeaponSystemController : MonoBehaviour
     
     public void RaycastShoot()
     {
-        if (  _isAiming && _currentAmmoCount > 0)
+        if (  _isAiming && !grappleSystem.IsGrappling  && _currentAmmoCount > 0)
         {
             for (int i = 0; i < _bulletsPerShot; i++)
             {
                 _currentAmmoCount--;
                 RaycastHit hit;
-                if (Physics.Raycast(AimCamera.transform.position, GetShootingDirection(), out hit, _weaponRange))
+                if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, _weaponRange))
                 {
-                    Debug.DrawLine(muzzle.transform.position, hit.point, Color.green, 5f);
+                    Debug.DrawRay(muzzle.transform.position, hit.point, Color.green, 5f);
                     HitBulletTrail(hit.point);
 
                     if (hit.collider.tag == "Enemy")
@@ -183,7 +194,7 @@ public  class WeaponSystemController : MonoBehaviour
                     }
                 }
 
-                else if(Physics.Raycast(AimCamera.transform.position, GetShootingDirection(), out hit, Mathf.Infinity))
+                else if(Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, Mathf.Infinity))
                 {
                     Debug.DrawLine(muzzle.transform.position, hit.point,Color.red, 5f);
                     MissBulletTrail(hit.point);
@@ -195,7 +206,7 @@ public  class WeaponSystemController : MonoBehaviour
    
     public void WeaponShoot()
     {
-        Debug.Log("WeaponShot");
+        //Debug.Log("WeaponShot");
         if (Time.time > lastShootTime + _fireRate)
         {
             lastShootTime = Time.time;

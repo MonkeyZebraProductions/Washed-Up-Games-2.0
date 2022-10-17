@@ -106,7 +106,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3672655026206833578}
   - component: {fileID: 3672655026206833576}
-  - component: {fileID: 3672655026206833579}
   - component: {fileID: 3672655026206833577}
   m_Layer: 0
   m_Name: Pistol
@@ -155,6 +154,15 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  Shoot:
+    m_Name: Shoot
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 95ba9aef-4ca0-4683-b267-7df323d8b910
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   Reload:
     m_Name: Reload
     m_Type: 0
@@ -169,19 +177,13 @@ MonoBehaviour:
   AimCamera: {fileID: 0}
   AimCanvas: {fileID: 0}
   muzzle: {fileID: 3672655026806988633}
---- !u!114 &3672655026206833579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3672655026206833581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce8ca97d146995b459cf7510fee3a808, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shoot: 0
+  _MaxAmmoCount: 0
+  _currentAmmoCount: 0
+  _weaponRange: 0
+  _bulletsPerShot: 0
+  _weaponSpread: 0
+  _fireRate: 0
+  isFiring: 0
 --- !u!114 &3672655026206833577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +219,7 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3672655026206833579}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerInputManager, Assembly-CSharp
         m_MethodName: OnShoot
         m_Mode: 0
@@ -331,6 +333,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3afc4f68-ff16-4e61-9761-147549bfa16e
     m_ActionName: Map/CloseMap[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 38964a35-b434-4cb5-8fa6-4ef54c07547a
+    m_ActionName: Player/SwapWeapons[/Keyboard/q,/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
