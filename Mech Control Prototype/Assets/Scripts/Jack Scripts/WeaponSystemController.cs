@@ -37,7 +37,7 @@ public  class WeaponSystemController : MonoBehaviour
     public float _weaponSpread;
     public float _fireRate;
 
-    public bool isFiring;
+    public bool isFiring, _CanAim;
 
 
     // Start is called before the first frame update
@@ -52,7 +52,7 @@ public  class WeaponSystemController : MonoBehaviour
      
         Cursor.lockState = CursorLockMode.Locked;
 
-        playerInput = GetComponent<PlayerInput>();
+        //playerInput = GetComponent<PlayerInput>();
      
 
         Aim = playerInput.actions["Aim"];
@@ -61,26 +61,31 @@ public  class WeaponSystemController : MonoBehaviour
 
         _currentAmmoCount = _MaxAmmoCount;
 
+        _CanAim = true;
+
     }
 
     public void Update()
     {
         _currentAmmoCount = Mathf.Clamp(_currentAmmoCount, 0, _MaxAmmoCount);
 
-
-        if (Shoot.IsPressed())
+        if(_CanAim)
         {
-            WeaponShoot();
-            //StartCoroutine(Fire(lr));
-            isFiring = true;
+            if (Shoot.IsPressed())
+            {
+                WeaponShoot();
+                //StartCoroutine(Fire(lr));
+                isFiring = true;
 
-        }
+            }
 
-        else
-        {
-            isFiring = false;
-            //StopCoroutine(Fire(lr));
-        }
+            else
+            {
+                isFiring = false;
+                //StopCoroutine(Fire(lr));
+            }
+        }    
+        
     }
 
     public void OnEnable()
@@ -100,18 +105,25 @@ public  class WeaponSystemController : MonoBehaviour
 
     public void StartAim()
     {
-        AimCamera.Priority += PriorityChanger;
+        if(_CanAim)
+        {
+            AimCamera.Priority += PriorityChanger;
 
-        _isAiming = true;
+            _isAiming = true;
+        }
+        
    
 
     }
 
     public void EndAim()
     {
-
-        AimCamera.Priority -= PriorityChanger;
-        _isAiming = false;
+        if(_CanAim)
+        {
+            AimCamera.Priority -= PriorityChanger;
+            _isAiming = false;
+        }
+       
    
     }
 
@@ -175,32 +187,36 @@ public  class WeaponSystemController : MonoBehaviour
     
     public void RaycastShoot()
     {
-        if (  _isAiming && !grappleSystem.IsGrappling  && _currentAmmoCount > 0)
+        if(_CanAim)
         {
-            for (int i = 0; i < _bulletsPerShot; i++)
+            if (_isAiming && !grappleSystem.IsGrappling && _currentAmmoCount > 0)
             {
-                _currentAmmoCount--;
-                RaycastHit hit;
-                if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, _weaponRange))
+                for (int i = 0; i < _bulletsPerShot; i++)
                 {
-                    Debug.DrawRay(muzzle.transform.position, hit.point, Color.green, 5f);
-                    HitBulletTrail(hit.point);
-
-                    if (hit.collider.tag == "Enemy")
+                    _currentAmmoCount--;
+                    RaycastHit hit;
+                    if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, _weaponRange))
                     {
-                        //Destroy(hit.transform.gameObject);
-                        
+                        Debug.DrawRay(muzzle.transform.position, hit.point, Color.green, 5f);
+                        HitBulletTrail(hit.point);
 
+                        if (hit.collider.tag == "Enemy")
+                        {
+                            //Destroy(hit.transform.gameObject);
+
+
+                        }
                     }
-                }
 
-                else if(Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, Mathf.Infinity))
-                {
-                    Debug.DrawLine(muzzle.transform.position, hit.point,Color.red, 5f);
-                    MissBulletTrail(hit.point);
+                    else if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, Mathf.Infinity))
+                    {
+                        Debug.DrawLine(muzzle.transform.position, hit.point, Color.red, 5f);
+                        MissBulletTrail(hit.point);
+                    }
                 }
             }
         }
+       
     }
 
    
