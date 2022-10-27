@@ -39,13 +39,17 @@ public class PlayerMovementScript : MonoBehaviour
     //Dashing
     public float DashSpeed = 5f;
     public float DashTime, DashCooldown = 1f;
+    public float DashDecrease = 1f;
     public int MaxDashes = 1;
     private int dashes;
-    private bool _isDashing;
+    private bool _isDashing, _stopWindow;
 
     [Header("Jetpack")]
     //Jetpack
     public float JetpackSpeed;
+    public float MaxJetpackFeul=100;
+    private float _jetpackFeul;
+    public float JetpackDecreaseRate = 1;
     private bool _isJetpack;
 
     //references
@@ -57,6 +61,7 @@ public class PlayerMovementScript : MonoBehaviour
     private Vector3 playerVelocity;
     private Vector2 currentInputVector;
     private bool _isGrounded;
+    private float _currentSpeed;
 
     //camera 
     private Transform cameraTransform;
@@ -81,6 +86,8 @@ public class PlayerMovementScript : MonoBehaviour
         cameraTransform = Camera.main.transform;
         dashes = MaxDashes;
         CanMove = true;
+        _currentSpeed = PlayerSpeed;
+        _jetpackFeul = MaxJetpackFeul;
     }
 
     void Update()
@@ -109,32 +116,63 @@ public class PlayerMovementScript : MonoBehaviour
             jumps = MaxJumps;
             fallVelocity = 1;
             ySpeed = -0.5f;
+            if (_jetpackFeul < MaxJetpackFeul && Jump.IsPressed() == false)
+            {
+                _jetpackFeul += JetpackDecreaseRate * Time.deltaTime;
+            }
         }
-        else if (!(_isJumping || _isJetpack))
+        else if (!_isJumping && !_isJetpack)
         {
             fallVelocity += 0.01f;
             jumps = 0;
         }
-        
+
+        Vector3 AjdDash = AdjustVelocityToSlope(BottomPart.forward);
+
         if (CanMove)
         {
             //Move Player
             Vector2 moveInput = Move.ReadValue<Vector2>();
             if (_isDashing)
             {
-                Vector3 AjdDash=AdjustVelocityToSlope(BottomPart.forward);
                 controller.Move(AjdDash * DashSpeed * Time.deltaTime);
             }
             else
             {
+
                 currentInputVector = Vector2.SmoothDamp(currentInputVector, moveInput, ref smoothInputVelocity, moveSmoothing);
                 move = new Vector3(currentInputVector.x, 0, currentInputVector.y);
                 move.y = 0f;
                 move = move.x * cameraTransform.right.normalized + move.z * AdjustedCameraTransformZ.normalized;
                 move = AdjustVelocityToSlope(move);
-                controller.Move(move * Time.deltaTime * PlayerSpeed);
+                if (!_isDashing && _currentSpeed > PlayerSpeed)
+                {
+                    _currentSpeed -= DashDecrease * Time.deltaTime;
+                }
+                
+
+                controller.Move(move * Time.deltaTime * _currentSpeed);
+
+
             }
 
+            if (moveInput.magnitude == 0 && _stopWindow)
+            {
+                _currentSpeed -= DashDecrease * Time.deltaTime;
+                controller.Move(AjdDash * _currentSpeed * Time.deltaTime);
+            }
+
+            if(moveInput.magnitude==1)
+            {
+                _stopWindow = false;
+                _currentSpeed = PlayerSpeed;
+            }
+
+            if (_currentSpeed <= 0.5f)
+            {
+                _stopWindow = false;
+                _currentSpeed = PlayerSpeed;
+            }
             //rotate player parts
             Quaternion TopRotate = Quaternion.Euler(-_cMO.m_Offset.x, cameraTransform.rotation.eulerAngles.y - _cMO.m_Offset.y, 0f);
             TopPart.rotation = TopRotate;
@@ -144,7 +182,7 @@ public class PlayerMovementScript : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(BottomPart.eulerAngles.y, targetAngel, ref smoothVelocity, rotationSmoothing);
             BottomPart.rotation = Quaternion.Euler(0f, angle, 0f);
 
-
+            
 
             // Changes the height position of the player..
 
@@ -155,7 +193,6 @@ public class PlayerMovementScript : MonoBehaviour
 
             if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod && jumps >= 1)
             {
-
                 _isJumping = true;
                 currentJH = JumpHeight;
                 currentJM = JumpMultiplier;
@@ -163,8 +200,6 @@ public class PlayerMovementScript : MonoBehaviour
                 jumps -= 1;
                 jumpButtonPressedTime = null;
                 lastGroundedTime = null;
-
-
             }
 
 
@@ -174,22 +209,27 @@ public class PlayerMovementScript : MonoBehaviour
                 StartCoroutine(DashTimer());
             }
 
+            if (_isJumping)
+            {
+                ySpeed = currentJH;
+            }
 
+            if (_isJetpack && _jetpackFeul > 0)
+            {
+                
+                fallVelocity = 1;
+                if(ySpeed<JetpackSpeed)
+                {
+                    ySpeed += 3*Time.deltaTime;
+                }
+                
+                _jetpackFeul -= JetpackDecreaseRate * Time.deltaTime;
+            }
         }
-        if (_isJumping)
-        {
-            ySpeed = currentJH;
-        }
-
-        if (_isJetpack)
-        {
-            ySpeed = JetpackSpeed;
-        }
-
         ySpeed += GravityValue * Time.deltaTime;
         playerVelocity.y = ySpeed;
-        controller.Move(playerVelocity * Time.deltaTime * fallVelocity);
-
+        controller.Move(playerVelocity * Time.deltaTime*fallVelocity);
+        Debug.Log(fallVelocity);
     }
 
     void FixedUpdate()
@@ -208,31 +248,31 @@ public class PlayerMovementScript : MonoBehaviour
     {
         jumpButtonPressedTime = Time.time;
         if (jumps == 0)
-        {
-            ySpeed = 0;
-            fallVelocity = 1;
+        { 
             _isJumping = false;
-            _isJetpack = true;
+            if (_jetpackFeul > 0)
+            {
+                _isJetpack = true;
+            }
+
         }
     }
 
     void JumpCancel()
     {
         currentJM = CancelJumpMultiplier;
-        if (_isJetpack)
-        {
-            ySpeed = 0.5f;
-            _isJetpack = false;
-        }
-
-
+       _isJetpack = false;
+        //fallVelocity = 1;
     }
     private IEnumerator DashTimer()
     {
+        _stopWindow = false;
         _isDashing = true;
         dashes -= 1;
         yield return new WaitForSeconds(DashTime);
+        _stopWindow = true;
         _isDashing = false;
+
         yield return new WaitForSeconds(DashCooldown);
         dashes = MaxDashes;
     }
