@@ -10,16 +10,16 @@ public class SpawnPickup : MonoBehaviour
 
     public int RareDropWeight;
     // Start is called before the first frame update
-    public void DropPickup()
+    public void DropPickup(Transform SpawnPoint)
     {
         weight = Random.Range(0, 100);
         if (weight >= RareDropWeight)
         {
-            Instantiate(RareDrops[Random.Range(0, RareDrops.Count)], transform.position, Quaternion.identity);
+            Instantiate(RareDrops[Random.Range(0, RareDrops.Count)], SpawnPoint.position, Quaternion.identity);
         }
         else
         {
-            Instantiate(CommonDrops[Random.Range(0, RareDrops.Count)], transform.position, Quaternion.identity);
+            Instantiate(CommonDrops[Random.Range(0, CommonDrops.Count)], SpawnPoint.position, Quaternion.identity);
         }
         
     }
