@@ -18,8 +18,8 @@ MonoBehaviour:
   currentAmmoCount: 1000
   weaponRange: 10
   bulletsPerShot: 10
-  weaponSpread: 5
-  fireRate: 0.5
+  weaponSpread: 4
+  fireRate: 1.5
   hitBulletTrail: {fileID: 6778416936914913120, guid: 3d53179500acc3442917db526ebbf695, type: 3}
   missBulletTrail: {fileID: 6778416936914913120, guid: 3ce2a1415376e0f409eaa7370aaad543, type: 3}
-  direction: {x: 70.5623, y: 31.960382, z: 57.711662}
+  direction: {x: -21.121687, y: 57.592003, z: 75.078384}

@@ -274,7 +274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &169678830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,8 +320,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169678829}
-  m_LocalRotation: {x: 0.05190013, y: 0, z: 0, w: 0.9986523}
-  m_LocalPosition: {x: 0.109674506, y: 2.350877, z: -4.8410645}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.10967448, y: 2.348463, z: -4.84119}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1784327319}
@@ -1101,7 +1101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8a6a01a3209d745979809ae1feb8bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponScriptableObject: {fileID: 11400000, guid: ed33a9979bf07a848b7dbb9c369bd038, type: 2}
 --- !u!65 &618431386
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1865,7 +1864,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5354146, y: 1.4115887, z: -6.93}
+  m_LocalPosition: {x: 0.10967448, y: 2.348463, z: -7.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2054,7 +2053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1158518649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2728,23 +2727,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 577550281394488028, guid: 298574f3d30d98e4ca5c1329dcbf797e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.805286
+      value: 0.10967448
       objectReference: {fileID: 0}
     - target: {fileID: 577550281394488028, guid: 298574f3d30d98e4ca5c1329dcbf797e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.3453677
+      value: 2.348463
       objectReference: {fileID: 0}
     - target: {fileID: 577550281394488028, guid: 298574f3d30d98e4ca5c1329dcbf797e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.8940177
+      value: -7.1
       objectReference: {fileID: 0}
     - target: {fileID: 577550281394488028, guid: 298574f3d30d98e4ca5c1329dcbf797e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9986523
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 577550281394488028, guid: 298574f3d30d98e4ca5c1329dcbf797e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.051900215
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 577550281394488028, guid: 298574f3d30d98e4ca5c1329dcbf797e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -2784,7 +2783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 577550281394488030, guid: 298574f3d30d98e4ca5c1329dcbf797e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 577550281734781808, guid: 298574f3d30d98e4ca5c1329dcbf797e, type: 3}
       propertyPath: m_NoiseProfile
@@ -3155,6 +3154,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CM 3rdPerson Aim (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6356666461656758348, guid: ca218e45472e7e140b62a5c286a4ea60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6356666461656758350, guid: ca218e45472e7e140b62a5c286a4ea60, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -3403,7 +3406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8a6a01a3209d745979809ae1feb8bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponScriptableObject: {fileID: 11400000, guid: f0044b40b4a00af4b81f2828ab0e78b4, type: 2}
 --- !u!65 &1722010552
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3493,7 +3495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RecenterTarget: 0
   m_VerticalAxis:
-    Value: 5.94999
+    Value: 0
     m_SpeedMode: 1
     m_MaxSpeed: 0.1
     m_AccelTime: 0.1
@@ -3963,7 +3965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5990339211532437566, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b45db3afcae774fadf9deec206b3dd, type: 3}

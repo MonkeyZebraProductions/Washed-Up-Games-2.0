@@ -27,7 +27,7 @@ public  class WeaponSystemController : MonoBehaviour
 
     private float lastShootTime;
 
-    public Transform muzzle;
+    public GameObject muzzle;
 
     // Weapon Data
     public int _MaxAmmoCount;
@@ -39,10 +39,16 @@ public  class WeaponSystemController : MonoBehaviour
 
     public bool isFiring, _CanAim;
 
+    public LineRenderer lr;
+
 
     // Start is called before the first frame update
     public void Awake()
     {
+        lr.material.SetColor("_Color", Color.green);
+
+        playerInput = GetComponentInParent<PlayerInput>();
+
         _MaxAmmoCount = WeaponScriptableObject.MaxAmmoCount;
         _currentAmmoCount = WeaponScriptableObject.currentAmmoCount;
         _weaponRange = WeaponScriptableObject.weaponRange;
@@ -52,7 +58,11 @@ public  class WeaponSystemController : MonoBehaviour
      
         Cursor.lockState = CursorLockMode.Locked;
 
+<<<<<<< Updated upstream
         //playerInput = GetComponent<PlayerInput>();
+=======
+     
+>>>>>>> Stashed changes
      
 
         Aim = playerInput.actions["Aim"];
@@ -69,6 +79,7 @@ public  class WeaponSystemController : MonoBehaviour
     {
         _currentAmmoCount = Mathf.Clamp(_currentAmmoCount, 0, _MaxAmmoCount);
 
+<<<<<<< Updated upstream
         if(_CanAim)
         {
             if (Shoot.IsPressed())
@@ -76,9 +87,26 @@ public  class WeaponSystemController : MonoBehaviour
                 WeaponShoot();
                 //StartCoroutine(Fire(lr));
                 isFiring = true;
+=======
+        if(_isAiming)
+        {
+
+        }
+
+        if(!_isAiming)
+        {
+
+        }
+
+        if (Shoot.IsPressed())
+        {
+            WeaponShoot();
+            isFiring = true;
+>>>>>>> Stashed changes
 
             }
 
+<<<<<<< Updated upstream
             else
             {
                 isFiring = false;
@@ -86,6 +114,13 @@ public  class WeaponSystemController : MonoBehaviour
             }
         }    
         
+=======
+        else
+        {
+            isFiring = false;
+          
+        }
+>>>>>>> Stashed changes
     }
 
     public void OnEnable()
@@ -109,15 +144,22 @@ public  class WeaponSystemController : MonoBehaviour
         {
             AimCamera.Priority += PriorityChanger;
 
+<<<<<<< Updated upstream
             _isAiming = true;
         }
         
    
+=======
+        _isAiming = true;
+>>>>>>> Stashed changes
 
+        //WeaponLaser();
+       
     }
 
     public void EndAim()
     {
+<<<<<<< Updated upstream
         if(_CanAim)
         {
             AimCamera.Priority -= PriorityChanger;
@@ -125,29 +167,56 @@ public  class WeaponSystemController : MonoBehaviour
         }
        
    
+=======
+
+        AimCamera.Priority -= PriorityChanger;
+        _isAiming = false;
+
+        lr.SetPosition(1, new Vector3(0, 0, 0));
+>>>>>>> Stashed changes
     }
+
+   
+
 
     [SerializeField]
     public Vector3 GetShootingDirection()
     {
-        Vector3 targetPosition = AimCamera.transform.position + AimCamera.transform.forward * 100f;
+        Vector3 targetPosition = muzzle.transform.position + muzzle.transform.forward * 100f;
         targetPosition = new Vector3(
             targetPosition.x + Random.Range(-_weaponSpread, _weaponSpread),
             targetPosition.y + Random.Range(-_weaponSpread, _weaponSpread),
             targetPosition.z + Random.Range(-_weaponSpread, _weaponSpread)
             );
 
-        WeaponScriptableObject.direction = targetPosition - AimCamera.transform.position;
+        WeaponScriptableObject.direction = targetPosition - muzzle.transform.position;
 
         return WeaponScriptableObject.direction.normalized;
 
     }
 
-    
-   
 
-   
-    
+    public void WeaponLaser()
+    {
+        RaycastHit hit2;
+        while (Physics.Raycast(muzzle.transform.position, muzzle.transform.forward, out hit2))
+        {
+            if (hit2.collider)
+            {
+
+                lr.SetPosition(1, new Vector3(0, 0, hit2.distance));
+            }
+
+            else
+            {
+                lr.SetPosition(1, new Vector3(0, 0, 100f));
+            }
+        }
+    }
+
+
+
+
     public void HitBulletTrail(Vector3 end)
     {
         LineRenderer lr = Instantiate(WeaponScriptableObject.hitBulletTrail).GetComponent<LineRenderer>();
@@ -189,7 +258,12 @@ public  class WeaponSystemController : MonoBehaviour
     {
         if(_CanAim)
         {
+<<<<<<< Updated upstream
             if (_isAiming && !grappleSystem.IsGrappling && _currentAmmoCount > 0)
+=======
+          
+            for (int i = 0; i < _bulletsPerShot; i++)
+>>>>>>> Stashed changes
             {
                 for (int i = 0; i < _bulletsPerShot; i++)
                 {
@@ -197,12 +271,17 @@ public  class WeaponSystemController : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, _weaponRange))
                     {
+<<<<<<< Updated upstream
                         Debug.DrawRay(muzzle.transform.position, hit.point, Color.green, 5f);
                         HitBulletTrail(hit.point);
 
                         if (hit.collider.tag == "Enemy")
                         {
                             //Destroy(hit.transform.gameObject);
+=======
+                        Destroy(hit.transform.gameObject);
+                        
+>>>>>>> Stashed changes
 
 
                         }
@@ -222,7 +301,7 @@ public  class WeaponSystemController : MonoBehaviour
    
     public void WeaponShoot()
     {
-        //Debug.Log("WeaponShot");
+        
         if (Time.time > lastShootTime + _fireRate)
         {
             lastShootTime = Time.time;
