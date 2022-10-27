@@ -94,6 +94,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OneKey",
+                    "type": "Button",
+                    "id": "24c8677d-c18f-4f66-be57-97fdadd511c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TwoKey",
+                    "type": "Button",
+                    "id": "042d3ff8-c18e-4a31-b249-bdad7cd2452d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -448,6 +466,28 @@
                     "action": "SwapWeapons",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "694faf67-915e-4e16-90d4-1838d128046a",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "OneKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e14adc7-8f5e-4a56-836b-cdf997e90c8e",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TwoKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6249328330893720327
 Transform:
   m_ObjectHideFlags: 0
@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponScriptableObject: {fileID: 11400000, guid: f0044b40b4a00af4b81f2828ab0e78b4, type: 2}
+  grappleSystem: {fileID: 0}
   fadeDuration: 0.5
   playerInput: {fileID: 6249328331763939995}
   Aim:
@@ -155,10 +156,10 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   Shoot:
-    m_Name: 
+    m_Name: Shoot
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 
+    m_Id: 3e08607e-087f-44cc-8dd6-a52f4db63cee
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -175,7 +176,6 @@ MonoBehaviour:
   PriorityChanger: 10
   _isAiming: 0
   AimCamera: {fileID: 0}
-  AimCanvas: {fileID: 0}
   muzzle: {fileID: 6249328332090213145}
   _MaxAmmoCount: 0
   _currentAmmoCount: 0
@@ -184,6 +184,8 @@ MonoBehaviour:
   _weaponSpread: 0
   _fireRate: 0
   isFiring: 0
+  _CanAim: 0
+  lr: {fileID: 0}
 --- !u!114 &6249328331763939995
 MonoBehaviour:
   m_ObjectHideFlags: 0

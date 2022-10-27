@@ -27,11 +27,6 @@ public class GrappleSystem : MonoBehaviour
     public Transform SpawnPoint;
     private CharacterController controller;
 
-    [Header("Camera")]
-    //camera setup
-    public CinemachineVirtualCamera AimCamera;
-    public int PriorityChanger;
-
     //bool set up
     public bool _isAiming;
     private bool _moveToGrapple;
