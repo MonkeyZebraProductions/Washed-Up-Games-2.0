@@ -12,7 +12,7 @@ public class Punch : MonoBehaviour
     private bool _canPunch;
 
     private PlayerMovementScript _pMS;
-    private WeaponSystemController _wSC;
+    public WeaponSystemController _wSC;
 
     private PlayerInput playerInput;
     private InputAction Puncher;
@@ -44,7 +44,7 @@ public class Punch : MonoBehaviour
     IEnumerator PunchEnum()
     {
         _pMS.CanMove = false;
-        _wSC._CanAim = false;
+        _wSC._isAiming = false;
         yield return new WaitForSeconds(PunchDelay);
         if (SlamUpgrade)
         {
@@ -64,7 +64,7 @@ public class Punch : MonoBehaviour
             PunchBox.SetActive(false);
         }
         _pMS.CanMove = true;
-        _wSC._CanAim = true;
+        _wSC._isAiming = false;
         _canPunch = false;
         yield return new WaitForSeconds(PunchCooldown);
         _canPunch = true;

@@ -6,10 +6,17 @@ using UnityEngine.InputSystem;
 public class WeaponSwitching : MonoBehaviour
 {
     public int weaponSlotSelected = 1;
-    public GameObject firstWeaponSlot, secondWeaponSlot;
+
+    public GameObject firstWeaponSlotOPrefab, secondWeaponSlotPrefab;
+
     public PlayerInput playerInput;
-    public InputAction weaponSwitchingOneKey;
-    public InputAction weaponSwitchingTwoKey;
+
+    public InputAction weaponSwitchingOneKey, weaponSwitchingTwoKey;
+
+    public WeaponSystemController firstWeaponSlot, secondWeaponSlot;
+
+    public GrappleSystem grappleSystem;
+    public Punch punch;
 
     // Start is called before the first frame update
     void Awake()
@@ -17,8 +24,10 @@ public class WeaponSwitching : MonoBehaviour
         playerInput = GetComponentInParent<PlayerInput>();
         weaponSwitchingOneKey = playerInput.actions["OneKey"];
         weaponSwitchingTwoKey = playerInput.actions["TwoKey"];
-        SwapWeapon(1);
 
+        SwapWeapon(1);
+        SwapGrapple(1);
+        SwapPunch(1);
     }
 
     // Update is called once per frame
@@ -26,20 +35,51 @@ public class WeaponSwitching : MonoBehaviour
     {
         if(weaponSwitchingOneKey.IsPressed())
         {
-            if(weaponSlotSelected !=1)
+            if(weaponSlotSelected != 1 & !firstWeaponSlot._isAiming)
             {
                 SwapWeapon(1);
+                SwapGrapple(1);
+                SwapPunch(1);
             }
         }
 
         if(weaponSwitchingTwoKey.IsPressed())
         {
-            if (weaponSlotSelected != 2)
+            if (weaponSlotSelected != 2 & !secondWeaponSlot._isAiming)
             {
                 SwapWeapon(2);
+                SwapGrapple(2);
+                SwapPunch(2);
             }
         }
     }
+
+    void SwapPunch(int punchWeaponType)
+    {
+        if (punchWeaponType == 1)
+        {
+            punch._wSC = firstWeaponSlot;
+        }
+
+        if (punchWeaponType == 2)
+        {
+            punch._wSC = secondWeaponSlot;
+        }
+    }
+
+    void SwapGrapple(int grappleWeaponType)
+    {
+        if (grappleWeaponType == 1)
+        {
+            grappleSystem.weaponSystemController = firstWeaponSlot;
+        }
+
+        if (grappleWeaponType == 2)
+        {
+            grappleSystem.weaponSystemController = secondWeaponSlot;
+        }
+    }
+
 
     void SwapWeapon(int weaponType)
     {
@@ -47,16 +87,16 @@ public class WeaponSwitching : MonoBehaviour
         {
             weaponSlotSelected = 1;
 
-            firstWeaponSlot.SetActive(true);
-            secondWeaponSlot.SetActive(false);
+            firstWeaponSlotOPrefab.SetActive(true);
+            secondWeaponSlotPrefab.SetActive(false);
         }
 
         if(weaponType == 2)
         {
             weaponSlotSelected = 2;
 
-            firstWeaponSlot.SetActive(false);
-            secondWeaponSlot.SetActive(true);
+            firstWeaponSlotOPrefab.SetActive(false);
+            secondWeaponSlotPrefab.SetActive(true);
         }
 }
 }

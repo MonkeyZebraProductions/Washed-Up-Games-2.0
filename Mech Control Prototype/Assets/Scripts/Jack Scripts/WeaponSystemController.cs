@@ -37,7 +37,7 @@ public class WeaponSystemController : MonoBehaviour
     public float _weaponSpread;
     public float _fireRate;
 
-    public bool isFiring, _CanAim;
+    public bool isFiring;
 
     public LineRenderer lr;
 
@@ -67,8 +67,6 @@ public class WeaponSystemController : MonoBehaviour
 
         _currentAmmoCount = _MaxAmmoCount;
 
-        _CanAim = true;
-
     }
 
     public void Update()
@@ -80,31 +78,6 @@ public class WeaponSystemController : MonoBehaviour
             WeaponShoot();
             //StartCoroutine(Fire(lr));
             isFiring = true;
-
-            if (_isAiming)
-            {
-
-            }
-
-            if (!_isAiming)
-            {
-
-            }
-
-            if (Shoot.IsPressed())
-            {
-                WeaponShoot();
-                isFiring = true;
-
-
-            }
-
-
-            else
-            {
-                isFiring = false;
-                //StopCoroutine(Fire(lr));
-            }
         }
 
 
@@ -132,21 +105,8 @@ public class WeaponSystemController : MonoBehaviour
 
     public void StartAim()
     {
-        if (_CanAim)
-        {
-            AimCamera.Priority += PriorityChanger;
-
-
-            _isAiming = true;
-        }
-
-
-
+        AimCamera.Priority += PriorityChanger;
         _isAiming = true;
-
-
-        //WeaponLaser();
-
     }
 
     public void EndAim()
@@ -238,8 +198,6 @@ public class WeaponSystemController : MonoBehaviour
 
     public void RaycastShoot()
     {
-        if (_CanAim)
-        {
             if (_isAiming && !grappleSystem.IsGrappling && _currentAmmoCount > 0)
             {
                 for (int i = 0; i < _bulletsPerShot; i++)
@@ -268,8 +226,6 @@ public class WeaponSystemController : MonoBehaviour
                     }
                 }
             }
-        }
-
     }
 
 

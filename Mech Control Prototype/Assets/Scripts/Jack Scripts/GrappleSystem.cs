@@ -10,8 +10,7 @@ public class GrappleSystem : MonoBehaviour
 
     public WeaponSystemController weaponSystemController;
 
-    public WeaponSystemController pistol;
-    public WeaponSystemController shotgun;
+
 
     //input actions
 
