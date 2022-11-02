@@ -18,13 +18,22 @@ Shader "Unlit/USB_Simple_Color"
         _Brightness("Brightness", Range(0.01, 1)) = 0.08
         [IntRange]
         _Samples("Samples", Range(0, 255)) = 100
+
+        [Enum(UnityEngine.Rendering.BlendMode)]
+        _SrcBlend("SrcFactor", Float) = 1
+        [Enum(UnityEngine.Rendering.BlendMode)]
+        _DstBlend("DstFactor", Float) = 1
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" "RenderType" = "Transparent" }
         LOD 100
         Cull[_Face]
 
+        
+        Blend[_SrcBlend][_DstBlend]
+        ZWrite Off
+        ZTest LEqual
         Pass
         {
             CGPROGRAM
