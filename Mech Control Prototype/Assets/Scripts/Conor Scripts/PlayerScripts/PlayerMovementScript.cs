@@ -58,7 +58,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private CharacterController controller;
     private PlayerInput playerInput;
-    private Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     private Vector2 currentInputVector;
     private bool _isGrounded;
     private float _currentSpeed;
@@ -229,7 +229,7 @@ public class PlayerMovementScript : MonoBehaviour
         ySpeed += GravityValue * Time.deltaTime;
         playerVelocity.y = ySpeed;
         controller.Move(playerVelocity * Time.deltaTime*fallVelocity);
-        Debug.Log(fallVelocity);
+        //Debug.Log(fallVelocity);
     }
 
     void FixedUpdate()

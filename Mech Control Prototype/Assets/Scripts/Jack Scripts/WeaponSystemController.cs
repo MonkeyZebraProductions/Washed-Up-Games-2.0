@@ -25,7 +25,7 @@ public class WeaponSystemController : MonoBehaviour
     public bool _isAiming;
     public CinemachineVirtualCamera AimCamera;
 
-    private float lastShootTime;
+    public float lastShootTime;
 
     public GameObject muzzle;
 
@@ -45,8 +45,6 @@ public class WeaponSystemController : MonoBehaviour
     // Start is called before the first frame update
     public void Awake()
     {
-        lr.material.SetColor("_Color", Color.green);
-
         playerInput = GetComponentInParent<PlayerInput>();
 
         _MaxAmmoCount = WeaponScriptableObject.MaxAmmoCount;
@@ -84,7 +82,7 @@ public class WeaponSystemController : MonoBehaviour
         else
         {
             isFiring = false;
-
+            lr.sharedMaterial.SetColor("_Color", Color.green);
         }
     }
 
@@ -107,6 +105,8 @@ public class WeaponSystemController : MonoBehaviour
     {
         AimCamera.Priority += PriorityChanger;
         _isAiming = true;
+        WeaponLaser();
+     
     }
 
     public void EndAim()
@@ -140,8 +140,10 @@ public class WeaponSystemController : MonoBehaviour
 
     public void WeaponLaser()
     {
+      
+
         RaycastHit hit2;
-        while (Physics.Raycast(muzzle.transform.position, muzzle.transform.forward, out hit2))
+        if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit2))
         {
             if (hit2.collider)
             {
@@ -151,7 +153,7 @@ public class WeaponSystemController : MonoBehaviour
 
             else
             {
-                lr.SetPosition(1, new Vector3(0, 0, 100f));
+                lr.SetPosition(1, new Vector3(0, 0, Mathf.Infinity));
             }
         }
     }
@@ -188,6 +190,8 @@ public class WeaponSystemController : MonoBehaviour
 
     }
 
+   
+
 
 
     private void ReloadWeapon()
@@ -208,24 +212,26 @@ public class WeaponSystemController : MonoBehaviour
                     if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, _weaponRange))
                     {
 
-                        Debug.DrawRay(muzzle.transform.position, hit.point, Color.green, 5f);
-                        HitBulletTrail(hit.point);
+                        Debug.DrawRay(muzzle.transform.position, hit.point, Color.blue, 5f);
+                        //HitBulletTrail(hit.point);
+                        lr.sharedMaterial.SetColor("_Color", Color.blue);
 
                         if (hit.collider.tag == "Enemy")
                         {
-                            //Destroy(hit.transform.gameObject);
-
-                            Destroy(hit.transform.gameObject);
+                            hit.transform.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(1);
                         }
                     }
 
                     else if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, Mathf.Infinity))
                     {
                         Debug.DrawLine(muzzle.transform.position, hit.point, Color.red, 5f);
-                        MissBulletTrail(hit.point);
+                        //MissBulletTrail(hit.point);
+                        lr.sharedMaterial.SetColor("_Color", Color.red);
                     }
                 }
             }
+
+       
     }
 
 
