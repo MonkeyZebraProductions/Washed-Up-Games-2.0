@@ -10,6 +10,7 @@ public abstract class SteeringBehaviour : MonoBehaviour
     [HideInInspector]
     public EnemyController enemyController;
 
+
     public void Awake()
     {
         enemyController = GetComponent<EnemyController>();

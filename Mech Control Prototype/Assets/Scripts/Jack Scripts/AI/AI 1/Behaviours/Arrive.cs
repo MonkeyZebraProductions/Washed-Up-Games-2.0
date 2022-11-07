@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Arrive : SteeringBehaviour
 {
-    public Vector3 targetPosition = Vector3.zero;
+    public FOV fov;
+    public Vector3 targetPosition;
     public float slowingDistance = 15.0f;
     public float decelleration = 10;
 
@@ -21,7 +22,7 @@ public class Arrive : SteeringBehaviour
 
     public override Vector3 Calculate()
     {
-        Vector3 force = enemyController.ArriveForce();
+        Vector3 force = enemyController.ArriveForce(targetPosition);
         return force;
     }
 
@@ -31,6 +32,13 @@ public class Arrive : SteeringBehaviour
         {
             targetPosition = targetGameObject.transform.position;
         }
+
+        if(fov.canSeePlayer)
+        {
+            targetPosition = new Vector3(enemyController.targetTransform.position.x, enemyController.targetTransform.position.y, enemyController.targetTransform.position.z);
+            enemyController.target = targetPosition;
+        }
+
     }
 }
 

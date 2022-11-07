@@ -36,13 +36,19 @@ public class FOV : MonoBehaviour
         if (canSeePlayer)
         {
             gameObject.GetComponent<Arrive>().enabled = true;
+            gameObject.GetComponent<Patrol>().enabled = false;
         }
+
 
         if (!canSeePlayer)
         {
+            gameObject.GetComponent<Patrol>().enabled = true;
             gameObject.GetComponent<Arrive>().enabled = false;
         }
+
+       
     }
+
 
     private IEnumerator FOVSightRoutine()
     {

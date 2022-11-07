@@ -22,7 +22,7 @@ public class Retreat : SteeringBehaviour
 
     public override Vector3 Calculate()
     {
-        return -enemyController.SeekForce();
+        return -enemyController.SeekForce(target);
     }
 
     public void Update()

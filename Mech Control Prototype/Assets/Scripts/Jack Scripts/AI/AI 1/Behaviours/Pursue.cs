@@ -6,7 +6,7 @@ public class Pursue : SteeringBehaviour
 {
    public PlayerMovementScript target;
 
-    Vector3 targetPos;
+    public Vector3 targetPos;
 
     public void Start()
     {
@@ -29,6 +29,6 @@ public class Pursue : SteeringBehaviour
 
         targetPos = target.transform.position + (target.playerVelocity * time);
 
-        return enemyController.SeekForce();
+        return enemyController.SeekForce(targetPos);
     }
 }

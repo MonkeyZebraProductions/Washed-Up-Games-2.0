@@ -42,9 +42,8 @@ public class EnemyController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-     
-
-        SteeringBehaviour[] behaviours = GetComponents<SteeringBehaviour>();
+       
+         SteeringBehaviour[] behaviours = GetComponents<SteeringBehaviour>();
 
         foreach (SteeringBehaviour b in behaviours)
         {
@@ -52,14 +51,14 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public Vector3 SeekForce()
+    public Vector3 SeekForce(Vector3 toTarget)
     {
-        Vector3 ToTarget = target - transform.position;
-        float distance = ToTarget.magnitude;
-   
-        ToTarget *= maxSpeed;
+         toTarget = target - transform.position;
+        float distance = toTarget.magnitude;
 
-        return desired = ToTarget - velocity;
+        toTarget *= maxSpeed;
+
+        return desired = toTarget - velocity;
 
         /*Vector3 desired = target - transform.position;
         desired.Normalize();
@@ -70,9 +69,9 @@ public class EnemyController : MonoBehaviour
         */
     }
 
-    public Vector3 ArriveForce()
+    public Vector3 ArriveForce( Vector3 toTarget)
     {
-        Vector3 toTarget = target - transform.position;
+         toTarget = target - transform.position;
 
         float distance = toTarget.magnitude;
       
@@ -96,6 +95,7 @@ public class EnemyController : MonoBehaviour
 
     Vector3 Calculate()
     {
+
         force = Vector3.zero;
 
         foreach (SteeringBehaviour b in behaviours)
@@ -117,13 +117,17 @@ public class EnemyController : MonoBehaviour
         return force;
     }
 
+    public void FixedUpdate()
+    {
+      
+    }
 
     // Update is called once per frame
     void Update()
     {
-        target.Set(targetTransform.position.x, targetTransform.position.y, targetTransform.position.z);
+      
 
-        force = Calculate();
+         force = Calculate();
         acceleration = force / mass;
         velocity += acceleration * Time.deltaTime;
 
