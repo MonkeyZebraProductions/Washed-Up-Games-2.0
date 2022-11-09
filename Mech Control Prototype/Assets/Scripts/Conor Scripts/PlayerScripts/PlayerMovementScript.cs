@@ -267,6 +267,7 @@ public class PlayerMovementScript : MonoBehaviour
     private IEnumerator DashTimer()
     {
         _stopWindow = false;
+        //_currentSpeed = DashSpeed;
         _isDashing = true;
         dashes -= 1;
         yield return new WaitForSeconds(DashTime);

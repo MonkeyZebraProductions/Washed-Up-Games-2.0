@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class AirArmour : MonoBehaviour
@@ -14,6 +15,7 @@ public class AirArmour : MonoBehaviour
     private float air, damage;
 
     public TextMeshProUGUI AirText;
+    public Slider AirBar1, AirBar2;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +45,13 @@ public class AirArmour : MonoBehaviour
         air -= AirDecreaceRate * damage*Time.deltaTime;
 
         AirText.text = "Air: " + Mathf.Round(air*100)/100;
+        AirBar1.maxValue = AirBar2.maxValue = MaxAir;
+        AirBar1.value = AirBar2.value = MaxAir - air;
+        if(air<=0)
+        {
+            //Kill
+            Destroy(this.gameObject);
+        }
     }
 
     public void RecieveArmourDamage(float damageRecieved)
