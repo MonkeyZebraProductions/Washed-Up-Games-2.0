@@ -16,6 +16,7 @@ public class AirArmour : MonoBehaviour
 
     public TextMeshProUGUI AirText;
     public Slider AirBar1, AirBar2;
+    public Transform Needle;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +53,8 @@ public class AirArmour : MonoBehaviour
             //Kill
             Destroy(this.gameObject);
         }
+
+        Needle.localRotation =Quaternion.Euler(0, 0, MapFunction(damage, BaseDamageMultiplier, MaxDamage, -30f, 210f));
     }
 
     public void RecieveArmourDamage(float damageRecieved)
@@ -79,5 +82,10 @@ public class AirArmour : MonoBehaviour
     {
         AirDecreaceRate -= UpgradeAmount;
         damage = BaseDamageMultiplier;
+    }
+
+    private float MapFunction(float x, float from_min, float from_max, float to_min, float to_max)
+    {
+        return (x - from_min) * (to_max - to_min) / (from_max - from_min) + to_min;
     }
 }
