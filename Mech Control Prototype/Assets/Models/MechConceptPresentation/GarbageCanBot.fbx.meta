@@ -5,125 +5,35 @@ ModelImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_BootTrim_Color
-    second: {fileID: 2800000, guid: 72d5911fe44708440986935c3332422e, type: 3}
+      name: Boot
+    second: {fileID: 2100000, guid: 740d9e21956a2864eb14289989fc92de, type: 2}
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_BootTrim_Metal
-    second: {fileID: 2800000, guid: d582755bd0da18240b645db6506f7f8f, type: 3}
+      name: BootTrim
+    second: {fileID: 2100000, guid: 6bcdf38cc7c6114438105f1cfb518a32, type: 2}
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_BootTrim_Norm
-    second: {fileID: 2800000, guid: 8314f4156ecd2a64f9bf86e29ee052ab, type: 3}
+      name: Panel
+    second: {fileID: 2100000, guid: 91f3b6096064e62449a5513f84d60cc3, type: 2}
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_BootTrim_Rough
-    second: {fileID: 2800000, guid: 649836187597ebd4fa70510532dfa9b8, type: 3}
+      name: Structure
+    second: {fileID: 2100000, guid: cebd4b9ec9c636246ab18007f3455219, type: 2}
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Boot_Color
-    second: {fileID: 2800000, guid: a2089b7547c759e4f8f4d4c860e844c1, type: 3}
+      name: StructureJoints
+    second: {fileID: 2100000, guid: 6612d183a5aa39d4fa8b14b936f46c0d, type: 2}
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Boot_Metal
-    second: {fileID: 2800000, guid: 389bc06ed9d936e41b8dc0e8eff74d8e, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Boot_Norm
-    second: {fileID: 2800000, guid: 5649971175a2b3044ac1f9480bb7681d, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Boot_Rough
-    second: {fileID: 2800000, guid: 52d14b3e9d4a759409ad7172be844379, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Panel_Color
-    second: {fileID: 2800000, guid: ff8e72771ed1cc542bfb96a7cc53360b, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Panel_Metal
-    second: {fileID: 2800000, guid: c21a3160b6ab2b94581290a05d67832a, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Panel_Norm
-    second: {fileID: 2800000, guid: 4da40d74595976e42aba797db075497b, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Panel_Rough
-    second: {fileID: 2800000, guid: cf1c04ee7e7b6bc4c88f1023fd2516b1, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_StructureJoints_Color
-    second: {fileID: 2800000, guid: 5e6e10d63776994489ec930ddde887d7, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_StructureJoints_Metal
-    second: {fileID: 2800000, guid: f6370369e7452b943907280b3b0bfd59, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_StructureJoints_Norm
-    second: {fileID: 2800000, guid: 227a41290e1f44e4783ce6fdee6f0995, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_StructureJoints_Rough
-    second: {fileID: 2800000, guid: 8879c0523657a4d44af5a01d7ee25927, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Structure_Color
-    second: {fileID: 2800000, guid: 33a1fa94d65474b49b4d2f1870b93966, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Structure_Metal
-    second: {fileID: 2800000, guid: e322e95671b420d4bbb7a22bd4ed71ca, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Structure_Norm
-    second: {fileID: 2800000, guid: 2731334e75eaf0f48aa1223415fedbfd, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Structure_Rough
-    second: {fileID: 2800000, guid: 1ccd9e3e3bac463409719b10d459e53c, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Trim_Color
-    second: {fileID: 2800000, guid: db4a2bde1d14627428481d77b9d96b08, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Trim_Metal
-    second: {fileID: 2800000, guid: 1e564b4f1923e4441af6fab511de6d60, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Trim_Norm
-    second: {fileID: 2800000, guid: 20d4836f8be8e90469df3d309532b3ed, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: GarbageCanMaterial_Trim_Rough
-    second: {fileID: 2800000, guid: b716d964a619332498f48d23b68af810, type: 3}
+      name: Trim
+    second: {fileID: 2100000, guid: 10792bb9179ec5f4ab1a440ed4913bd9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
