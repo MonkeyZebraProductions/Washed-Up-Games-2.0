@@ -1,0 +1,222 @@
+fileFormatVersion: 2
+guid: 0c1e936e1a7129247a8d2a901207aa00
+ModelImporter:
+  serializedVersion: 21100
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_BootTrim_Color
+    second: {fileID: 2800000, guid: 72d5911fe44708440986935c3332422e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_BootTrim_Metal
+    second: {fileID: 2800000, guid: d582755bd0da18240b645db6506f7f8f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_BootTrim_Norm
+    second: {fileID: 2800000, guid: 8314f4156ecd2a64f9bf86e29ee052ab, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_BootTrim_Rough
+    second: {fileID: 2800000, guid: 649836187597ebd4fa70510532dfa9b8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Boot_Color
+    second: {fileID: 2800000, guid: a2089b7547c759e4f8f4d4c860e844c1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Boot_Metal
+    second: {fileID: 2800000, guid: 389bc06ed9d936e41b8dc0e8eff74d8e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Boot_Norm
+    second: {fileID: 2800000, guid: 5649971175a2b3044ac1f9480bb7681d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Boot_Rough
+    second: {fileID: 2800000, guid: 52d14b3e9d4a759409ad7172be844379, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Panel_Color
+    second: {fileID: 2800000, guid: ff8e72771ed1cc542bfb96a7cc53360b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Panel_Metal
+    second: {fileID: 2800000, guid: c21a3160b6ab2b94581290a05d67832a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Panel_Norm
+    second: {fileID: 2800000, guid: 4da40d74595976e42aba797db075497b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Panel_Rough
+    second: {fileID: 2800000, guid: cf1c04ee7e7b6bc4c88f1023fd2516b1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_StructureJoints_Color
+    second: {fileID: 2800000, guid: 5e6e10d63776994489ec930ddde887d7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_StructureJoints_Metal
+    second: {fileID: 2800000, guid: f6370369e7452b943907280b3b0bfd59, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_StructureJoints_Norm
+    second: {fileID: 2800000, guid: 227a41290e1f44e4783ce6fdee6f0995, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_StructureJoints_Rough
+    second: {fileID: 2800000, guid: 8879c0523657a4d44af5a01d7ee25927, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Structure_Color
+    second: {fileID: 2800000, guid: 33a1fa94d65474b49b4d2f1870b93966, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Structure_Metal
+    second: {fileID: 2800000, guid: e322e95671b420d4bbb7a22bd4ed71ca, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Structure_Norm
+    second: {fileID: 2800000, guid: 2731334e75eaf0f48aa1223415fedbfd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Structure_Rough
+    second: {fileID: 2800000, guid: 1ccd9e3e3bac463409719b10d459e53c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Trim_Color
+    second: {fileID: 2800000, guid: db4a2bde1d14627428481d77b9d96b08, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Trim_Metal
+    second: {fileID: 2800000, guid: 1e564b4f1923e4441af6fab511de6d60, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Trim_Norm
+    second: {fileID: 2800000, guid: 20d4836f8be8e90469df3d309532b3ed, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageCanMaterial_Trim_Rough
+    second: {fileID: 2800000, guid: b716d964a619332498f48d23b68af810, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
