@@ -69,13 +69,13 @@ MonoBehaviour:
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 7.1
-  m_DeadZoneWidth: 0.12
-  m_DeadZoneHeight: 0.38
+  m_DeadZoneWidth: 0.1
+  m_DeadZoneHeight: 0.172
   m_DeadZoneDepth: 0.34
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.3
   m_SoftZoneHeight: 0.651
-  m_BiasX: -0.00000082784226
+  m_BiasX: -0.0000006622738
   m_BiasY: 0
   m_CenterOnActivate: 0
   m_GroupFramingMode: 2
@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 3469599450278736865}
   - component: {fileID: 3469599450278736871}
   - component: {fileID: 4045816563654307665}
+  - component: {fileID: 1443636854}
   m_Layer: 0
   m_Name: CM 3rdPerson Normal
   m_TagString: Untagged
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_CollideAgainst:
     serializedVersion: 2
     m_Bits: 1
-  m_IgnoreTag: 
+  m_IgnoreTag: Enemy
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -286,3 +287,18 @@ MonoBehaviour:
   AutoEnableInputs: 1
   XYAxis: {fileID: 841105785112614450, guid: b7eca0930b60bd3489d31dbc39d9c872, type: 3}
   ZAxis: {fileID: 0}
+--- !u!114 &1443636854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469599450278736866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbe0537f70fc2f64ab43ccfeec49eeb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ApplyAfter: 1
+  m_PreserveComposition: 0
