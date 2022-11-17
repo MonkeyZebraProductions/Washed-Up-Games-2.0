@@ -72,9 +72,13 @@ public class PlayerMovementScript : MonoBehaviour
     private InputAction Jump;
     private InputAction Dash;
 
+    [Header("Weapon Switching")]
     // Weapon Switching
     public float weaponIndicator;
     public GameObject[] weapons = new GameObject[4];
+
+    [Header("UpgradeBools")]
+    public bool DashEnabled, JetpackEnabled;
 
     private void Awake()
     {
@@ -182,14 +186,6 @@ public class PlayerMovementScript : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(BottomPart.eulerAngles.y, targetAngel, ref smoothVelocity, rotationSmoothing);
             BottomPart.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            
-
-            // Changes the height position of the player..
-
-            //if()
-            //{
-            //    jumpButtonPressedTime = Time.time;
-            //}
 
             if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod && jumps >= 1)
             {
@@ -204,7 +200,7 @@ public class PlayerMovementScript : MonoBehaviour
 
 
             //Dashing
-            if (Dash.triggered && dashes >= 1)
+            if (Dash.triggered && dashes >= 1 && DashEnabled)
             {
                 StartCoroutine(DashTimer());
             }
@@ -250,7 +246,7 @@ public class PlayerMovementScript : MonoBehaviour
         if (jumps == 0)
         { 
             _isJumping = false;
-            if (_jetpackFeul > 0)
+            if (_jetpackFeul > 0 && JetpackEnabled)
             {
                 _isJetpack = true;
             }

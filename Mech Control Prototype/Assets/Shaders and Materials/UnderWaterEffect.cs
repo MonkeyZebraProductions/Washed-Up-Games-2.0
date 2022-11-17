@@ -8,6 +8,8 @@ public class UnderWaterEffect : MonoBehaviour
 
     public Material UnderwaterMaterial;
 
+    public bool ClearCam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +25,10 @@ public class UnderWaterEffect : MonoBehaviour
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         Graphics.Blit(source, destination, UnderwaterMaterial);
+        if(ClearCam)
+        {
+            GL.Clear(false, false, Color.white);
+        }
+        
     }
 }
