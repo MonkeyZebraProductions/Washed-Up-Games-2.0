@@ -3,12 +3,97 @@ guid: 4aec9ce15fee9884489ec69f94919641
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Balls
+    second: {fileID: 2100000, guid: cb56def889d304d4d961b3b7c8a7df20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bars
+    second: {fileID: 2100000, guid: 9c8d42d812998cc4ea6faf0af643790f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bars2
+    second: {fileID: 2100000, guid: 7c9b95cbc92deb041840aa56fbe713f3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: d6bf26ce38e7c094fb53420b7089df18, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrappleClawPalm
+    second: {fileID: 2100000, guid: ed1ddd5663f465d4ca533e79796e7371, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrappleClaws
+    second: {fileID: 2100000, guid: 5e725f2210f040147af7234d9627d4d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lights
+    second: {fileID: 2100000, guid: dd74cb6848a268c46aa3ac67d921f2ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OxygenTanks
+    second: {fileID: 2100000, guid: ac97018490c8a3548abf3d5625e918d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Panel
+    second: {fileID: 2100000, guid: 91f3b6096064e62449a5513f84d60cc3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PipePorts
+    second: {fileID: 2100000, guid: a89d85bd4deef4046aff36be6a8998e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pipes
+    second: {fileID: 2100000, guid: c6f2a9a73661f6f44802903ae0d64bad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Port
+    second: {fileID: 2100000, guid: f99a6b5422f598848bb255eb042266be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PressureGauge
+    second: {fileID: 2100000, guid: 2e2b6a2f3c6e971449bcdbfda0aa4370, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PressureGuageFace
+    second: {fileID: 2100000, guid: 2d4ab18e88d41934ca0bc23e15477db5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Structure
+    second: {fileID: 2100000, guid: cebd4b9ec9c636246ab18007f3455219, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: StructureJoints
+    second: {fileID: 2100000, guid: 6612d183a5aa39d4fa8b14b936f46c0d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Trim
+    second: {fileID: 2100000, guid: 10792bb9179ec5f4ab1a440ed4913bd9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

@@ -25,9 +25,9 @@ public class Patrol : SteeringBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-
+      
     }
 
     // Update is called once per frame
@@ -79,12 +79,12 @@ public class Patrol : SteeringBehaviour
          
             return enemyController.ArriveForce(nextWaypoint);
          
-            Debug.Log("ArriveForce");
+            //Debug.Log("ArriveForce");
         }
         else
         {
             return enemyController.ArriveForce(nextWaypoint);
-            Debug.Log("ArriveForce2");
+            //Debug.Log("ArriveForce2");
         }
 
 

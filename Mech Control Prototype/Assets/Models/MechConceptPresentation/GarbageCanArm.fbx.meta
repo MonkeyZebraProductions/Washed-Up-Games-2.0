@@ -8,37 +8,37 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Balls
-    second: {fileID: 2100000, guid: 7f24e2689633bda419343ace049c42c6, type: 2}
+    second: {fileID: 2100000, guid: cb56def889d304d4d961b3b7c8a7df20, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: GrappleClawPalm
-    second: {fileID: 2100000, guid: f1c5307e190834946bf9a8ef8de096aa, type: 2}
+    second: {fileID: 2100000, guid: ed1ddd5663f465d4ca533e79796e7371, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: GrappleClaws
-    second: {fileID: 2100000, guid: 384e328e734a2074db2b389cfc4dd6cc, type: 2}
+    second: {fileID: 2100000, guid: 5e725f2210f040147af7234d9627d4d3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Panel
-    second: {fileID: 2100000, guid: 65cc94229be2f614db8faadee1338053, type: 2}
+    second: {fileID: 2100000, guid: 91f3b6096064e62449a5513f84d60cc3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Structure
-    second: {fileID: 2100000, guid: 67ea51a9e5911804496b9c19185ac48c, type: 2}
+    second: {fileID: 2100000, guid: cebd4b9ec9c636246ab18007f3455219, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: StructureJoints
-    second: {fileID: 2100000, guid: bc0eccbf9e227b44d98e7fce4168227f, type: 2}
+    second: {fileID: 2100000, guid: 6612d183a5aa39d4fa8b14b936f46c0d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Trim
-    second: {fileID: 2100000, guid: 860e12f42a3953f4892059ec65e050e9, type: 2}
+    second: {fileID: 2100000, guid: 10792bb9179ec5f4ab1a440ed4913bd9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 849851503661808423}
   - component: {fileID: 849851503661808421}
+  - component: {fileID: 7767787353887865201}
   m_Layer: 0
   m_Name: Standard Shot Module
   m_TagString: Untagged
@@ -41,7 +42,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849851503661808416}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdefd00c32fd1dc4bb82e8dda89056cc, type: 3}
   m_Name: 
@@ -90,6 +91,61 @@ MonoBehaviour:
   _fireRate: 0
   isFiring: 0
   lr: {fileID: 0}
+--- !u!114 &7767787353887865201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849851503661808416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec49419dc11a6b44ae12ff055d3353d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponScriptableObject: {fileID: 11400000, guid: ed33a9979bf07a848b7dbb9c369bd038, type: 2}
+  grappleSystem: {fileID: 0}
+  playerInput: {fileID: 0}
+  Aim:
+    m_Name: Aim
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f918ea3e-cc75-491e-b2f0-281cd0634aec
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  Shoot:
+    m_Name: Shoot
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c53c954f-a28f-4852-869b-fda9294142a3
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  Reload:
+    m_Name: Reload
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ae764c3b-9131-4d3a-ad06-ceb5f84a17c9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  PriorityChanger: 0
+  _isAiming: 0
+  AimCamera: {fileID: 0}
+  lastShootTime: 0
+  muzzle: {fileID: 849851505336491989}
+  _MaxAmmoCount: 0
+  _currentAmmoCount: 0
+  _weaponRange: 0
+  _bulletsPerShot: 0
+  _weaponSpread: 0
+  _fireRate: 0
+  isFiring: 0
+  lr: {fileID: 1169275280107895150}
 --- !u!1 &849851505336491989
 GameObject:
   m_ObjectHideFlags: 0

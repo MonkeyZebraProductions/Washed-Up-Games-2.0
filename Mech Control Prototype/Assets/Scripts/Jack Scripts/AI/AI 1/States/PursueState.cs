@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PursueState : BaseState
 {
+
+  
+
     public override void Enter()
     {
      
@@ -11,6 +14,9 @@ public class PursueState : BaseState
 
     }
 
+    public override void UpdateLogic() { }
+    public override void UpdatePhysics() { }
+    /*
     public override void Think()
     {
         
@@ -26,7 +32,7 @@ public class PursueState : BaseState
             //stateMachine.ChangeState(new WanderState());
         }
     }
-
+    */
     public override void Exit()
     {
         stateMachine.GetComponent<Arrive>().enabled = false;
