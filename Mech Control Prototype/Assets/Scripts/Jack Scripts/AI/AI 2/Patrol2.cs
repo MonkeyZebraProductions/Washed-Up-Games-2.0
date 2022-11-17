@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Patrol : SteeringBehaviour
+public class Patrol2 : MonoBehaviour
 {
-    public PatrolPath path;
- 
-
+    public EnemeyController2 enemeyController2;
+    public PatrolPath2 path;
     public Vector3 nextWaypoint;
-
     public float waypointDistance = 5;
-
     public int next = 0;
-
     public bool looped = false;
 
     public void OnDrawGizmos()
@@ -24,25 +20,53 @@ public class Patrol : SteeringBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Awake()
+     void Awake()
     {
-      
+       
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        enemyController.target = nextWaypoint;
+        nextWaypoint = NextWaypoint();
+       
+
+        Vector3 desiredVelocity = (nextWaypoint - enemeyController2.position);
+        float distance = desiredVelocity.magnitude;
+        enemeyController2.steeringForce = desiredVelocity - enemeyController2.velocity;
+        
+        if (Vector3.Distance(transform.position, nextWaypoint) < waypointDistance)
+        {
+            AdvanceToNext();
+            Debug.Log("Next Waypoint");
+        }
+
+        if (!looped && IsLast())
+        {
+            
+
+
+            //Debug.Log("ArriveForce");
+        }
+        else
+        {
+          
+            //Debug.Log("ArriveForce2");
+
+        }
+
+        
     }
-
-
-    public Vector3 NextWaypoint()
+        public Vector3 NextWaypoint()
     {
         return path.waypoints[next];
-      
-    }
 
+    }
 
     public void AdvanceToNext()
     {
@@ -65,28 +89,6 @@ public class Patrol : SteeringBehaviour
         return next == path.waypoints.Count - 1;
     }
 
-    public override Vector3 Calculate()
-    {
-        nextWaypoint = NextWaypoint();
-        if (Vector3.Distance(transform.position, nextWaypoint) < waypointDistance)
-        {
-            AdvanceToNext();
-            Debug.Log("Next Waypoint");
-        }
+   
 
-        if (!looped && IsLast())
-        {
-         
-            return enemyController.ArriveForce(nextWaypoint);
-         
-            //Debug.Log("ArriveForce");
-        }
-        else
-        {
-            return enemyController.ArriveForce(nextWaypoint);
-            //Debug.Log("ArriveForce2");
-        }
-
-
-    }
 }

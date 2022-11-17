@@ -39,6 +39,10 @@ public class Arrive : SteeringBehaviour
             enemyController.target = targetPosition;
         }
 
+        if (fov.inAttackRange)
+        {
+            enemyController.velocity = new Vector3(0, 0, 0);
+        }
     }
 }
 

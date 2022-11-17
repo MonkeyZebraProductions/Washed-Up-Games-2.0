@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : StateMachine
 {
  
-
-
     List<SteeringBehaviour> behaviours = new List<SteeringBehaviour>();
-  
-  
+    [SerializeField]
+    private FOV fov;
+    public IdleState idleState;
     public Vector3 force = Vector3.zero;
     public Vector3 acceleration = Vector3.zero;
-    public Vector3 velocity = Vector3.zero;
+    public Vector3 velocity = Vector3.zero; 
     public float mass = 1;
 
     [Range(0.0f, 10.0f)]
@@ -30,6 +29,11 @@ public class EnemyController : MonoBehaviour
 
     public Vector3 desired;
 
+    public LayerMask obstacleMask;
+    public float boundsRadius = .27f;
+    public float avoidCollisionWeight = 10;
+    public float collisionAvoidDst = 5;
+
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
@@ -39,10 +43,21 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + force * 10);
     }
 
+     void Awake()
+    {
+        
+    }
+
+    protected override BaseState GetInitalState()
+    {
+        return idleState;
+    }
+
     // Use this for initialization
     void Start()
     {
-       
+        fov = GetComponent<FOV>();
+
          SteeringBehaviour[] behaviours = GetComponents<SteeringBehaviour>();
 
         foreach (SteeringBehaviour b in behaviours)
@@ -117,6 +132,41 @@ public class EnemyController : MonoBehaviour
         return force;
     }
 
+    
+    bool IsHeadingForCollision()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, boundsRadius, transform.forward, out hit, collisionAvoidDst, obstacleMask))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    Vector3 ObstacleRays()
+    {
+        Vector3[] rayDirections = ObstacleAvoidanceHelper.directions;
+
+        for (int i = 0; i < rayDirections.Length; i++)
+        {
+            Vector3 dir = transform.TransformDirection(rayDirections[i]);
+            Ray ray = new Ray(transform.position, dir);
+            if (!Physics.SphereCast(ray,boundsRadius,collisionAvoidDst,obstacleMask))
+            {
+                return dir;
+            }
+        }
+
+        return transform.forward;
+    }
+
+
+    Vector3 SteerTowards(Vector3 vector)
+    {
+        Vector3 v = vector.normalized * maxSpeed - velocity;
+        return Vector3.ClampMagnitude(v, maxForce);
+    }
+
     public void FixedUpdate()
     {
       
@@ -125,8 +175,6 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
-
          force = Calculate();
         acceleration = force / mass;
         velocity += acceleration * Time.deltaTime;
@@ -140,6 +188,21 @@ public class EnemyController : MonoBehaviour
 
             transform.position += velocity * Time.deltaTime;
             velocity *= (1.0f - (damping * Time.deltaTime));
+        }
+
+        if(IsHeadingForCollision())
+        {
+            Vector3 collisionAvoidDir = ObstacleRays();
+            Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * avoidCollisionWeight;
+            desired = Vector3.ClampMagnitude(desired, maxForce);
+            velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+            velocity += desired * Time.deltaTime;
+
+            transform.position += velocity * Time.deltaTime;
+            transform.forward = velocity.normalized;
+
+            Debug.DrawLine(transform.position, transform.position + velocity, Color.red);
+            Debug.DrawLine(transform.position, transform.position + desired, Color.green);
         }
     }
 }

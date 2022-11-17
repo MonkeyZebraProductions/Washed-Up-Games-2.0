@@ -2,53 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public class StateMachine2 : MonoBehaviour
 {
-    
-    public BaseState currentState;
-
-    private void Start()
-    {
-        currentState = GetInitalState();
-    }
-
-    void Update()
-    {
-        if (currentState != null)
-        {
-            currentState.UpdateLogic();
-        }
-    }
-
-    void LateUpdate()
-    {
-        if (currentState != null)
-        {
-            currentState.UpdatePhysics();
-        }
-    }
-
-    public void ChangeState(BaseState newState)
-    {
-        currentState.Exit();
-
-        currentState = newState;
-        currentState.Enter();
-    }
-
-    protected virtual BaseState GetInitalState()
-    {
-        return null;
-    }
-
-   
-
-/*
     public FOV fOV;
 
-    public BaseState currentState;
-    public BaseState globalState;
-    public BaseState previousState;
+    public BaseState2 currentState;
+    public BaseState2 globalState;
+    public BaseState2 previousState;
+
+    public IdleState2 idlestate;
 
     private IEnumerator coroutine;
     public int updatesPerSecond = 5;
@@ -56,7 +18,8 @@ public class StateMachine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetInitalState();
+      
     }
 
     private void OnEnable()
@@ -68,10 +31,17 @@ public class StateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void ChangeStateDelayed(BaseState newState, float delay)
+    public void GetInitalState()
+    {
+        currentState = idlestate;
+        Debug.Log("Idle State Inital");
+
+    }
+
+    public void ChangeStateDelayed(BaseState2 newState, float delay)
     {
         coroutine = ChangeStateCoRoutine(newState, delay);
         StartCoroutine(coroutine);
@@ -85,7 +55,7 @@ public class StateMachine : MonoBehaviour
         }
     }
 
-    IEnumerator ChangeStateCoRoutine(BaseState newState, float delay)
+    IEnumerator ChangeStateCoRoutine(BaseState2 newState, float delay)
     {
         yield return new WaitForSeconds(delay);
         ChangeState(newState);
@@ -96,7 +66,7 @@ public class StateMachine : MonoBehaviour
         ChangeState(previousState);
     }
 
-    public void ChangeState(BaseState newState)
+    public void ChangeState(BaseState2 newState)
     {
         if (currentState != null)
         {
@@ -131,7 +101,7 @@ public class StateMachine : MonoBehaviour
     }
 
 
-    public void SetGlobalState(BaseState state)
+    public void SetGlobalState(BaseState2 state)
     {
         if (globalState != null)
         {
@@ -144,5 +114,4 @@ public class StateMachine : MonoBehaviour
             globalState.Enter();
         }
     }
-*/
 }

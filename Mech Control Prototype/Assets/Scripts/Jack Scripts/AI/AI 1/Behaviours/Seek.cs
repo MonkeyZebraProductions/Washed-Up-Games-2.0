@@ -29,10 +29,15 @@ public class Seek : SteeringBehaviour
 
     public void Update()
     {
+        target = new Vector3(enemyController.targetTransform.position.x, enemyController.targetTransform.position.y, enemyController.targetTransform.position.z);
+        enemyController.target = target;
+
+        /*
         if (targetGameObject != null)
         {
             target = targetGameObject.transform.position;
         }
+        */
     }
 }
 

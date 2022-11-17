@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RetreatState : BaseState
+public class PatrolState2 : BaseState2
 {
-   
-
     public override void Enter()
     {
 
-   
     }
 
-    public override void UpdateLogic() { }
-    public override void UpdatePhysics() { }
+    public override void Think()
+    {
+
+    }
 
     public override void Exit()
     {
-       
+
     }
 }
