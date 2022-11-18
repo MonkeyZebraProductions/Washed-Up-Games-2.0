@@ -41,6 +41,8 @@ public class StandardShotModule : MonoBehaviour
 
     public LineRenderer lr;
 
+    public WeaponSwitching _WS;
+
 
     void Awake()
     {
@@ -87,6 +89,9 @@ public class StandardShotModule : MonoBehaviour
             lr.sharedMaterial.SetColor("_Color", Color.green);
         }
         */
+
+        _WS.IsAiming = _isAiming;
+        _WS.IsFiring = isFiring;
     }
 
     public void OnEnable()

@@ -8,7 +8,7 @@ public class GrappleSystem : MonoBehaviour
 {
     private PlayerInput playerInput;
 
-    public WeaponSystemController weaponSystemController;
+    public WeaponSwitching _WS;
 
 
 
@@ -55,7 +55,7 @@ public class GrappleSystem : MonoBehaviour
     {
         Debug.DrawRay(SpawnPoint.position, SpawnPoint.forward * 10, Color.green);
 
-        if (Grapple.triggered && weaponSystemController._isAiming && !weaponSystemController.isFiring)
+        if (Grapple.triggered && _WS.IsAiming && !_WS.IsFiring)
         {
             IsGrappling = true;
 

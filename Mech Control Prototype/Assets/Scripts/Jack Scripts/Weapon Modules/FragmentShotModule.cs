@@ -39,6 +39,8 @@ public class FragmentShotModule : MonoBehaviour
 
     public LineRenderer lr;
 
+    public WeaponSwitching _WS;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -75,6 +77,9 @@ public class FragmentShotModule : MonoBehaviour
             isFiring = false;
             lr.sharedMaterial.SetColor("_Color", Color.green);
         }
+
+        _WS.IsAiming = _isAiming;
+        _WS.IsFiring = isFiring;
     }
 
     public void OnEnable()
