@@ -6,12 +6,13 @@ public class EnemyUnitHealth : MonoBehaviour
 {
     public int currentHealth;
     public int MaxHealth;
-
+    private ParticleSystem BloodSplatter;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = MaxHealth;
+        BloodSplatter = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -27,6 +28,7 @@ public class EnemyUnitHealth : MonoBehaviour
     {
         if (currentHealth > 0)
         {
+            BloodSplatter.Play();
             currentHealth -= damage;
         }
     }

@@ -43,6 +43,9 @@ public class StandardShotModule : MonoBehaviour
 
     public WeaponSwitching _WS;
 
+    public Animator WeaponAnims;
+
+    public AudioSource Fire;
 
     void Awake()
     {
@@ -206,6 +209,8 @@ public class StandardShotModule : MonoBehaviour
                     lr.sharedMaterial.SetColor("_Color", Color.red);
                 }
             }
+            WeaponAnims.Play("FireWeapon");
+            Fire.Play();
         }
 
 

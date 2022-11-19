@@ -147,6 +147,7 @@ MonoBehaviour:
   isFiring: 0
   lr: {fileID: 1169275280107895150}
   _WS: {fileID: 0}
+  WeaponAnims: {fileID: 0}
 --- !u!1 &849851505336491989
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ae4c36f020359d4c8fff53852335dce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.086
+      value: -0.085999995
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ae4c36f020359d4c8fff53852335dce, type: 3}
       propertyPath: m_LocalPosition.z
@@ -352,11 +353,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ae4c36f020359d4c8fff53852335dce, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ae4c36f020359d4c8fff53852335dce, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ae4c36f020359d4c8fff53852335dce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

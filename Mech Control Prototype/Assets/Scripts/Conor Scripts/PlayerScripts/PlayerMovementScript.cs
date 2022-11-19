@@ -80,6 +80,9 @@ public class PlayerMovementScript : MonoBehaviour
     [Header("UpgradeBools")]
     public bool DashEnabled, JetpackEnabled;
 
+    [Header("Sounds")]
+    public AudioSource Walk;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -164,12 +167,14 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 _currentSpeed -= DashDecrease * Time.deltaTime;
                 controller.Move(AjdDash * _currentSpeed * Time.deltaTime);
+                Walk.Pause();
             }
 
             if(moveInput.magnitude==1)
             {
                 _stopWindow = false;
                 _currentSpeed = PlayerSpeed;
+                Walk.UnPause();
             }
 
             if (_currentSpeed <= 0.5f)
