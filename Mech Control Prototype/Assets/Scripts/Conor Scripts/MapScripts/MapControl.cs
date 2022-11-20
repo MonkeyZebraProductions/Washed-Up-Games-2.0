@@ -13,7 +13,7 @@ public class MapControl : MonoBehaviour
     public CinemachineVirtualCamera AimingCamera;
 
     public float PanSpeed, RotateSpeed, ZoomSpeed;
-    public float PanLimit;
+    public float MaxRotateXLimit, MinRotateXLimit;
 
     private bool _mapOpen, _isGlobal;
 
@@ -60,9 +60,26 @@ public class MapControl : MonoBehaviour
         transform.position += movement* PanSpeed*Time.deltaTime;
 
         Vector2 RotateInput = Rotate.ReadValue<Vector2>();
+        
         transform.localEulerAngles+=new Vector3(RotateInput.y, RotateInput.x, 0f) * RotateSpeed * Time.deltaTime;
+        float angle=transform.eulerAngles.x;
 
-        if(ZoomIn.IsPressed())
+        if(angle>180)
+        {
+            angle-=360;
+        }
+        if (angle > MaxRotateXLimit)
+        {
+            transform.localEulerAngles = new Vector3(MaxRotateXLimit, transform.localEulerAngles.y, 0f);
+        }
+        else if (angle < MinRotateXLimit)
+        {
+            transform.localEulerAngles = new Vector3(360+MinRotateXLimit, transform.localEulerAngles.y, 0f);
+        }
+
+        Debug.Log(angle);
+
+        if (ZoomIn.IsPressed())
         {
             MapCamera.fieldOfView += ZoomSpeed * Time.deltaTime;
         }
