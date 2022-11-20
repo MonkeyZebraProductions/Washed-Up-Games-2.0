@@ -10,7 +10,8 @@ public class GrappleSystem : MonoBehaviour
 
     public WeaponSwitching _WS;
 
-
+    public CinemachineVirtualCamera AimCam;
+    private float HorizSpeed, VertSpeed;
 
     //input actions
 
@@ -48,6 +49,8 @@ public class GrappleSystem : MonoBehaviour
         _pMS = GetComponentInParent<PlayerMovementScript>();
 
         Cursor.lockState = CursorLockMode.Locked;
+        HorizSpeed = AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed;
+        VertSpeed = AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed;
     }
 
     // Update is called once per frame
@@ -90,6 +93,8 @@ public class GrappleSystem : MonoBehaviour
                     VisibleAnchor.TargetReached = false;
                     VisibleAnchor.target = SpawnPoint.position;
                     _pMS.CanMove = false;
+                    AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed=0;
+                    AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = 0;
                 }
             }
         }
@@ -112,6 +117,8 @@ public class GrappleSystem : MonoBehaviour
             Destroy(VisibleAnchor.gameObject);
             _moveToGrapple = false;
             _pMS.CanMove = true;
+            AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = VertSpeed;
+            AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = HorizSpeed;
         }
         if (_moveToGrapple)
         {

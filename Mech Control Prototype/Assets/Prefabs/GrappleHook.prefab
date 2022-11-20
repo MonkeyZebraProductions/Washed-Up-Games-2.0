@@ -113,13 +113,13 @@ MonoBehaviour:
   Length: 10
   SpawnDistance: 1.5
   GrappleSpeed: 20
-  ZipSpeed: 10
+  ZipSpeed: 5
   HangTime: 0
   ReloadTime: 0
   IsHooked: 0
   TargetReached: 0
   ObjectGrabbed: 0
-  target: {x: -6.6692348, y: 2.144622, z: -2.8153527}
+  target: {x: -26.294674, y: 24.68968, z: 47.80984}
 --- !u!114 &-2951738900965043495
 MonoBehaviour:
   m_ObjectHideFlags: 0

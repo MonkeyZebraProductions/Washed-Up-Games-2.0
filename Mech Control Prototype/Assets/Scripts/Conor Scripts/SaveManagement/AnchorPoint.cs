@@ -27,7 +27,7 @@ public class AnchorPoint : MonoBehaviour
         {
             saveInput.SwitchCurrentActionMap("Player/UI");
             SaveCanvas.SetActive(true);
-            if(Submit.triggered)
+            if(Submit.IsPressed())
             {
                 _sLG.CurrentAreaNumber = AreaNumber;
                 _sLG.CurrentAnchorPointNumber = AnchorPointNumber;
