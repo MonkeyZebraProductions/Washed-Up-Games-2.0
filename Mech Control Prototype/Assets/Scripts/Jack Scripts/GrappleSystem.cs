@@ -38,6 +38,8 @@ public class GrappleSystem : MonoBehaviour
     private Rigidbody _grappleRigidbody;
     public float LaunchForce;
 
+    public AudioSource HookSfx;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -62,6 +64,7 @@ public class GrappleSystem : MonoBehaviour
         {
             IsGrappling = true;
 
+            
             if (VisibleAnchor == null && GrabbedObject == null)
             {
                 //spawn Grapple Hook if not visible or Grabbing
@@ -69,6 +72,7 @@ public class GrappleSystem : MonoBehaviour
                 Instantiate(GrappleObject, SpawnPoint.position + SpawnPoint.forward * _gH.SpawnDistance * 1.1f, Quaternion.identity);
                 VisibleAnchor = FindObjectOfType<GrapplingHook>();
                 VisibleAnchor.TargetReached = false;
+                HookSfx.Play();
             }
             else
             {

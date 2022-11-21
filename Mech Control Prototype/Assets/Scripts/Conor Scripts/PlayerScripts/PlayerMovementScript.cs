@@ -167,14 +167,18 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 _currentSpeed -= DashDecrease * Time.deltaTime;
                 controller.Move(AjdDash * _currentSpeed * Time.deltaTime);
-                Walk.Pause();
+                
             }
 
             if(moveInput.magnitude==1)
             {
                 _stopWindow = false;
                 _currentSpeed = PlayerSpeed;
-                Walk.UnPause();
+                if(!Walk.isPlaying && _isGrounded)
+                {
+                    Walk.Play();
+                }
+                
             }
 
             if (_currentSpeed <= 0.5f)

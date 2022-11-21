@@ -17,13 +17,17 @@ public class AirArmour : MonoBehaviour
     public TextMeshProUGUI AirText;
     public Slider AirBar1, AirBar2;
     public Transform Needle;
-    public Material AirMat;
+    public Material AirMat,DialMat;
+
+    private ParticleSystem Sparks;
+    public AudioSource SparkSfx;
+
     // Start is called before the first frame update
     void Start()
     {
         air = MaxAir;
         damage = BaseDamageMultiplier;
-        AirMat.SetColor("_EmissionColor", new Color(0, 1, 0) * 1.25f);
+        Sparks = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -58,12 +62,15 @@ public class AirArmour : MonoBehaviour
 
         Needle.localRotation =Quaternion.Euler(0, 0, MapFunction(damage, BaseDamageMultiplier, MaxDamage, -30f, 210f));
         AirMat.SetColor("_EmissionColor", new Color(1-MapFunction(air, MaxAir, MaxAir/5, 1, 0),MapFunction(air, MaxAir, MaxAir / 5, 1, 0), 0)*1.25f);
-        
+        DialMat.SetColor("_EmissionColor", new Color(MapFunction(damage, MaxDamage, MaxDamage / 5, 1, 0), 1-MapFunction(damage, MaxDamage, MaxDamage / 5, 1, 0), 0) * 1.25f);
+
     }
 
     public void RecieveArmourDamage(float damageRecieved)
     {
         damage += damageRecieved;
+        Sparks.Play();
+        SparkSfx.Play();
     }
 
     public void RecieveArmourRepair(float repairAmount)
