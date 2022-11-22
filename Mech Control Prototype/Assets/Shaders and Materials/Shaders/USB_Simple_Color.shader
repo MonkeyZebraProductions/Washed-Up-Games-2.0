@@ -32,8 +32,8 @@ Shader "Unlit/USB_Simple_Color"
 
         
         Blend[_SrcBlend][_DstBlend]
-        ZWrite Off
-        ZTest LEqual
+        ZWrite On
+        ZTest Greater
         Pass
         {
             CGPROGRAM

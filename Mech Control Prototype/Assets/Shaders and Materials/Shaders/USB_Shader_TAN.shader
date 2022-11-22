@@ -5,12 +5,21 @@ Shader "Unlit/USB_Shader_TAN"
         _MainTex ("Texture", 2D) = "white" {}
         _Color("Color", Color) = (1, 1, 1, 1)
         _Sections("Sections", Range(2, 100)) = 100
+        _Speed("Speed", Range(0, 10)) = 1
+        
+        [Enum(UnityEngine.Rendering.BlendMode)]
+        _SrcBlend("SrcFactor", Float) = 1
+        [Enum(UnityEngine.Rendering.BlendMode)]
+        _DstBlend("DstFactor", Float) = 1
     }
     SubShader
     {
         Tags {"RenderType" = "Transparent" "Queue" = "Transparent"}
-        Blend SrcAlpha OneMinusSrcAlpha
+        Blend[_SrcBlend][_DstBlend]
         LOD 100
+
+        Lighting Off
+        
 
         Pass
         {
@@ -21,6 +30,7 @@ Shader "Unlit/USB_Shader_TAN"
             #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
+            #include "noiseSimplex.cginc"
 
             struct appdata
             {
@@ -40,6 +50,9 @@ Shader "Unlit/USB_Shader_TAN"
 
             float4 _Color;
             float _Sections;
+            float _Speed;
+
+            uniform float _NoiseFrequency, _NoiseScale, _NoiseSpeed, _PixelOffset;
 
             v2f vert (appdata v)
             {
@@ -53,7 +66,7 @@ Shader "Unlit/USB_Shader_TAN"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                float4 tanCol = clamp(0, abs(tan((i.uv.y - _Time.x) * _Sections)), 1);
+                float4 tanCol = clamp(0, abs(tan((i.uv.y - ((_Time.x) * _Speed)) * _Sections)), 1);
                 tanCol *= _Color;
                 fixed4 col = tex2D(_MainTex, i.uv) * tanCol;
                 // apply fog
