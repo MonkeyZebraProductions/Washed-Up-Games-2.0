@@ -77,7 +77,7 @@ public class MapControl : MonoBehaviour
             transform.localEulerAngles = new Vector3(360+MinRotateXLimit, transform.localEulerAngles.y, 0f);
         }
 
-        Debug.Log(angle);
+        
 
         if (ZoomIn.IsPressed())
         {

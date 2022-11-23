@@ -5,12 +5,12 @@ using UnityEngine;
 public class Anchor : MonoBehaviour
 {
     private GrapplingHook _gH;
-    private GunScript _gS;
+    private GrappleSystem _gS;
     // Start is called before the first frame update
     void Start()
     {
         _gH = FindObjectOfType<GrapplingHook>();
-        _gS = FindObjectOfType<GunScript>();
+        _gS = FindObjectOfType<GrappleSystem>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,13 +21,16 @@ public class Anchor : MonoBehaviour
             if (other.gameObject.tag == "GrapplePad")
             {
                 _gH.IsHooked = true;
+                _gH.TargetReached = true;
             }
             else if (other.gameObject.tag == "GrabbableObject")
             {
                 other.gameObject.transform.SetParent(this.transform);
+                other.gameObject.transform.localPosition = Vector3.zero;
+                other.transform.localRotation = Quaternion.identity;
                 _gH.ObjectGrabbed = true;
             }
-            _gH.TargetReached = true;
+            
         }
         else
         {

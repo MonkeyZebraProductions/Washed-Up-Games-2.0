@@ -47,6 +47,8 @@ public class StandardShotModule : MonoBehaviour
 
     public AudioSource Fire;
 
+    public Color LineColor;
+
     void Awake()
     {
         playerInput = GetComponentInParent<PlayerInput>();
@@ -63,6 +65,7 @@ public class StandardShotModule : MonoBehaviour
         Reload = playerInput.actions["Reload"];
 
         _currentAmmoCount = _MaxAmmoCount;
+        lr.sharedMaterial.SetColor("_Color", LineColor);
     }
 
 
@@ -164,7 +167,7 @@ public class StandardShotModule : MonoBehaviour
     public void EndShoot()
     {
         isFiring = false;
-        lr.sharedMaterial.SetColor("_Color", Color.green);
+        lr.sharedMaterial.SetColor("_Color", LineColor);
     }
 
     public Vector3 GetShootingDirection()
@@ -195,7 +198,7 @@ public class StandardShotModule : MonoBehaviour
                 if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, _weaponRange))
                 {
                     Debug.DrawRay(muzzle.transform.position, hit.point, Color.blue, 5f);
-                    lr.sharedMaterial.SetColor("_Color", Color.blue);
+                    //lr.sharedMaterial.SetColor("_Color", Color.blue);
 
                     if (hit.collider.tag == "Enemy")
                     {
@@ -206,7 +209,7 @@ public class StandardShotModule : MonoBehaviour
                 else if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, Mathf.Infinity))
                 {
                     Debug.DrawLine(muzzle.transform.position, hit.point, Color.red, 5f);
-                    lr.sharedMaterial.SetColor("_Color", Color.red);
+                    //lr.sharedMaterial.SetColor("_Color", Color.red);
                 }
             }
             WeaponAnims.Play("FireWeapon");

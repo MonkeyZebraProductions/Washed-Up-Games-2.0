@@ -110,16 +110,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ad929914ec101459b5bfef95331bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Length: 10
+  Length: 20
   SpawnDistance: 1.5
-  GrappleSpeed: 20
-  ZipSpeed: 5
+  GrappleSpeed: 40
+  ZipSpeed: 100
   HangTime: 0
   ReloadTime: 0
   IsHooked: 0
   TargetReached: 0
   ObjectGrabbed: 0
-  target: {x: -26.294674, y: 24.68968, z: 47.80984}
+  target: {x: -20.980036, y: 17.060835, z: 45.920795}
 --- !u!114 &-2951738900965043495
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -58,7 +58,7 @@ public class GrappleSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(SpawnPoint.position, SpawnPoint.forward * 10, Color.green);
+        Debug.DrawRay(SpawnPoint.position, SpawnPoint.forward * 20, Color.green);
 
         if (Grapple.triggered && _WS.IsAiming && !_WS.IsFiring)
         {
@@ -67,12 +67,7 @@ public class GrappleSystem : MonoBehaviour
             
             if (VisibleAnchor == null && GrabbedObject == null)
             {
-                //spawn Grapple Hook if not visible or Grabbing
-                _gH.target = SpawnPoint.position + SpawnPoint.forward * _gH.Length;
-                Instantiate(GrappleObject, SpawnPoint.position + SpawnPoint.forward * _gH.SpawnDistance * 1.1f, Quaternion.identity);
-                VisibleAnchor = FindObjectOfType<GrapplingHook>();
-                VisibleAnchor.TargetReached = false;
-                HookSfx.Play();
+                SpawnHook();
             }
             else
             {
@@ -84,24 +79,23 @@ public class GrappleSystem : MonoBehaviour
                     GrabbedObject = null;
                     IsGrappling = false;
                 }
-                else if (VisibleAnchor.IsHooked)
-                {
-                    //moves the Player if attatched to a point
-                    _moveToGrapple = true;
-                    moveVector = VisibleAnchor.target - transform.position;
-                    _pMS.CanMove = false;
-                }
-                else
-                {
-                    //brings hook back
-                    VisibleAnchor.TargetReached = false;
-                    VisibleAnchor.target = SpawnPoint.position;
-                    _pMS.CanMove = false;
-                    AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed=0;
-                    AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = 0;
-                }
             }
         }
+
+        if (VisibleAnchor.IsHooked)
+        {
+            //moves the Player if attatched to a point
+            _moveToGrapple = true;
+            moveVector = VisibleAnchor.target - transform.position;
+            _pMS.CanMove = false;
+        }
+
+        if(VisibleAnchor.transform.position==VisibleAnchor.target)
+        {
+            BringBack();
+        }
+
+        
 
         //destroys hook once it gets close to the player
         if (Vector3.Distance(VisibleAnchor.transform.position, transform.position) <= VisibleAnchor.SpawnDistance)
@@ -110,6 +104,7 @@ public class GrappleSystem : MonoBehaviour
             {
                 GrabbedObject = VisibleAnchor.transform.GetChild(0).gameObject;
                 GrabbedObject.transform.SetParent(this.transform);
+                GrabbedObject.transform.localPosition = SpawnPoint.localPosition;
                 _grappleRigidbody = GrabbedObject.GetComponent<Rigidbody>();
                 _grappleRigidbody.isKinematic = true;
             }
@@ -118,6 +113,7 @@ public class GrappleSystem : MonoBehaviour
                 IsGrappling = false;
             }
             Debug.Log("Die");
+            VisibleAnchor.IsHooked = false;
             Destroy(VisibleAnchor.gameObject);
             _moveToGrapple = false;
             _pMS.CanMove = true;
@@ -126,8 +122,28 @@ public class GrappleSystem : MonoBehaviour
         }
         if (_moveToGrapple)
         {
-            controller.Move(moveVector * Time.deltaTime * _gH.ZipSpeed);
+            controller.Move(moveVector.normalized * Time.deltaTime * _gH.ZipSpeed);
         }
+    }
+
+    void SpawnHook()
+    {
+        //spawn Grapple Hook if not visible or Grabbing
+        _gH.target = SpawnPoint.position + SpawnPoint.forward * _gH.Length;
+        Instantiate(GrappleObject, SpawnPoint.position + SpawnPoint.forward * _gH.SpawnDistance * 1.1f, Quaternion.identity);
+        VisibleAnchor = FindObjectOfType<GrapplingHook>();
+        VisibleAnchor.TargetReached = false;
+        HookSfx.Play();
+    }
+
+    void BringBack()
+    {
+        //brings hook back
+        VisibleAnchor.TargetReached = false;
+        VisibleAnchor.target = SpawnPoint.position;
+        _pMS.CanMove = false;
+        AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = 0;
+        AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = 0;
     }
 }
 
