@@ -49,6 +49,10 @@ public class StandardShotModule : MonoBehaviour
 
     public Color LineColor;
 
+    public RaycastHit WeaponHit;
+
+    public GameObject Projectile;
+
     void Awake()
     {
         playerInput = GetComponentInParent<PlayerInput>();
@@ -66,6 +70,7 @@ public class StandardShotModule : MonoBehaviour
 
         _currentAmmoCount = _MaxAmmoCount;
         lr.sharedMaterial.SetColor("_Color", LineColor);
+
     }
 
 
@@ -81,23 +86,14 @@ public class StandardShotModule : MonoBehaviour
             }
         }
 
-        /*
-
-        if (Shoot.IsPressed())
-        {
-            WeaponShoot();
-            isFiring = true;
-        }
-
-        else
-        {
-            isFiring = false;
-            lr.sharedMaterial.SetColor("_Color", Color.green);
-        }
-        */
-
         _WS.IsAiming = _isAiming;
         _WS.IsFiring = isFiring;
+        if(_isAiming)
+        {
+            WeaponLaser();
+            Physics.Raycast(muzzle.transform.position, transform.forward, out WeaponHit,10000f);
+        }
+        
     }
 
     public void OnEnable()
@@ -123,28 +119,22 @@ public class StandardShotModule : MonoBehaviour
     {
         AimCamera.Priority += PriorityChanger;
         _isAiming = true;
-        WeaponLaser();
+        
 
     }
 
     public void WeaponLaser()
     {
 
-
-        RaycastHit hit2;
-        if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit2))
-        {
-            if (hit2.collider)
+            if (WeaponHit.collider)
             {
-
-                lr.SetPosition(1, new Vector3(0, 0, hit2.distance));
+                lr.SetPosition(1, new Vector3(0, 0, WeaponHit.distance));
             }
-
             else
             {
-                lr.SetPosition(1, new Vector3(0, 0, Mathf.Infinity));
+                lr.SetPosition(1, new Vector3(0, 0, 10000f));
             }
-        }
+        
     }
 
 
@@ -170,48 +160,47 @@ public class StandardShotModule : MonoBehaviour
         lr.sharedMaterial.SetColor("_Color", LineColor);
     }
 
-    public Vector3 GetShootingDirection()
-    {
-        Vector3 targetPosition = muzzle.transform.position + muzzle.transform.forward * 100f;
-        targetPosition = new Vector3(
-            targetPosition.x + Random.Range(-_weaponSpread, _weaponSpread),
-            targetPosition.y + Random.Range(-_weaponSpread, _weaponSpread),
-            targetPosition.z + Random.Range(-_weaponSpread, _weaponSpread)
-            );
+    //public Vector3 GetShootingDirection()
+    //{
+    //    Vector3 targetPosition = muzzle.transform.position + muzzle.transform.forward;
+    //    targetPosition = new Vector3(
+    //        targetPosition.x + Random.Range(-_weaponSpread, _weaponSpread),
+    //        targetPosition.y + Random.Range(-_weaponSpread, _weaponSpread),
+    //        targetPosition.z + Random.Range(-_weaponSpread, _weaponSpread)
+    //        );
 
-        WeaponScriptableObject.direction = targetPosition - muzzle.transform.position;
+    //    WeaponScriptableObject.direction = targetPosition - muzzle.transform.position;
 
-        return WeaponScriptableObject.direction.normalized;
+    //    return WeaponScriptableObject.direction.normalized;
 
-    }
+    //}
 
-    
+
 
     public void RaycastShoot()
     {
         if (_isAiming && !grappleSystem.IsGrappling && _currentAmmoCount > 0)
         {
-            for (int i = 0; i < _bulletsPerShot; i++)
-            {
-                _currentAmmoCount--;
-                RaycastHit hit;
-                if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, _weaponRange))
-                {
-                    Debug.DrawRay(muzzle.transform.position, hit.point, Color.blue, 5f);
-                    //lr.sharedMaterial.SetColor("_Color", Color.blue);
+            _currentAmmoCount--;
 
-                    if (hit.collider.tag == "Enemy")
-                    {
-                        hit.transform.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(1);
-                    }
-                }
-
-                else if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit, Mathf.Infinity))
-                {
-                    Debug.DrawLine(muzzle.transform.position, hit.point, Color.red, 5f);
-                    //lr.sharedMaterial.SetColor("_Color", Color.red);
-                }
-            }
+            //if (WeaponHit.collider)
+            //{
+            //    if (WeaponHit.collider.gameObject.tag == "Enemy")
+            //    {
+            //        WeaponHit.transform.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(1);
+            //        Debug.DrawRay(muzzle.transform.position, WeaponHit.point, Color.blue, 5f);
+            //        lr.sharedMaterial.SetColor("_Color", Color.blue);
+            //    }
+            //    else
+            //    {
+            //        Debug.DrawLine(muzzle.transform.position, WeaponHit.point, Color.red, 5f);
+            //        lr.sharedMaterial.SetColor("_Color", Color.red);
+            //    }
+            //}  
+            Instantiate(Projectile, muzzle.transform.position, muzzle.transform.rotation);
+                    
+                
+            
             WeaponAnims.Play("FireWeapon");
             Fire.Play();
         }
