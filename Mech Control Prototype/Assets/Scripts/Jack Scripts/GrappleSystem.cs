@@ -11,7 +11,7 @@ public class GrappleSystem : MonoBehaviour
     public WeaponSwitching _WS;
 
     public CinemachineVirtualCamera AimCam;
-    private float HorizSpeed, VertSpeed;
+    public float HorizSpeed, VertSpeed;
 
     //input actions
 

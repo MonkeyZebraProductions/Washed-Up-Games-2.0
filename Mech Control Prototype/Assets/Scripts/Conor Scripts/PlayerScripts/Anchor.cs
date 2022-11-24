@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Anchor : MonoBehaviour
 {
     private GrapplingHook _gH;
     private GrappleSystem _gS;
+    private PlayerMovementScript _pMS;
     // Start is called before the first frame update
     void Start()
     {
         _gH = FindObjectOfType<GrapplingHook>();
         _gS = FindObjectOfType<GrappleSystem>();
+        _pMS = FindObjectOfType<PlayerMovementScript>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,7 +38,11 @@ public class Anchor : MonoBehaviour
         else
         {
             _gS.IsGrappling = false;
+            _gS.AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = _gS.VertSpeed;
+            _gS.AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = _gS.HorizSpeed;
             Destroy(this.gameObject);
+            _pMS.CanMove = true;
+
         }
     }
 }
