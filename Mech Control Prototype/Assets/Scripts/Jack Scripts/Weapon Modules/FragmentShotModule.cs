@@ -41,6 +41,15 @@ public class FragmentShotModule : MonoBehaviour
 
     public WeaponSwitching _WS;
 
+    public Color LineColor;
+
+    public RaycastHit WeaponHit;
+
+    public Collider ShotgunBox;
+
+    public Animator WeaponAnims;
+
+    private ParticleSystem Blast;
 
     // Start is called before the first frame update
     void Awake()
@@ -59,6 +68,12 @@ public class FragmentShotModule : MonoBehaviour
         Reload = playerInput.actions["Reload"];
 
         _currentAmmoCount = _MaxAmmoCount;
+
+        ShotgunBox.enabled = false;
+        _WS.IsAiming = _isAiming;
+        _WS.IsFiring = isFiring;
+        lr.sharedMaterial.SetColor("_Color", LineColor);
+        Blast = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -66,20 +81,19 @@ public class FragmentShotModule : MonoBehaviour
     {
         _currentAmmoCount = Mathf.Clamp(_currentAmmoCount, 0, _MaxAmmoCount);
 
-        if (Shoot.IsPressed())
+        if(isFiring)
         {
-            //WeaponShoot();
-            isFiring = true;
-        }
-
-        else
-        {
-            isFiring = false;
-            lr.sharedMaterial.SetColor("_Color", Color.green);
+            WeaponShoot();
         }
 
         _WS.IsAiming = _isAiming;
         _WS.IsFiring = isFiring;
+
+        if (_isAiming)
+        {
+            WeaponLaser();
+            Physics.Raycast(muzzle.transform.position, transform.forward, out WeaponHit, 10000f);
+        }
     }
 
     public void OnEnable()
@@ -87,41 +101,37 @@ public class FragmentShotModule : MonoBehaviour
         Aim.performed += _ => StartAim();
         Aim.canceled += _ => EndAim();
 
+        Shoot.performed += _ => StartShoot();
+        Shoot.canceled += _ => EndShoot();
+
     }
 
     public void OnDisable()
     {
         Aim.performed -= _ => StartAim();
         Aim.canceled -= _ => EndAim();
+
+        Shoot.performed -= _ => StartShoot();
+        Shoot.canceled -= _ => EndShoot();
     }
 
     public void StartAim()
     {
         AimCamera.Priority += PriorityChanger;
         _isAiming = true;
-        WeaponLaser();
 
     }
 
     public void WeaponLaser()
     {
-        /*
-
-        RaycastHit hit2;
-        if (Physics.Raycast(muzzle.transform.position, GetShootingDirection(), out hit2))
+        if (WeaponHit.collider)
         {
-            if (hit2.collider)
-            {
-
-                lr.SetPosition(1, new Vector3(0, 0, hit2.distance));
-            }
-
-            else
-            {
-                lr.SetPosition(1, new Vector3(0, 0, Mathf.Infinity));
-            }
+            lr.SetPosition(1, new Vector3(0, 0, WeaponHit.distance));
         }
-        */
+        else
+        {
+            lr.SetPosition(1, new Vector3(0, 0, 10000f));
+        }
     }
 
 
@@ -135,6 +145,17 @@ public class FragmentShotModule : MonoBehaviour
 
     }
 
+    public void StartShoot()
+    {
+        isFiring = true;
+    }
+
+    public void EndShoot()
+    {
+        isFiring = false;
+        lr.sharedMaterial.SetColor("_Color", LineColor);
+    }
+
     public void WeaponShoot()
     {
 
@@ -146,45 +167,56 @@ public class FragmentShotModule : MonoBehaviour
 
     }
 
-    public Vector3 WeaponSpread()
-    {
-        Vector3 spread = muzzle.position + muzzle.forward * 1000f;
-        spread += Random.Range(-_weaponSpread, _weaponSpread) * muzzle.up;
-        spread += Random.Range(-_weaponSpread, _weaponSpread) * muzzle.right;
-        spread -= muzzle.position;
-        spread.Normalize();
-        return spread;
-    }
+    //public Vector3 WeaponSpread()
+    //{
+    //    Vector3 spread = muzzle.position + muzzle.forward * 1000f;
+    //    spread += Random.Range(-_weaponSpread, _weaponSpread) * muzzle.up;
+    //    spread += Random.Range(-_weaponSpread, _weaponSpread) * muzzle.right;
+    //    spread -= muzzle.position;
+    //    spread.Normalize();
+    //    return spread;
+    //}
 
     public void RaycastShoot()
     {
 
         if (_isAiming && !grappleSystem.IsGrappling && _currentAmmoCount > 0)
         {
-            for (int i = 0; i < _bulletsPerShot; i++)
-            {
-                _currentAmmoCount--;
-                RaycastHit hit;
-                if (Physics.Raycast(muzzle.position, WeaponSpread(), out hit, _weaponRange))
-                {
-                    Debug.DrawRay(muzzle.position, hit.point, Color.blue, 5f);
-                    lr.sharedMaterial.SetColor("_Color", Color.blue);
+            //for (int i = 0; i < _bulletsPerShot; i++)
+            //{
+            //    _currentAmmoCount--;
+            //    RaycastHit hit;
+            //    if (Physics.Raycast(muzzle.position, WeaponSpread(), out hit, _weaponRange))
+            //    {
+            //        Debug.DrawRay(muzzle.position, hit.point, Color.blue, 5f);
+            //        lr.sharedMaterial.SetColor("_Color", Color.blue);
 
-                    if (hit.collider.tag == "Enemy")
-                    {
-                        hit.transform.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(1);
-                    }
-                }
+            //        if (hit.collider.tag == "Enemy")
+            //        {
+            //            hit.transform.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(1);
+            //        }
+            //    }
 
-                else if (Physics.Raycast(muzzle.position, WeaponSpread(), out hit, Mathf.Infinity))
-                {
-                    Debug.DrawLine(muzzle.position, hit.point, Color.red, 5f);
-                    lr.sharedMaterial.SetColor("_Color", Color.red);
-                }
-            }
+            //    else if (Physics.Raycast(muzzle.position, WeaponSpread(), out hit, Mathf.Infinity))
+            //    {
+            //        Debug.DrawLine(muzzle.position, hit.point, Color.red, 5f);
+            //        lr.sharedMaterial.SetColor("_Color", Color.red);
+            //    }
+            //}
+
+            StartCoroutine(ShotgunCoroutine());
+            WeaponAnims.Play("FireWeapon");
+            Blast.Play();
         }
 
 
+    }
+
+    IEnumerator ShotgunCoroutine()
+    {
+        ShotgunBox.enabled = true;
+        yield return new WaitForSeconds(0.2f);
+        ShotgunBox.enabled = false;
     }
 
 }

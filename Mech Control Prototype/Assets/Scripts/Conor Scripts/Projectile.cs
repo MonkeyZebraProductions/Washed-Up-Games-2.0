@@ -22,7 +22,12 @@ public class Projectile : MonoBehaviour
         if(other.gameObject.tag=="Enemy")
         {
             other.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(1);
+        }
+        if (other.gameObject.GetComponent<LocalGlobalSwitcher>() == null)
+        {
+            Debug.Log(other.gameObject);
             Destroy(this.gameObject);
         }
+
     }
 }

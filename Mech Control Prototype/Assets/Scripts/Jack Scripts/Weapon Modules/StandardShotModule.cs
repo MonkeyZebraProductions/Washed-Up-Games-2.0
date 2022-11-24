@@ -70,6 +70,8 @@ public class StandardShotModule : MonoBehaviour
 
         _currentAmmoCount = _MaxAmmoCount;
         lr.sharedMaterial.SetColor("_Color", LineColor);
+        _WS.IsAiming = _isAiming;
+        _WS.IsFiring = isFiring;
 
     }
 
@@ -80,10 +82,9 @@ public class StandardShotModule : MonoBehaviour
 
         if(isFiring)
         {
-            if(Shoot.IsPressed())
-            {
-                WeaponShoot();
-            }
+           
+           WeaponShoot();
+            
         }
 
         _WS.IsAiming = _isAiming;
