@@ -382,7 +382,7 @@
                 {
                     "name": "",
                     "id": "7a1fa535-bae1-4c3b-86a0-fe4d489bd0cf",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -872,7 +872,7 @@
                 {
                     "name": "",
                     "id": "d56fabe9-8d63-43bf-ae24-0b3f81ff88e5",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -2005,7 +2005,7 @@
                 {
                     "name": "",
                     "id": "69ba1dcf-a94f-45d3-a866-f9dfa44a55ca",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
