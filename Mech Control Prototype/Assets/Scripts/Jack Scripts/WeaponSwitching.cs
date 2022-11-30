@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class WeaponSwitching : MonoBehaviour
 {
@@ -13,12 +14,15 @@ public class WeaponSwitching : MonoBehaviour
 
     public InputAction weaponSwitchingOneKey, weaponSwitchingTwoKey;
 
-    //public WeaponSystemController firstWeaponSlot, secondWeaponSlot;
 
     public GrappleSystem grappleSystem;
     public Punch punch;
 
     public bool IsAiming,IsFiring;
+
+    public int ClipAmmo, TotalAmmo;
+
+    public TextMeshProUGUI ClipCount, AmmoCount;
 
     // Start is called before the first frame update
     void Awake()
@@ -28,8 +32,6 @@ public class WeaponSwitching : MonoBehaviour
         weaponSwitchingTwoKey = playerInput.actions["TwoKey"];
 
         SwapWeapon(1);
-        //SwapGrapple(1);
-        //SwapPunch(1);
     }
 
     // Update is called once per frame
@@ -40,8 +42,6 @@ public class WeaponSwitching : MonoBehaviour
             if(weaponSlotSelected != 1)
             {
                 SwapWeapon(1);
-                //SwapGrapple(1);
-                //SwapPunch(1);
             }
         }
 
@@ -50,37 +50,12 @@ public class WeaponSwitching : MonoBehaviour
             if (weaponSlotSelected != 2)
             {
                 SwapWeapon(2);
-                //SwapGrapple(2);
-                //SwapPunch(2);
             }
         }
+
+        ClipCount.text = ClipAmmo.ToString();
+        AmmoCount.text = TotalAmmo.ToString();
     }
-
-    //void SwapPunch(int punchWeaponType)
-    //{
-    //    if (punchWeaponType == 1)
-    //    {
-    //        punch._wSC = firstWeaponSlot;
-    //    }
-
-    //    if (punchWeaponType == 2)
-    //    {
-    //        punch._wSC = secondWeaponSlot;
-    //    }
-    //}
-
-    //void SwapGrapple(int grappleWeaponType)
-    //{
-    //    if (grappleWeaponType == 1)
-    //    {
-    //        grappleSystem.weaponSystemController = firstWeaponSlot;
-    //    }
-
-    //    if (grappleWeaponType == 2)
-    //    {
-    //        grappleSystem.weaponSystemController = secondWeaponSlot;
-    //    }
-    //}
 
 
     void SwapWeapon(int weaponType)

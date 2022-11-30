@@ -11,6 +11,7 @@ public class WeaponScriptableObject : ScriptableObject
     // Ammo
     public int MaxAmmoCount;
     public int currentAmmoCount;
+    public int ClipSize;
 
     //Range
     public int weaponRange;

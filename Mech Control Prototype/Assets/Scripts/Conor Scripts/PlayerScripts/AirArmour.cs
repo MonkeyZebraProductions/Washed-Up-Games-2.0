@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Cinemachine;
+using UnityEngine.Audio;
 
 public class AirArmour : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class AirArmour : MonoBehaviour
     public float BaseDamageMultiplier = 1;
     public float MaxDamage = 10;
 
-    private float air, damage;
+    private float air, damage,lowAirDecreaseRate;
 
     public TextMeshProUGUI AirText;
     public Slider AirBar1, AirBar2;
@@ -22,19 +24,38 @@ public class AirArmour : MonoBehaviour
     private ParticleSystem Sparks;
     public AudioSource SparkSfx;
 
+    public CinemachineBrain Brain;
+    private CinemachineVirtualCamera Cam;
+    private CinemachineBasicMultiChannelPerlin Noise;
+    public float AmplitudeChange, FrequencyChange;
+
+    public AudioMixer Muffle;
+    public float LowPassCuttoffPercent;
+    private float _currentCutoff, _currentCutoffPercent;
+
     // Start is called before the first frame update
     void Start()
     {
         air = MaxAir;
         damage = BaseDamageMultiplier;
         Sparks = GetComponentInChildren<ParticleSystem>();
+        //Brain = FindObjectOfType<CinemachineBrain>();
+        lowAirDecreaseRate = 1;
+        _currentCutoff = 3500;
+        _currentCutoffPercent = 100;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if(damage<BaseDamageMultiplier)
+        Cam= Brain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>();
+        Noise = Cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        //_currentAmplitude = Noise.m_AmplitudeGain;
+        //_currentFrequency = Noise.m_FrequencyGain;
+
+
+        if (damage<BaseDamageMultiplier)
         {
             damage = BaseDamageMultiplier;
         }
@@ -49,11 +70,32 @@ public class AirArmour : MonoBehaviour
             damage = MaxDamage;
         }
 
-        air -= AirDecreaceRate * damage*Time.deltaTime;
+        air -= AirDecreaceRate * lowAirDecreaseRate * damage*Time.deltaTime;
 
         AirText.text = "Air: " + Mathf.Round(air*100)/100;
         AirBar1.maxValue = AirBar2.maxValue = MaxAir;
         AirBar1.value = AirBar2.value = MaxAir - air;
+
+        Muffle.SetFloat("CutoffFreq", _currentCutoff);
+        _currentCutoff = MapFunction(_currentCutoffPercent, 0, 100, 0, 3500);
+
+        if (air<MaxAir/4)
+        {
+            lowAirDecreaseRate = 0.75f;
+            if(_currentCutoffPercent> LowPassCuttoffPercent)
+            {
+                _currentCutoffPercent -= 20 * Time.deltaTime;
+            }
+        }
+        else
+        {
+            lowAirDecreaseRate = 1f;
+            if (_currentCutoffPercent < LowPassCuttoffPercent)
+            {
+                _currentCutoffPercent += 20*Time.deltaTime;
+            }
+        }
+
         if(air<=0)
         {
             //Kill
@@ -70,12 +112,14 @@ public class AirArmour : MonoBehaviour
     {
         damage += damageRecieved;
         Sparks.Play();
-        SparkSfx.Play();
+        //SparkSfx.Play();
+        StartCoroutine(CamaerShake());
     }
 
     public void RecieveArmourRepair(float repairAmount)
     {
         damage -= repairAmount;
+        
     }
 
     public void RefillAir(float refillAmount)
@@ -98,5 +142,14 @@ public class AirArmour : MonoBehaviour
     private float MapFunction(float x, float from_min, float from_max, float to_min, float to_max)
     {
         return (x - from_min) * (to_max - to_min) / (from_max - from_min) + to_min;
+    }
+
+    IEnumerator CamaerShake()
+    {
+        Noise.m_AmplitudeGain = AmplitudeChange;
+        Noise.m_FrequencyGain = FrequencyChange;
+        yield return new WaitForSeconds(1.3f);
+        Noise.m_AmplitudeGain = 2f;
+        Noise.m_FrequencyGain = 0.2f;
     }
 }

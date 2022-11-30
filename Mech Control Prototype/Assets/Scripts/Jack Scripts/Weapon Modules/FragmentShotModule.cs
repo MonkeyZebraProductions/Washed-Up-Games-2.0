@@ -31,9 +31,12 @@ public class FragmentShotModule : MonoBehaviour
     public int _MaxAmmoCount;
     public int _currentAmmoCount;
     public int _weaponRange;
+    public int _clipSize;
     public int _bulletsPerShot;
     public float _weaponSpread;
     public float _fireRate;
+
+    public int Ammo;
 
     public bool isFiring;
 
@@ -62,6 +65,8 @@ public class FragmentShotModule : MonoBehaviour
         _bulletsPerShot = WeaponScriptableObject.bulletsPerShot;
         _weaponSpread = WeaponScriptableObject.weaponSpread;
         _fireRate = WeaponScriptableObject.fireRate;
+        _clipSize = WeaponScriptableObject.ClipSize;
+        Ammo = _clipSize;
 
         Aim = playerInput.actions["Aim"];
         Shoot = playerInput.actions["Shoot"];
@@ -70,8 +75,8 @@ public class FragmentShotModule : MonoBehaviour
         _currentAmmoCount = _MaxAmmoCount;
 
         ShotgunBox.enabled = false;
-        _WS.IsAiming = _isAiming;
-        _WS.IsFiring = isFiring;
+        _isAiming = _WS.IsAiming;
+        //_WS.IsFiring = isFiring;
         lr.sharedMaterial.SetColor("_Color", LineColor);
         Blast = GetComponentInChildren<ParticleSystem>();
     }
@@ -88,6 +93,8 @@ public class FragmentShotModule : MonoBehaviour
 
         _WS.IsAiming = _isAiming;
         _WS.IsFiring = isFiring;
+        _WS.ClipAmmo = Ammo;
+        _WS.TotalAmmo = _currentAmmoCount;
 
         if (_isAiming)
         {
@@ -167,46 +174,31 @@ public class FragmentShotModule : MonoBehaviour
 
     }
 
-    //public Vector3 WeaponSpread()
-    //{
-    //    Vector3 spread = muzzle.position + muzzle.forward * 1000f;
-    //    spread += Random.Range(-_weaponSpread, _weaponSpread) * muzzle.up;
-    //    spread += Random.Range(-_weaponSpread, _weaponSpread) * muzzle.right;
-    //    spread -= muzzle.position;
-    //    spread.Normalize();
-    //    return spread;
-    //}
 
     public void RaycastShoot()
     {
 
-        if (_isAiming && !grappleSystem.IsGrappling && _currentAmmoCount > 0)
+        if (_isAiming && !grappleSystem.IsGrappling)
         {
-            //for (int i = 0; i < _bulletsPerShot; i++)
-            //{
-            //    _currentAmmoCount--;
-            //    RaycastHit hit;
-            //    if (Physics.Raycast(muzzle.position, WeaponSpread(), out hit, _weaponRange))
-            //    {
-            //        Debug.DrawRay(muzzle.position, hit.point, Color.blue, 5f);
-            //        lr.sharedMaterial.SetColor("_Color", Color.blue);
 
-            //        if (hit.collider.tag == "Enemy")
-            //        {
-            //            hit.transform.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(1);
-            //        }
-            //    }
+            if (Ammo > 0)
+            {
+                StartCoroutine(ShotgunCoroutine());
+                WeaponAnims.Play("FireWeapon");
+                Blast.Play();
+                Ammo--;
+            }
+            else if (_currentAmmoCount > 0)
+            {
+                Ammo = _clipSize;
+                _currentAmmoCount -= _clipSize;
+            }
+            else
+            {
+                Debug.Log("No Ammo");
+            }
 
-            //    else if (Physics.Raycast(muzzle.position, WeaponSpread(), out hit, Mathf.Infinity))
-            //    {
-            //        Debug.DrawLine(muzzle.position, hit.point, Color.red, 5f);
-            //        lr.sharedMaterial.SetColor("_Color", Color.red);
-            //    }
-            //}
-
-            StartCoroutine(ShotgunCoroutine());
-            WeaponAnims.Play("FireWeapon");
-            Blast.Play();
+           
         }
 
 

@@ -34,8 +34,11 @@ public class StandardShotModule : MonoBehaviour
     public int _currentAmmoCount;
     public int _weaponRange;
     public int _bulletsPerShot;
+    public int _clipSize;
     public float _weaponSpread;
     public float _fireRate;
+
+    public int Ammo;
 
     public bool isFiring;
 
@@ -63,6 +66,8 @@ public class StandardShotModule : MonoBehaviour
         _bulletsPerShot = WeaponScriptableObject.bulletsPerShot;
         _weaponSpread = WeaponScriptableObject.weaponSpread;
         _fireRate = WeaponScriptableObject.fireRate;
+        _clipSize= WeaponScriptableObject.ClipSize;
+        Ammo = _clipSize;
 
         Aim = playerInput.actions["Aim"];
         Shoot = playerInput.actions["Shoot"];
@@ -70,8 +75,8 @@ public class StandardShotModule : MonoBehaviour
 
         _currentAmmoCount = _MaxAmmoCount;
         lr.sharedMaterial.SetColor("_Color", LineColor);
-        _WS.IsAiming = _isAiming;
-        _WS.IsFiring = isFiring;
+        _isAiming = _WS.IsAiming;
+        //_WS.IsFiring = isFiring;
 
     }
 
@@ -89,7 +94,9 @@ public class StandardShotModule : MonoBehaviour
 
         _WS.IsAiming = _isAiming;
         _WS.IsFiring = isFiring;
-        if(_isAiming)
+        _WS.ClipAmmo = Ammo;
+        _WS.TotalAmmo = _currentAmmoCount;
+        if (_isAiming)
         {
             WeaponLaser();
             Physics.Raycast(muzzle.transform.position, transform.forward, out WeaponHit,10000f);
@@ -161,49 +168,31 @@ public class StandardShotModule : MonoBehaviour
         lr.sharedMaterial.SetColor("_Color", LineColor);
     }
 
-    //public Vector3 GetShootingDirection()
-    //{
-    //    Vector3 targetPosition = muzzle.transform.position + muzzle.transform.forward;
-    //    targetPosition = new Vector3(
-    //        targetPosition.x + Random.Range(-_weaponSpread, _weaponSpread),
-    //        targetPosition.y + Random.Range(-_weaponSpread, _weaponSpread),
-    //        targetPosition.z + Random.Range(-_weaponSpread, _weaponSpread)
-    //        );
-
-    //    WeaponScriptableObject.direction = targetPosition - muzzle.transform.position;
-
-    //    return WeaponScriptableObject.direction.normalized;
-
-    //}
 
 
 
     public void RaycastShoot()
     {
-        if (_isAiming && !grappleSystem.IsGrappling && _currentAmmoCount > 0)
+        if (_isAiming && !grappleSystem.IsGrappling)
         {
-            _currentAmmoCount--;
 
-            //if (WeaponHit.collider)
-            //{
-            //    if (WeaponHit.collider.gameObject.tag == "Enemy")
-            //    {
-            //        WeaponHit.transform.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(1);
-            //        Debug.DrawRay(muzzle.transform.position, WeaponHit.point, Color.blue, 5f);
-            //        lr.sharedMaterial.SetColor("_Color", Color.blue);
-            //    }
-            //    else
-            //    {
-            //        Debug.DrawLine(muzzle.transform.position, WeaponHit.point, Color.red, 5f);
-            //        lr.sharedMaterial.SetColor("_Color", Color.red);
-            //    }
-            //}  
-            Instantiate(Projectile, muzzle.transform.position, muzzle.transform.rotation);
-                    
-                
+            if(Ammo>0)
+            {
+                Instantiate(Projectile, muzzle.transform.position, muzzle.transform.rotation);
+                WeaponAnims.Play("FireWeapon");
+                Fire.Play();
+                Ammo--;
+            }
+            else if (_currentAmmoCount>0)
+            {
+                Ammo = _clipSize;
+                _currentAmmoCount -= _clipSize;
+            }
+            else
+            {
+                Debug.Log("No Ammo");
+            }
             
-            WeaponAnims.Play("FireWeapon");
-            Fire.Play();
         }
 
 

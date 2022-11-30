@@ -26,7 +26,7 @@ public class TriggerUI : MonoBehaviour
         {
             saveInput.SwitchCurrentActionMap("Player/UI");
             UICanvas.SetActive(true);
-            if (Submit.IsPressed())
+            if (Submit.IsPressed() || Keyboard.current.eKey.isPressed)
             {
                 Debug.Log("Hege");
                 TriggerEvent.Invoke();
