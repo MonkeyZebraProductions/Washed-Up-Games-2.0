@@ -13,6 +13,7 @@ public class GlitchControl : MonoBehaviour
     void Awake()
     {
         //hologramMaterial = GetComponent<Renderer>().material;
+        hologramMaterial.SetFloat("_GlowIntensity", 1);
     }
 
     // Start is called before the first frame update

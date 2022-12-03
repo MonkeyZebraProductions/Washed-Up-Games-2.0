@@ -83,14 +83,20 @@ public class StandardShotModule : MonoBehaviour
 
     public void Update()
     {
-        _currentAmmoCount = Mathf.Clamp(_currentAmmoCount, 0, _MaxAmmoCount);
+        _currentAmmoCount = WeaponScriptableObject.currentAmmoCount;
+        if (_currentAmmoCount > _MaxAmmoCount)
+        {
+            _currentAmmoCount = _MaxAmmoCount;
+        }
 
-        if(isFiring)
+        if (isFiring)
         {
            
            WeaponShoot();
             
         }
+
+
 
         _WS.IsAiming = _isAiming;
         _WS.IsFiring = isFiring;
@@ -100,6 +106,11 @@ public class StandardShotModule : MonoBehaviour
         {
             WeaponLaser();
             Physics.Raycast(muzzle.transform.position, transform.forward, out WeaponHit,10000f);
+        }
+
+        if(Reload.triggered)
+        {
+            ReloadFunction();
         }
         
     }
@@ -176,23 +187,11 @@ public class StandardShotModule : MonoBehaviour
         if (_isAiming && !grappleSystem.IsGrappling)
         {
 
-            if(Ammo>0)
-            {
                 Instantiate(Projectile, muzzle.transform.position, muzzle.transform.rotation);
                 WeaponAnims.Play("FireWeapon");
                 Fire.Play();
                 Ammo--;
-            }
-            else if (_currentAmmoCount>0)
-            {
-                Ammo = _clipSize;
-                _currentAmmoCount -= _clipSize;
-            }
-            else
-            {
-                Debug.Log("No Ammo");
-            }
-            
+     
         }
 
 
@@ -204,9 +203,29 @@ public class StandardShotModule : MonoBehaviour
         if (Time.time > lastShootTime + _fireRate)
         {
             lastShootTime = Time.time;
-            RaycastShoot();
+            
+            if (Ammo > 0)
+            {
+                RaycastShoot();
+            }
+            else if (_currentAmmoCount > 0)
+            {
+                ReloadFunction();
+            }
+            else
+            {
+                Debug.Log("No Ammo");
+            }
         }
 
+    }
+
+    public void ReloadFunction()
+    {
+        lastShootTime = Time.time;
+        WeaponScriptableObject.currentAmmoCount -= (_clipSize-Ammo);
+        Ammo = _clipSize;
+        
     }
 
 

@@ -29,9 +29,11 @@ public class AirArmour : MonoBehaviour
     private CinemachineBasicMultiChannelPerlin Noise;
     public float AmplitudeChange, FrequencyChange;
 
-    public AudioMixer Muffle;
-    public float LowPassCuttoffPercent;
-    private float _currentCutoff, _currentCutoffPercent;
+
+    //Audio Changes
+    public AudioMixer Muffle,Breathing;
+    public float LowPassCuttoffPercent,MinVolume,MaxVolume, MinPitch,MaxPitch,MinBreathingLowCut, MaxBreathingLowCut;
+    private float _currentCutoff, _currentCutoffPercent,_currentVolume,_currentPitch,_currentBreathingCutoff;
 
     // Start is called before the first frame update
     void Start()
@@ -82,14 +84,19 @@ public class AirArmour : MonoBehaviour
         if (air<MaxAir/4)
         {
             lowAirDecreaseRate = 0.75f;
-            if(_currentCutoffPercent> LowPassCuttoffPercent)
+            _currentPitch = MapFunction(air*4, MaxAir, 0, MinPitch, MaxPitch);
+            _currentBreathingCutoff = MapFunction(air*4, MaxAir, 0, MinBreathingLowCut, MaxBreathingLowCut);
+            if (_currentCutoffPercent> LowPassCuttoffPercent)
             {
                 _currentCutoffPercent -= 20 * Time.deltaTime;
             }
+
         }
         else
         {
             lowAirDecreaseRate = 1f;
+            _currentPitch = 0.3f;
+            _currentBreathingCutoff = 500f;
             if (_currentCutoffPercent < LowPassCuttoffPercent)
             {
                 _currentCutoffPercent += 20*Time.deltaTime;
@@ -105,6 +112,16 @@ public class AirArmour : MonoBehaviour
         Needle.localRotation =Quaternion.Euler(0, 0, MapFunction(damage, BaseDamageMultiplier, MaxDamage, -30f, 210f));
         AirMat.SetColor("_EmissionColor", new Color(1-MapFunction(air, MaxAir, MaxAir/5, 1, 0),MapFunction(air, MaxAir, MaxAir / 5, 1, 0), 0)*1.25f);
         DialMat.SetColor("_EmissionColor", new Color(MapFunction(damage, MaxDamage, MaxDamage / 5, 1, 0), 1-MapFunction(damage, MaxDamage, MaxDamage / 5, 1, 0), 0) * 1.25f);
+
+        _currentVolume = MapFunction(air, MaxAir, MaxAir * 0.25f, MinVolume, MaxVolume);
+        Breathing.SetFloat("BreathingVolume", _currentVolume);
+
+        
+        Breathing.SetFloat("BreathingPitch", _currentPitch);
+
+        Breathing.SetFloat("BreathingLowPass", _currentBreathingCutoff);
+
+
 
     }
 
