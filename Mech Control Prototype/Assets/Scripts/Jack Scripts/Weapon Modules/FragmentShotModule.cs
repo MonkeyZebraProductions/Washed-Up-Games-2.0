@@ -25,7 +25,7 @@ public class FragmentShotModule : MonoBehaviour
 
     public float lastShootTime;
 
-    public Transform muzzle;
+    public GameObject muzzle;
 
     // Weapon Data
     public int _MaxAmmoCount;
@@ -141,6 +141,10 @@ public class FragmentShotModule : MonoBehaviour
     {
         if (WeaponHit.collider)
         {
+            if(WeaponHit.collider.name=="Cone")
+            {
+                Physics.IgnoreCollision(WeaponHit.collider,WeaponHit.collider);
+            }
             lr.SetPosition(1, new Vector3(0, 0, WeaponHit.distance));
         }
         else

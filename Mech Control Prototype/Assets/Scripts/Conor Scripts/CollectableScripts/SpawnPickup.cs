@@ -13,7 +13,7 @@ public class SpawnPickup : MonoBehaviour
     public void DropPickup(Transform SpawnPoint)
     {
         weight = Random.Range(0, 100);
-        if (weight >= RareDropWeight)
+        if (weight <= RareDropWeight)
         {
             Instantiate(RareDrops[Random.Range(0, RareDrops.Count)], SpawnPoint.position, Quaternion.identity);
         }

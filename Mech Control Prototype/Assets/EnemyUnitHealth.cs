@@ -7,12 +7,14 @@ public class EnemyUnitHealth : MonoBehaviour
     public int currentHealth;
     public int MaxHealth;
     private ParticleSystem BloodSplatter;
+    private SpawnPickup Drops;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = MaxHealth;
         BloodSplatter = GetComponentInChildren<ParticleSystem>();
+        Drops = GetComponent<SpawnPickup>();
     }
 
     // Update is called once per frame
@@ -49,6 +51,7 @@ public class EnemyUnitHealth : MonoBehaviour
 
     public void Death()
     {
+        Drops.DropPickup(transform);
         Destroy(gameObject);
     }
 

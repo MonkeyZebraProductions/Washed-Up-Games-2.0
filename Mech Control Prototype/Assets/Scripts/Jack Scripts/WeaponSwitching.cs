@@ -52,7 +52,16 @@ public class WeaponSwitching : MonoBehaviour
                 SwapWeapon(2);
             }
         }
-
+        if(IsAiming)
+        {
+            ClipCount.enabled = true;
+            AmmoCount.enabled = true;
+        }
+        else
+        {
+            ClipCount.enabled = false;
+            AmmoCount.enabled = false;
+        }
         ClipCount.text = ClipAmmo.ToString();
         AmmoCount.text = TotalAmmo.ToString();
     }
