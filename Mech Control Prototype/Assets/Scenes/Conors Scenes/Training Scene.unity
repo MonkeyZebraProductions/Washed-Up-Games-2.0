@@ -8002,6 +8002,10 @@ PrefabInstance:
       propertyPath: WeaponAnims
       value: 
       objectReference: {fileID: 184318880}
+    - target: {fileID: 522718055711980980, guid: 0856711ef624f4b4f823b244b48f0314, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 577b2340b021c2740a3ab6356622eb31, type: 2}
     - target: {fileID: 670774852279190665, guid: 0856711ef624f4b4f823b244b48f0314, type: 3}
       propertyPath: AmmoCount
       value: 
@@ -8066,6 +8070,10 @@ PrefabInstance:
       propertyPath: Brain
       value: 
       objectReference: {fileID: 1703042670}
+    - target: {fileID: 696771619218787995, guid: 0856711ef624f4b4f823b244b48f0314, type: 3}
+      propertyPath: AirMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 577b2340b021c2740a3ab6356622eb31, type: 2}
     - target: {fileID: 696771619218787995, guid: 0856711ef624f4b4f823b244b48f0314, type: 3}
       propertyPath: MaxAir
       value: 300
@@ -8194,6 +8202,10 @@ PrefabInstance:
       propertyPath: AimCamera
       value: 
       objectReference: {fileID: 1193534020}
+    - target: {fileID: 7157587314300170932, guid: 0856711ef624f4b4f823b244b48f0314, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 577b2340b021c2740a3ab6356622eb31, type: 2}
     - target: {fileID: 9124566771230021718, guid: 0856711ef624f4b4f823b244b48f0314, type: 3}
       propertyPath: AimCam
       value: 
