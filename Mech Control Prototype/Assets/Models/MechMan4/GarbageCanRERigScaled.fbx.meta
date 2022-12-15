@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 59a98c723af95e24895d6cb62c1418a1
+guid: 1a3856a42241ede408536a273cdfb0dd
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
@@ -11,7 +11,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: TT_checker_4096x4096_UV_GRID
-    second: {fileID: 2100000, guid: 34fc4c169c5c7374aa5b7478b98a0159, type: 2}
+    second: {fileID: 2100000, guid: 4189ea794de925249be878aabdb068b0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -102,7 +102,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
