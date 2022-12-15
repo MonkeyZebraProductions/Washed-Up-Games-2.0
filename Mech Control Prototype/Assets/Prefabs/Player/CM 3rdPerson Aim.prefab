@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6356666461656758345}
   - component: {fileID: 799001569527239721}
   - component: {fileID: 543584859}
-  - component: {fileID: 1960147376}
   m_Layer: 0
   m_Name: CM 3rdPerson Aim
   m_TagString: Untagged
@@ -88,7 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2147483647
   m_IgnoreTag: Enemy
   m_TransparentLayers:
     serializedVersion: 2
@@ -99,10 +98,10 @@ MonoBehaviour:
   m_MinimumOcclusionTime: 0
   m_CameraRadius: 0.1
   m_Strategy: 1
-  m_MaximumEffort: 2
+  m_MaximumEffort: 10
   m_SmoothingTime: 0
-  m_Damping: 0
-  m_DampingWhenOccluded: 0
+  m_Damping: 1
+  m_DampingWhenOccluded: 1
   m_OptimalTargetDistance: 0
 --- !u!114 &799001569527239721
 MonoBehaviour:
@@ -117,7 +116,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIndex: -1
-  AutoEnableInputs: 1
   XYAxis: {fileID: 841105785112614450, guid: b7eca0930b60bd3489d31dbc39d9c872, type: 3}
   ZAxis: {fileID: 0}
 --- !u!114 &543584859
@@ -127,27 +125,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6356666461656758348}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbe0537f70fc2f64ab43ccfeec49eeb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 8, y: -10, z: 0}
-  m_ApplyAfter: 1
-  m_PreserveComposition: 0
---- !u!114 &1960147376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6356666461656758348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe0537f70fc2f64ab43ccfeec49eeb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Offset: {x: 8, y: -10, z: 0}
+  m_Offset: {x: 5, y: -8, z: 0}
   m_ApplyAfter: 1
   m_PreserveComposition: 0
 --- !u!1 &6356666461988635111
@@ -216,17 +199,17 @@ MonoBehaviour:
   m_YDamping: 0.2
   m_ZDamping: 1
   m_TargetMovementOnly: 1
-  m_ScreenX: 0.2
-  m_ScreenY: 0
+  m_ScreenX: 0.168
+  m_ScreenY: 0.185
   m_CameraDistance: 5.5
   m_DeadZoneWidth: 0
-  m_DeadZoneHeight: 0
+  m_DeadZoneHeight: 0.119
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.339
+  m_SoftZoneWidth: 0.359
   m_SoftZoneHeight: 0.832
-  m_BiasX: 0.43400005
-  m_BiasY: 0.5
+  m_BiasX: 0.42999992
+  m_BiasY: 0.49999997
   m_CenterOnActivate: 0
   m_GroupFramingMode: 2
   m_AdjustmentMode: 2
@@ -254,7 +237,7 @@ MonoBehaviour:
   m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 1
-  m_FrequencyGain: 0.1
+  m_FrequencyGain: 0.2
   mNoiseOffsets: {x: -765.3436, y: 412.4553, z: 513.0689}
 --- !u!114 &6356666461988635105
 MonoBehaviour:
@@ -270,16 +253,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RecenterTarget: 0
   m_VerticalAxis:
-    Value: 0
+    Value: -9.17
     m_SpeedMode: 1
-    m_MaxSpeed: 0
+    m_MaxSpeed: 0.15
     m_AccelTime: 0.2
     m_DecelTime: 0.2
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 1
-    m_MinValue: -70
-    m_MaxValue: 70
+    m_MinValue: -40
+    m_MaxValue: 40
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0
@@ -296,7 +279,7 @@ MonoBehaviour:
   m_HorizontalAxis:
     Value: 0
     m_SpeedMode: 1
-    m_MaxSpeed: 0
+    m_MaxSpeed: 0.3
     m_AccelTime: 0.2
     m_DecelTime: 0.2
     m_InputAxisName: Mouse X

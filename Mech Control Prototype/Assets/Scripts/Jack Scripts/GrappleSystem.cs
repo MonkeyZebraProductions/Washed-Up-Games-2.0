@@ -60,6 +60,15 @@ public class GrappleSystem : MonoBehaviour
     {
         Debug.DrawRay(SpawnPoint.position, SpawnPoint.forward * 20, Color.green);
 
+        if(!_WS.IsAiming && GrabbedObject != null)
+        {
+            GrabbedObject.transform.parent = null;
+            _grappleRigidbody.isKinematic = false;
+            
+            GrabbedObject = null;
+            IsGrappling = false;
+        }
+
         if (Grapple.triggered && _WS.IsAiming && !_WS.IsFiring)
         {
             IsGrappling = true;

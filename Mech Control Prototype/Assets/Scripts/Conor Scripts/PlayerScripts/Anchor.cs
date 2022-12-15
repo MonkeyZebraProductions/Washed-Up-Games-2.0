@@ -28,10 +28,12 @@ public class Anchor : MonoBehaviour
             }
             else if (other.gameObject.tag == "GrabbableObject")
             {
+                
                 other.gameObject.transform.SetParent(this.transform);
                 other.gameObject.transform.localPosition = Vector3.zero;
                 other.transform.localRotation = Quaternion.identity;
                 _gH.ObjectGrabbed = true;
+                
             }
             
         }

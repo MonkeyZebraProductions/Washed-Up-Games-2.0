@@ -15,6 +15,8 @@ public class PlayerMovementScript : MonoBehaviour
     public Transform TopPart, BottomPart, Gun;
     Vector3 move;
     public bool CanMove;
+    private bool _isSliding;
+    private Vector3 slopeSlideVelocity;
 
     [Header("Jumping")]
     //Jumping
@@ -122,7 +124,15 @@ public class PlayerMovementScript : MonoBehaviour
         {
             jumps = MaxJumps;
             fallVelocity = 1;
-            ySpeed = -0.5f;
+            if (slopeSlideVelocity != Vector3.zero)
+            {
+                _isSliding = true;
+            }
+
+            if (_isSliding == false)
+            {
+                ySpeed = -0.5f;
+            }
             if (_jetpackFeul < MaxJetpackFeul && Jump.IsPressed() == false)
             {
                 _jetpackFeul += JetpackDecreaseRate * Time.deltaTime;
@@ -192,11 +202,11 @@ public class PlayerMovementScript : MonoBehaviour
             Quaternion GunRotate = Quaternion.Euler(cameraTransform.rotation.eulerAngles.x, 0f, 0f);
             Gun.localRotation = GunRotate;
             float targetAngel = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(BottomPart.eulerAngles.y, targetAngel, ref smoothVelocity, rotationSmoothing);
-            BottomPart.rotation = Quaternion.Euler(0f, angle, 0f);
+            float Botangle = Mathf.SmoothDampAngle(BottomPart.eulerAngles.y, targetAngel, ref smoothVelocity, rotationSmoothing);
+            BottomPart.rotation = Quaternion.Euler(0f, Botangle, 0f);
 
 
-            if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod && jumps >= 1)
+            if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod && jumps >= 1 && _isSliding == false)
             {
                 _isJumping = true;
                 currentJH = JumpHeight;
@@ -233,8 +243,23 @@ public class PlayerMovementScript : MonoBehaviour
         }
         ySpeed += GravityValue * Time.deltaTime;
         playerVelocity.y = ySpeed;
+        SetSlopeSlideVelocity();
+
+        if (slopeSlideVelocity == Vector3.zero)
+        {
+            _isSliding = false;
+        }
+        if (_isSliding)
+        {
+            Vector3 velocity = slopeSlideVelocity;
+            velocity.y = ySpeed;
+
+            controller.Move(velocity * Time.deltaTime);
+        }
         controller.Move(playerVelocity * Time.deltaTime*fallVelocity);
         //Debug.Log(fallVelocity);
+
+       
     }
 
     void FixedUpdate()
@@ -299,6 +324,32 @@ public class PlayerMovementScript : MonoBehaviour
         }
 
         return velocity;
+    }
+
+    private void SetSlopeSlideVelocity()
+    {
+        if (Physics.Raycast(GroundRay, out RaycastHit hitInfo, GroundCheck))
+        {
+            float angle = Vector3.Angle(hitInfo.normal, Vector3.up);
+
+            if (angle >= controller.slopeLimit)
+            {
+                slopeSlideVelocity = Vector3.ProjectOnPlane(new Vector3(0, ySpeed, 0), hitInfo.normal);
+                return;
+            }
+        }
+
+        if (_isSliding)
+        {
+            slopeSlideVelocity -= slopeSlideVelocity * Time.deltaTime * 3;
+
+            if (slopeSlideVelocity.magnitude > 1)
+            {
+                return;
+            }
+        }
+
+        slopeSlideVelocity = Vector3.zero;
     }
 
     private void OnEnable()
