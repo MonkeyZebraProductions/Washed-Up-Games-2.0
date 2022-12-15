@@ -80,22 +80,25 @@ public class PlayerMovementScript : MonoBehaviour
     [Header("UpgradeBools")]
     public bool DashEnabled, JetpackEnabled;
 
+    [Header("Sounds")]
+    public AudioSource Walk;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
-        Move = playerInput.actions["Move"];
-        Jump = playerInput.actions["Jump"];
-        Dash = playerInput.actions["Dash"];
         cameraTransform = Camera.main.transform;
         dashes = MaxDashes;
         CanMove = true;
         _currentSpeed = PlayerSpeed;
         _jetpackFeul = MaxJetpackFeul;
+        Jump = playerInput.actions["Jump"];
+        Dash = playerInput.actions["Dash"];
     }
 
     void Update()
     {
+        Move = playerInput.actions["Move"];
 
         _cMO = FindObjectOfType<CinemachineBrain>().ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CameraRotationOffset>();
 
@@ -164,12 +167,18 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 _currentSpeed -= DashDecrease * Time.deltaTime;
                 controller.Move(AjdDash * _currentSpeed * Time.deltaTime);
+                
             }
 
             if(moveInput.magnitude==1)
             {
                 _stopWindow = false;
                 _currentSpeed = PlayerSpeed;
+                if(!Walk.isPlaying && _isGrounded)
+                {
+                    Walk.Play();
+                }
+                
             }
 
             if (_currentSpeed <= 0.5f)

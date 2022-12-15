@@ -12,7 +12,7 @@ public class Punch : MonoBehaviour
     private bool _canPunch;
 
     private PlayerMovementScript _pMS;
-    public WeaponSystemController _wSC;
+    public WeaponSwitching _WS;
 
     private PlayerInput playerInput;
     private InputAction Puncher;
@@ -34,8 +34,8 @@ public class Punch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _wSC = GameObject.Find("Weapon System").GetComponentInChildren<WeaponSystemController>();
-        if (Puncher.triggered && !_wSC._isAiming && _canPunch)
+        
+        if (Puncher.triggered && !_WS.IsAiming && _canPunch)
         {
             StartCoroutine(PunchEnum());
         }
@@ -44,7 +44,7 @@ public class Punch : MonoBehaviour
     IEnumerator PunchEnum()
     {
         _pMS.CanMove = false;
-        _wSC._isAiming = false;
+        _WS.IsAiming = false;
         yield return new WaitForSeconds(PunchDelay);
         if (SlamUpgrade)
         {
@@ -64,7 +64,7 @@ public class Punch : MonoBehaviour
             PunchBox.SetActive(false);
         }
         _pMS.CanMove = true;
-        _wSC._isAiming = false;
+        _WS.IsAiming = false;
         _canPunch = false;
         yield return new WaitForSeconds(PunchCooldown);
         _canPunch = true;

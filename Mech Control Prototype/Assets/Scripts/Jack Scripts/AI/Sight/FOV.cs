@@ -33,6 +33,7 @@ public class FOV : MonoBehaviour
 
     public void Update()
     {
+        /*
         if (canSeePlayer)
         {
             gameObject.GetComponent<Arrive>().enabled = true;
@@ -46,7 +47,7 @@ public class FOV : MonoBehaviour
             gameObject.GetComponent<Arrive>().enabled = false;
         }
 
-       
+       */
     }
 
 

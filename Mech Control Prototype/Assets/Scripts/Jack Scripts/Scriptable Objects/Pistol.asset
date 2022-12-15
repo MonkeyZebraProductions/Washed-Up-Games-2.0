@@ -16,10 +16,11 @@ MonoBehaviour:
   weaponPrefab: {fileID: 3672655026206833581, guid: 947619ae6a6214c4197ff225e6c6f0b1, type: 3}
   MaxAmmoCount: 100
   currentAmmoCount: 100
+  ClipSize: 12
   weaponRange: 10
   bulletsPerShot: 1
   weaponSpread: 0
   fireRate: 1
   hitBulletTrail: {fileID: 6778416936914913120, guid: 3d53179500acc3442917db526ebbf695, type: 3}
   missBulletTrail: {fileID: 6778416936914913120, guid: 3ce2a1415376e0f409eaa7370aaad543, type: 3}
-  direction: {x: -18.567774, y: -21.239061, z: 95.93821}
+  direction: {x: -0.20830917, y: 0.27502823, z: 0.93859863}
