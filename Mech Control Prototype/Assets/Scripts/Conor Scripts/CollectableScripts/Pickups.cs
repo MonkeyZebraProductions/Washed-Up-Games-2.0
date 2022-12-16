@@ -29,7 +29,6 @@ public class Pickups : MonoBehaviour
             {
                 _aA.RefillAir(RefillAmount);
             }
-
             Destroy(this.gameObject);
         }
     }

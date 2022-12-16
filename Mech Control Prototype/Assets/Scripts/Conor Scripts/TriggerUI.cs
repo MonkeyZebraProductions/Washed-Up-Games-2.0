@@ -14,6 +14,8 @@ public class TriggerUI : MonoBehaviour
 
     public UnityEvent TriggerEvent;
 
+    public bool RistrictControl;
+
     private void Awake()
     {
         Submit = saveInput.actions["Submit"];
@@ -24,7 +26,11 @@ public class TriggerUI : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            saveInput.SwitchCurrentActionMap("Player/UI");
+            if(RistrictControl)
+            {
+                saveInput.SwitchCurrentActionMap("Player/UI");
+            }
+            
             UICanvas.SetActive(true);
             if (Submit.IsPressed() || Keyboard.current.eKey.isPressed)
             {
@@ -38,7 +44,10 @@ public class TriggerUI : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            saveInput.SwitchCurrentActionMap("Player");
+            if (RistrictControl)
+            {
+                saveInput.SwitchCurrentActionMap("Player");
+            }
             UICanvas.SetActive(false);
         }
     }

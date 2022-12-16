@@ -5,14 +5,15 @@ using UnityEngine;
 public class MechScale : MonoBehaviour
 {
     // Start is called before the first frame update
+    public float yValue,zValue;
     void Start()
     {
-        transform.localScale = new Vector3(12, 12, 12);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.localPosition = new Vector3(0, yValue, zValue);
     }
 }
