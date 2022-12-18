@@ -5,11 +5,11 @@ using UnityEngine;
 public class Biter_FOV : MonoBehaviour
 {
     public float sightRadius;
-    public float attackRadius;
+    
     [Range(0, 360)]
     public float sightAngle;
     [Range(0, 360)]
-    public float attackAngle;
+    
 
     public GameObject playerRef;
 
@@ -20,7 +20,7 @@ public class Biter_FOV : MonoBehaviour
     public LayerMask obstructionMask;
 
     public bool canSeePlayer;
-    public bool inAttackRange;
+    
 
     private void Start()
     {

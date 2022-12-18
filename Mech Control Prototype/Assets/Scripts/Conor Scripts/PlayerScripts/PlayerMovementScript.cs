@@ -85,6 +85,8 @@ public class PlayerMovementScript : MonoBehaviour
     [Header("Sounds")]
     public AudioSource Walk;
 
+    public Animator TopAnimator, BottomAnimator;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -180,15 +182,22 @@ public class PlayerMovementScript : MonoBehaviour
                 
             }
 
-            if(moveInput.magnitude==1)
+            if(moveInput.magnitude>0)
             {
                 _stopWindow = false;
                 _currentSpeed = PlayerSpeed;
                 if(!Walk.isPlaying && _isGrounded)
                 {
                     Walk.Play();
+                    TopAnimator.SetBool("IsWalking", true);
+                    BottomAnimator.SetBool("IsWalking", true);
                 }
                 
+            }
+            else
+            {
+                TopAnimator.SetBool("IsWalking", false);
+                BottomAnimator.SetBool("IsWalking", false);
             }
 
             if (_currentSpeed <= 0.5f)

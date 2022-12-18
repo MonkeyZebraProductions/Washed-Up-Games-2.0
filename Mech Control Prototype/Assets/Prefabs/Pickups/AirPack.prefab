@@ -96,8 +96,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.75
-  m_Height: 3
+  m_Radius: 2
+  m_Height: 0.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4777066156425210150
@@ -115,7 +115,7 @@ MonoBehaviour:
   RepairKit: 0
   AirPack: 1
   RepairAmount: 0
-  RefillAmount: 30
+  RefillAmount: 60
 --- !u!136 &1353383508621655335
 CapsuleCollider:
   m_ObjectHideFlags: 0

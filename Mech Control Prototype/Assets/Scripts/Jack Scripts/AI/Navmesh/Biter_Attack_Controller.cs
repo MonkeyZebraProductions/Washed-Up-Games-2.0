@@ -10,8 +10,8 @@ public class Biter_Attack_Controller : MonoBehaviour
     private float lastAttack = 0f;
     public float attackRate;
 
-    public DateTime nextDamage;
-    public float damageAfterTime;
+    private float nextDamage;
+    public float Damage;
     public GameObject player;
     public bool playerInAttackRange = false;
 
@@ -24,28 +24,21 @@ public class Biter_Attack_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerInAttackRange)
+        if(playerInAttackRange && Time.time > nextDamage+attackRate)
         {
-            player.GetComponent<AirArmour>().RecieveArmourDamage(1f);
+            player.GetComponent<AirArmour>().RecieveArmourDamage(Damage);
+            nextDamage = Time.time;
            
-        }
-
-        if(!playerInAttackRange)
-        {
-            player.GetComponent<AirArmour>().RecieveArmourDamage(0f);
-          
         }
     }
 
     private void OnTriggerEnter(Collider attack)
     {
       
-
         if(attack.tag == "Player")
         {
             player = attack.gameObject;
             playerInAttackRange = true;
-
         }
     }
 

@@ -163,9 +163,9 @@ public class AirArmour : MonoBehaviour
 
     IEnumerator CamaerShake()
     {
-        Noise.m_AmplitudeGain = AmplitudeChange;
+        Noise.m_AmplitudeGain = AmplitudeChange;    
         Noise.m_FrequencyGain = FrequencyChange;
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(0.5f);
         Noise.m_AmplitudeGain = 2f;
         Noise.m_FrequencyGain = 0.2f;
     }

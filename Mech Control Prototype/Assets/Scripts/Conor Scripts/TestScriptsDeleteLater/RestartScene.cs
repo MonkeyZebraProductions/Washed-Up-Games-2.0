@@ -14,7 +14,7 @@ public class RestartScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Keyboard.current.rKey.wasPressedThisFrame)
+        if(Keyboard.current.gKey.wasPressedThisFrame)
         {
             SceneManager.LoadScene(0);
         }

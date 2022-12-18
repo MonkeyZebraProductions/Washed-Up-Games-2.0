@@ -20,12 +20,14 @@ public class FragmentShotModule : MonoBehaviour
 
     // Third Person Aim
     public int PriorityChanger;
-    public bool _isAiming;
+    public bool _isAiming,SetAmmotoMax;
     public CinemachineVirtualCamera AimCamera;
 
     public float lastShootTime;
 
     public GameObject muzzle;
+
+    public AudioSource Fire;
 
     // Weapon Data
     public int _MaxAmmoCount;
@@ -60,6 +62,11 @@ public class FragmentShotModule : MonoBehaviour
         playerInput = GetComponentInParent<PlayerInput>();
 
         _MaxAmmoCount = WeaponScriptableObject.MaxAmmoCount;
+        if (SetAmmotoMax)
+        {
+            WeaponScriptableObject.currentAmmoCount = _MaxAmmoCount;
+        }
+        _currentAmmoCount = WeaponScriptableObject.currentAmmoCount;
         _weaponRange = WeaponScriptableObject.weaponRange;
         _bulletsPerShot = WeaponScriptableObject.bulletsPerShot;
         _weaponSpread = WeaponScriptableObject.weaponSpread;
@@ -132,7 +139,7 @@ public class FragmentShotModule : MonoBehaviour
 
     public void StartAim()
     {
-        AimCamera.Priority += PriorityChanger;
+        AimCamera.Priority = PriorityChanger;
         _isAiming = true;
 
     }
@@ -157,7 +164,7 @@ public class FragmentShotModule : MonoBehaviour
 
     public void EndAim()
     {
-        AimCamera.Priority -= PriorityChanger;
+        AimCamera.Priority = 0;
         _isAiming = false;
 
         lr.SetPosition(1, new Vector3(0, 0, 0));
@@ -208,7 +215,8 @@ public class FragmentShotModule : MonoBehaviour
            
                 StartCoroutine(ShotgunCoroutine());
                 WeaponAnims.Play("FireWeapon");
-                Blast.Play();
+            Fire.Play();
+            Blast.Play();
                 Ammo--;
             
 

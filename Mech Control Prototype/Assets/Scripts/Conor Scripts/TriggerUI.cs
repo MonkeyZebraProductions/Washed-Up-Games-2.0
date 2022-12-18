@@ -32,8 +32,16 @@ public class TriggerUI : MonoBehaviour
             }
             
             UICanvas.SetActive(true);
-            if (Submit.IsPressed() || Keyboard.current.eKey.isPressed)
+            if (Keyboard.current.eKey.isPressed)
             {
+                saveInput.SwitchCurrentActionMap("Player");
+                Debug.Log("Hege");
+                TriggerEvent.Invoke();
+            }
+
+            if (Gamepad.current.buttonSouth.wasPressedThisFrame)
+            {
+                saveInput.SwitchCurrentActionMap("Player");
                 Debug.Log("Hege");
                 TriggerEvent.Invoke();
             }

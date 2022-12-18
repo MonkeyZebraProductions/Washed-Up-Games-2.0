@@ -52,7 +52,7 @@ public class EnemyUnitHealth : MonoBehaviour
     public void Death()
     {
         Drops.DropPickup(transform);
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 
 

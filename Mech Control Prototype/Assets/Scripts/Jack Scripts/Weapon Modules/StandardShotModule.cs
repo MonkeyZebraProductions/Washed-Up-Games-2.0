@@ -22,7 +22,7 @@ public class StandardShotModule : MonoBehaviour
 
     // Third Person Aim
     public int PriorityChanger;
-    public bool _isAiming;
+    public bool _isAiming, SetAmmotoMax;
     public CinemachineVirtualCamera AimCamera;
 
     public float lastShootTime;
@@ -61,6 +61,10 @@ public class StandardShotModule : MonoBehaviour
         playerInput = GetComponentInParent<PlayerInput>();
 
         _MaxAmmoCount = WeaponScriptableObject.MaxAmmoCount;
+        if(SetAmmotoMax)
+        {
+            WeaponScriptableObject.currentAmmoCount= _MaxAmmoCount;
+        }
         _currentAmmoCount = WeaponScriptableObject.currentAmmoCount;
         _weaponRange = WeaponScriptableObject.weaponRange;
         _bulletsPerShot = WeaponScriptableObject.bulletsPerShot;
@@ -136,7 +140,7 @@ public class StandardShotModule : MonoBehaviour
 
     public void StartAim()
     {
-        AimCamera.Priority += PriorityChanger;
+        AimCamera.Priority = PriorityChanger;
         _isAiming = true;
         
 
@@ -160,7 +164,7 @@ public class StandardShotModule : MonoBehaviour
 
     public void EndAim()
     {
-        AimCamera.Priority -= PriorityChanger;
+        AimCamera.Priority = 0;
         _isAiming = false;
 
         lr.SetPosition(1, new Vector3(0, 0, 0));
